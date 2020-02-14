@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {		
 		float[] min = {-10f, -10f, 1f};
 		float[] max = {10f, 660f, 2f};
-		
+		//float[] med = {10f, 660f, 2f};
 		IndividuoBits in = new IndividuoBits(min, max, 0.001f);
 		float[] fenotipo = in.fenotipo();
 		
