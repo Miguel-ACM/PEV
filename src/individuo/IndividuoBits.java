@@ -1,5 +1,7 @@
 package individuo;
 
+import fitness.Fitness;
+
 //Este individuo representa varios
 public class IndividuoBits implements Individuo {
 	private boolean _genotipo[];
@@ -8,20 +10,34 @@ public class IndividuoBits implements Individuo {
 	private int _size[];
 	private int _totalsize;
 	private int _variables;
+	private Fitness _fitness;
 	
 	//Inicializa y randomiza la cadena de bits
 	public IndividuoBits(float min[], float max[], float tol) {
+		this.initialize(min, max, tol);
+	}
+	
+	public IndividuoBits(float min[], float max[], float tol, Fitness fitness) {
+		this.initialize(min, max, tol);
+		_fitness = fitness;
+		
+	}
+	
+	private void initialize(float min[], float max[], float tol)
+	{
 		if (min.length != max.length)
-			return; //Raise exception
+			return; //TODO Raise exception
 		_totalsize = 0;
 		_min = new float[min.length];
 		_max = new float[max.length];
 		_size = new int[max.length];
 		_variables = min.length;
+		System.out.println(tol);
 		
 		//Calculamos cuantos bits se necesita para cada numero
-		for (int i = 0; i < min.length; i++){
+		for (int i = 0; i < _variables; i++){
 			_size[i] = (int) (Math.log(1 + (max[i] - min[i]) / tol) / Math.log(2)) + 1;
+			System.out.println(_size[i]);
 			_min[i] = min[i];
 			_max[i] = max[i];
 			_totalsize += _size[i];
@@ -33,6 +49,7 @@ public class IndividuoBits implements Individuo {
 			//_genotipo[i] = true;
 		}
 	}
+
 	
 	//Posibilidad es un float de 0 a 100
 	public int mutacion(float posibilidad) {
@@ -44,6 +61,7 @@ public class IndividuoBits implements Individuo {
 	}
 	
 	//Devuelve el array de valores que representa
+	@Override
 	public float[] fenotipo(){
 		float[] fenotipos = new float[_variables];
 		int entero = 0;
@@ -72,6 +90,7 @@ public class IndividuoBits implements Individuo {
 	}
 	
 	//Imprime la cadena de bits
+	@Override
 	public void print()
 	{
 		for (boolean i : _genotipo) {
@@ -79,4 +98,14 @@ public class IndividuoBits implements Individuo {
 		}
 		System.out.println("");
 	}
+
+	@Override
+	public double fitness() { //TODO Comprobar que _fitness esté inicializado por algún lado
+		return _fitness.fitness(this);
+	}
+	
+	public void setFitness(Fitness fitness) { 
+		_fitness = fitness;
+	}
+	
 }
