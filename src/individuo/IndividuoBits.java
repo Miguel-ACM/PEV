@@ -32,12 +32,10 @@ public class IndividuoBits implements Individuo {
 		_max = new float[max.length];
 		_size = new int[max.length];
 		_variables = min.length;
-		System.out.println(tol);
 		
 		//Calculamos cuantos bits se necesita para cada numero
 		for (int i = 0; i < _variables; i++){
 			_size[i] = (int) (Math.log(1 + (max[i] - min[i]) / tol) / Math.log(2)) + 1;
-			System.out.println(_size[i]);
 			_min[i] = min[i];
 			_max[i] = max[i];
 			_totalsize += _size[i];

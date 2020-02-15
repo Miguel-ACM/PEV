@@ -1,6 +1,8 @@
 package main;
 
 import fitness.FitnessHolderTable;
+import fitness.FitnessMichalewicz;
+import fitness.FitnessSchubert;
 import individuo.IndividuoBits;
 
 public class Main {
@@ -9,7 +11,7 @@ public class Main {
 		float[] min = {-10f, -10f};
 		float[] max = {10f, 10f};
 		
-		IndividuoBits in = new IndividuoBits(min, max, 0.00001f, new FitnessHolderTable());
+		IndividuoBits in = new IndividuoBits(min, max, 0.0001f, new FitnessSchubert());
 		float[] fenotipo = in.fenotipo();
 		
 		System.out.println("Antes de la mutación");
