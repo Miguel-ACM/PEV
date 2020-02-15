@@ -10,8 +10,14 @@ public class FitnessHolderTable implements Fitness{
 		if (fenotipo.length < 2)
 			return -1; //TODO CONTROL DE EXCEPCIONES
 		
-		double value = 21.5f + fenotipo[0] * Math.sin(4 * Math.PI * fenotipo[0])
-				+ fenotipo[1] * Math.sin(20 * Math.PI * fenotipo[1]);
+		double value = -Math.abs(
+							Math.sin(fenotipo[0]) * Math.cos(fenotipo[1]) * 
+							Math.exp(
+									Math.abs(
+											1 - Math.sqrt(
+													Math.pow(fenotipo[0], 2) +
+													Math.pow(fenotipo[1], 2))
+											/ Math.PI)));
 		
 		return value;
 	}

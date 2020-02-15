@@ -6,13 +6,14 @@ import individuo.IndividuoBits;
 public class Main {
 
 	public static void main(String[] args) {		
-		float[] min = {-3f, 4.1f};
-		float[] max = {12.1f, 5.8f};
+		float[] min = {-10f, -10f};
+		float[] max = {10f, 10f};
 		
 		IndividuoBits in = new IndividuoBits(min, max, 0.00001f, new FitnessHolderTable());
 		float[] fenotipo = in.fenotipo();
 		
 		System.out.println("Antes de la mutación");
+		
 		in.print();
 		for (float f : fenotipo)
 		{
