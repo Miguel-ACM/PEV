@@ -1,11 +1,11 @@
 package individuo;
 
-public interface Individuo {
+public interface Individuo<T> {
 	public int mutacion(float probability);
+		
+	public float[] getFenotipo();
 	
-	public void print();
+	public double getFitness();
 	
-	public float[] fenotipo();
-	
-	public double fitness();
+	public T getGenotipo();
 }

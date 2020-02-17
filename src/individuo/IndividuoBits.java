@@ -3,7 +3,7 @@ package individuo;
 import fitness.Fitness;
 
 //Este individuo representa varios
-public class IndividuoBits implements Individuo {
+public class IndividuoBits implements Individuo<boolean[]> {
 	private boolean _genotipo[];
 	private float _min[];
 	private float _max[];
@@ -13,31 +13,29 @@ public class IndividuoBits implements Individuo {
 	private Fitness _fitness;
 	
 	//Inicializa y randomiza la cadena de bits
-	public IndividuoBits(float min[], float max[], float tol) {
-		this.initialize(min, max, tol);
+	public IndividuoBits(float limits[][], float tol) {
+		this.initialize(limits, tol);
 	}
 	
-	public IndividuoBits(float min[], float max[], float tol, Fitness fitness) {
-		this.initialize(min, max, tol);
+	public IndividuoBits(float limits[][], float tol, Fitness fitness) {
+		this.initialize(limits, tol);
 		_fitness = fitness;
 		
 	}
 	
-	private void initialize(float min[], float max[], float tol)
+	private void initialize(float limits[][], float tol)
 	{
-		if (min.length != max.length)
-			return; //TODO Raise exception
 		_totalsize = 0;
-		_min = new float[min.length];
-		_max = new float[max.length];
-		_size = new int[max.length];
-		_variables = min.length;
+		_min = new float[limits.length];
+		_max = new float[limits.length];
+		_size = new int[limits.length];
+		_variables = limits.length;
 		
 		//Calculamos cuantos bits se necesita para cada numero
 		for (int i = 0; i < _variables; i++){
-			_size[i] = (int) (Math.log(1 + (max[i] - min[i]) / tol) / Math.log(2)) + 1;
-			_min[i] = min[i];
-			_max[i] = max[i];
+			_size[i] = (int) (Math.log(1 + (limits[i][1] - limits[i][0]) / tol) / Math.log(2)) + 1;
+			_min[i] = limits[i][0];
+			_max[i] = limits[i][1];
 			_totalsize += _size[i];
 		}
 		
@@ -60,7 +58,7 @@ public class IndividuoBits implements Individuo {
 	
 	//Devuelve el array de valores que representa
 	@Override
-	public float[] fenotipo(){
+	public float[] getFenotipo(){
 		float[] fenotipos = new float[_variables];
 		int entero = 0;
 		int current_number = 0;
@@ -86,24 +84,39 @@ public class IndividuoBits implements Individuo {
 		}
 		return fenotipos;
 	}
-	
-	//Imprime la cadena de bits
-	@Override
-	public void print()
-	{
-		for (boolean i : _genotipo) {
-			System.out.print(i ? "1" : "0");
-		}
-		System.out.println("");
-	}
 
 	@Override
-	public double fitness() { //TODO Comprobar que _fitness esté inicializado por algún lado
+	public double getFitness() { //TODO Comprobar que _fitness esté inicializado por algún lado
 		return _fitness.fitness(this);
 	}
 	
 	public void setFitness(Fitness fitness) { 
 		_fitness = fitness;
+	}
+
+	@Override
+	public boolean[] getGenotipo() {
+		return _genotipo;
+	}
+	
+	public String toString() {
+		String retValue = "";
+		int current_number = 0;
+		int bits_passed = 0;
+
+		for (int i = 0; i < _totalsize; i++) {
+			if (bits_passed >= _size[current_number])
+			{
+				retValue += " ";
+				current_number++;
+				bits_passed = 0;
+
+			}
+			retValue += _genotipo[i] ? "1" : "0";
+			bits_passed++;
+
+		}
+		return retValue;
 	}
 	
 }

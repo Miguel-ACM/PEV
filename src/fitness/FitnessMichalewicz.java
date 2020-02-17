@@ -3,9 +3,17 @@ package fitness;
 import individuo.Individuo;
 
 public class FitnessMichalewicz implements Fitness{
-	public double fitness(Individuo individuo)
+	
+	private int _param;
+	
+	public FitnessMichalewicz(int param)
 	{
-		float[] fenotipo = individuo.fenotipo();
+		_param = param;
+	}
+	
+	public double fitness(Individuo<?> individuo)
+	{
+		float[] fenotipo = individuo.getFenotipo();
 		int len = fenotipo.length;
 		double sum = 0;
 		
@@ -16,5 +24,17 @@ public class FitnessMichalewicz implements Fitness{
 			
 		}
 		return sum;
+	}
+	
+	@Override
+	public float[][] getLimits() {
+		float[][] limits = new float[_param][2];
+		for (int row = 0; row < _param; row++)
+		{
+			limits[row][0] = -10f;
+			limits[row][1] = 10f;
+		}
+		return limits;
+		
 	}
 }

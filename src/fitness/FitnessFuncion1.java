@@ -4,9 +4,9 @@ import individuo.Individuo;
 
 public class FitnessFuncion1 implements Fitness{
 	
-	public double fitness(Individuo individuo)
+	public double fitness(Individuo<?> individuo)
 	{
-		float[] fenotipo = individuo.fenotipo();
+		float[] fenotipo = individuo.getFenotipo();
 		if (fenotipo.length < 2)
 			return -1; //TODO CONTROL DE EXCEPCIONES
 		
@@ -15,4 +15,11 @@ public class FitnessFuncion1 implements Fitness{
 		
 		return value;
 	}
+
+	@Override
+	public float[][] getLimits() {
+		float[][] limits = {{-3f, 12.1f}, {4.1f, 5.8f}};
+		return limits;
+	}
+	
 }

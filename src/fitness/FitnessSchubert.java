@@ -4,9 +4,9 @@ import individuo.Individuo;
 
 public class FitnessSchubert implements Fitness{
 	
-	public double fitness(Individuo individuo)
+	public double fitness(Individuo<?> individuo)
 	{
-		float[] fenotipo = individuo.fenotipo();
+		float[] fenotipo = individuo.getFenotipo();
 		if (fenotipo.length < 2)
 			return -1; //TODO CONTROL DE EXCEPCIONES
 		fenotipo[0] = -1.959091f;
@@ -20,5 +20,11 @@ public class FitnessSchubert implements Fitness{
 			
 		}
 		return firstSum * secondSum;
+	}
+	
+	@Override
+	public float[][] getLimits() {
+		float[][] limits = {{-10f, 10f}, {-10f, 10f}};
+		return limits;
 	}
 }

@@ -1,39 +1,25 @@
 package main;
 
+import fitness.Fitness;
 import fitness.FitnessHolderTable;
 import fitness.FitnessMichalewicz;
 import fitness.FitnessSchubert;
 import individuo.IndividuoBits;
+import poblacion.Poblacion;
 
 public class Main {
 
 	public static void main(String[] args) {		
-		float[] min = {-10f, -10f};
-		float[] max = {10f, 10f};
+		float[][] limits = {{-1f, -0.99f}, {-10f, 10f}};
 		
-		IndividuoBits in = new IndividuoBits(min, max, 0.0001f, new FitnessSchubert());
-		float[] fenotipo = in.fenotipo();
+		/*IndividuoBits in = new IndividuoBits(min, max, 0.0001f, new FitnessSchubert());
+		float[] fenotipo = in.fenotipo();*/
 		
-		System.out.println("Antes de la mutación");
-		
-		in.print();
-		for (float f : fenotipo)
-		{
-			System.out.println(f);
-		}
-		
-		System.out.println("Fitness: " + in.fitness());
-		
-		System.out.println("Después de la mutación");
-		in.mutacion(0.005f);
-		in.print();
-		fenotipo = in.fenotipo();
+		Fitness f = new FitnessMichalewicz(2);
+		Poblacion p = new Poblacion(100, f.getLimits(), f);
+		System.out.println(p);
+		p.getFitness();
 
-		for (float f : fenotipo)
-		{
-			System.out.println(f);
-		}
-		
 	}
 	
 	

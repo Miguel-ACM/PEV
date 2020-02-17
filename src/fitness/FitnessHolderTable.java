@@ -4,9 +4,9 @@ import individuo.Individuo;
 
 public class FitnessHolderTable implements Fitness{
 	
-	public double fitness(Individuo individuo)
+	public double fitness(Individuo<?> individuo)
 	{
-		float[] fenotipo = individuo.fenotipo();
+		float[] fenotipo = individuo.getFenotipo();
 		if (fenotipo.length < 2)
 			return -1; //TODO CONTROL DE EXCEPCIONES
 		
@@ -20,5 +20,11 @@ public class FitnessHolderTable implements Fitness{
 											/ Math.PI)));
 		
 		return value;
+	}
+	
+	@Override
+	public float[][] getLimits() {
+		float[][] limits = {{-10f, 10f}, {-10f, 10f}};
+		return limits;
 	}
 }
