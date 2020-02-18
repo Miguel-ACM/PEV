@@ -34,7 +34,7 @@ public class Poblacion {
 		_fitness = fitness;
 		while (size > 0)
 		{
-			_individuos.add(new IndividuoBits(limits, _tolerance, fitness));
+			_individuos.add(new IndividuoBits(limits, _tolerance, _fitness));
 			size--;
 		}
 	}
