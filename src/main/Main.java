@@ -9,6 +9,7 @@ import fitness.FitnessSchubert;
 import individuo.IndividuoBits;
 import poblacion.Poblacion;
 import seleccion.Ruleta;
+import seleccion.TorneoDeterministico;
 import seleccion.UniversalEstocastica;
 
 public class Main {
@@ -17,6 +18,7 @@ public class Main {
 		float[][] limits = {{-1f, -0.99f}, {-10f, 10f}};
 		Ruleta selecRu = new Ruleta();
 		UniversalEstocastica selecUE = new UniversalEstocastica();
+		TorneoDeterministico selecTorneoDe = new TorneoDeterministico();
 		ArrayList<Integer> seleccionados ;
 		/*IndividuoBits in = new IndividuoBits(min, max, 0.0001f, new FitnessSchubert());
 		float[] fenotipo = in.fenotipo();*/
@@ -25,11 +27,14 @@ public class Main {
 		Poblacion p = new Poblacion(100, f.getLimits(), f);
 		System.out.println(p);
 		p.getFitness();
+		
 		// selecciona X individuos de la poblacion p 
 		seleccionados = selecRu.seleccionadosRuleta(6, p);
 		System.out.println("Por ruleta "+ seleccionados);
 		seleccionados = selecUE.seleccionadosRuleta(6, p);
 		System.out.println("Por estocástica "+ seleccionados);
+		seleccionados = selecTorneoDe.seleccionadosTorneoDeterministico(6, p);
+		System.out.println("Por torneo determinístico "+ seleccionados);
 
 	}
 	
