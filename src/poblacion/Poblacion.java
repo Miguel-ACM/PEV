@@ -9,6 +9,20 @@ import individuo.IndividuoBits;
 
 public class Poblacion {
 	private List<Individuo<?>> _individuos;
+	/**
+	 * @return the _individuos
+	 */
+	public List<Individuo<?>> get_individuos() {
+		return _individuos;
+	}
+
+	/**
+	 * @param _individuos the _individuos to set
+	 */
+	public void set_individuos(List<Individuo<?>> _individuos) {
+		this._individuos = _individuos;
+	}
+
 	private int _size;
 	private float _tolerance = 0.001f;
 	private float _mutationProbability = 0.1f;

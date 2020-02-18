@@ -1,5 +1,5 @@
 package seleccion;
 
-public class Seleccion {
+public interface Seleccion {
 
 }

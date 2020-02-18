@@ -1,5 +1,5 @@
 package cruces;
 
-public class Cruce {
+public interface Cruce {
 
 }
