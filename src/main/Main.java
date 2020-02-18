@@ -2,6 +2,8 @@ package main;
 
 import java.util.ArrayList;
 
+import javax.swing.SwingUtilities;
+
 import fitness.Fitness;
 import fitness.FitnessHolderTable;
 import fitness.FitnessMichalewicz;
@@ -9,11 +11,13 @@ import fitness.FitnessSchubert;
 import individuo.IndividuoBits;
 import poblacion.Poblacion;
 import seleccion.Ruleta;
+import vista.VentanaPrincipal;
 
 public class Main {
 	
 
 	public static void main(String[] args) {
+		Main.modoGrafico();
 		Ruleta selec = new Ruleta();
 		ArrayList<Integer> seleccionados ;
 		float[][] limits = {{-1f, -0.99f}, {-10f, 10f}};
@@ -31,6 +35,18 @@ public class Main {
 		seleccionados = selec.seleccionadosRuleta(6, p);
 		System.out.println(seleccionados);
 		
+	}
+	
+	public static void modoGrafico()
+	{
+		SwingUtilities.invokeLater(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				new VentanaPrincipal();
+			}
+		});
 	}
 	
 	
