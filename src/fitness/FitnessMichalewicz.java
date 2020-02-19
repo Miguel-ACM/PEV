@@ -37,4 +37,9 @@ public class FitnessMichalewicz implements Fitness{
 		return limits;
 		
 	}
+	
+	@Override
+	public boolean maximiza() {
+		return false;
+	}
 }

@@ -21,5 +21,10 @@ public class FitnessFuncion1 implements Fitness{
 		float[][] limits = {{-3f, 12.1f}, {4.1f, 5.8f}};
 		return limits;
 	}
+
+	@Override
+	public boolean maximiza() {
+		return true;
+	}
 	
 }

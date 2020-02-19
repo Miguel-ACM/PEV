@@ -27,4 +27,9 @@ public class FitnessHolderTable implements Fitness{
 		float[][] limits = {{-10f, 10f}, {-10f, 10f}};
 		return limits;
 	}
+	
+	@Override
+	public boolean maximiza() {
+		return false;
+	}
 }

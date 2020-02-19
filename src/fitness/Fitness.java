@@ -7,4 +7,6 @@ public interface Fitness {
 	
 	public float[][] getLimits();
 	
+	public boolean maximiza();
+	
 }
