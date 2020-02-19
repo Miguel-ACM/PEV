@@ -9,24 +9,12 @@ import individuo.IndividuoBits;
 
 public class Poblacion {
 	private List<Individuo<?>> _individuos;
-	/**
-	 * @return the _individuos
-	 */
-	public List<Individuo<?>> get_individuos() {
-		return _individuos;
-	}
-
-	/**
-	 * @param _individuos the _individuos to set
-	 */
-	public void set_individuos(List<Individuo<?>> _individuos) {
-		this._individuos = _individuos;
-	}
-
 	private int _size;
 	private float _tolerance = 0.001f;
 	private float _mutationProbability = 0.1f;
 	private Fitness _fitness;
+	private double fitness_max;
+	private double fitness_min;
 	
 	public Poblacion(int size, float[][] limits, Fitness fitness){
 		_individuos = new ArrayList<Individuo<?>>();
@@ -76,5 +64,52 @@ public class Poblacion {
 		}
 		return res;
 	}
+	
+	
+	/**
+	 * @return the _individuos
+	 */
+	public List<Individuo<?>> get_individuos() {
+		return _individuos;
+	}
+
+	/**
+	 * @param _individuos the _individuos to set
+	 */
+	public void set_individuos(List<Individuo<?>> _individuos) {
+		this._individuos = _individuos;
+	}
+
+	/**
+	 * @return the fitness_max
+	 */
+	public double getFitness_max() {
+		this.fitness_max = _individuos.get(0).getFitness();
+		
+		for (Individuo<?> i : _individuos) {
+			if(this.fitness_max < i.getFitness())
+				this.fitness_max = i.getFitness();
+		}
+		
+		return this.fitness_max;
+	}
+
+
+	/**
+	 * @return the fitness_min
+	 */
+	public double getFitness_min() {
+		
+		this.fitness_min = _individuos.get(0).getFitness();
+		
+		for (Individuo<?> i : _individuos) {
+			if(this.fitness_min > i.getFitness())
+				this.fitness_min = i.getFitness();
+		}
+		
+		return this.fitness_min;
+	}
+
+	
 }
 
