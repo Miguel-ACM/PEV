@@ -8,6 +8,7 @@ import fitness.FitnessMichalewicz;
 import fitness.FitnessSchubert;
 import individuo.IndividuoBits;
 import poblacion.Poblacion;
+import poblacion.PoblacionBits;
 import seleccion.Ruleta;
 import seleccion.TorneoDeterministico;
 import seleccion.UniversalEstocastica;
@@ -15,7 +16,6 @@ import seleccion.UniversalEstocastica;
 public class Main {
 
 	public static void main(String[] args) {		
-		float[][] limits = {{-1f, -0.99f}, {-10f, 10f}};
 		Ruleta selecRu = new Ruleta();
 		UniversalEstocastica selecUE = new UniversalEstocastica();
 		TorneoDeterministico selecTorneoDe = new TorneoDeterministico();
@@ -24,7 +24,7 @@ public class Main {
 		float[] fenotipo = in.fenotipo();*/
 		
 		Fitness f = new FitnessMichalewicz(2);
-		Poblacion p = new Poblacion(100, f.getLimits(), f);
+		Poblacion p = new PoblacionBits(100, f.getLimits(), f);
 		System.out.println(p);
 		p.getFitness();
 		
@@ -39,7 +39,11 @@ public class Main {
 		System.out.println("F_max "+ p.getFitness_max());
 		System.out.println("F_min "+ p.getFitness_min());
 		
+		System.out.println(p);
 		p.cruza();
+		System.out.println(p);
+
+		
 		
 
 	}

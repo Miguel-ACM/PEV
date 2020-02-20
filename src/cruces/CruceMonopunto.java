@@ -2,7 +2,6 @@ package cruces;
 
 import java.util.Random;
 
-import individuo.Individuo;
 import individuo.IndividuoBits;
 
 public class CruceMonopunto implements CruceBits{
@@ -11,7 +10,7 @@ public class CruceMonopunto implements CruceBits{
 		boolean[] genotipoIn2 = in2.getGenotipo();
 		int len = genotipoIn1.length;
 		//Generamos la pos aleatoria donde se cortan los genotipos
-		int randomPos = (new Random().nextInt() % (len - 1));
+		int randomPos = (Math.abs(new Random().nextInt() % (len - 1)));
 		//Primer hijo
 		boolean[] nuevoGenotipoIn1 = new boolean[len];
 		//Segundo hijo

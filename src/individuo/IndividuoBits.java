@@ -5,17 +5,17 @@ import fitness.Fitness;
 //Este individuo representa varios
 public class IndividuoBits implements Individuo {
 	private boolean _genotipo[];
-	private float _min[];
-	private float _max[];
+	private float _limites[][];
 	private int _size[];
 	private int _totalSize;
 	private int _variables;
 	private Fitness _fitness;
 	
+	/*
 	//Inicializa y randomiza la cadena de bits
 	public IndividuoBits(float limits[][], float tol) {
 		this.initialize(limits, tol);
-	}
+	}*/
 	
 	public IndividuoBits(float limits[][], float tol, Fitness fitness) {
 		this.initialize(limits, tol);
@@ -26,16 +26,15 @@ public class IndividuoBits implements Individuo {
 	private void initialize(float limits[][], float tol)
 	{
 		_totalSize = 0;
-		_min = new float[limits.length];
-		_max = new float[limits.length];
+		_limites = limits;
 		_size = new int[limits.length];
 		_variables = limits.length;
 		
 		//Calculamos cuantos bits se necesita para cada numero
 		for (int i = 0; i < _variables; i++){
 			_size[i] = (int) (Math.log(1 + (limits[i][1] - limits[i][0]) / tol) / Math.log(2)) + 1;
-			_min[i] = limits[i][0];
-			_max[i] = limits[i][1];
+			_limites[i][0] = limits[i][0];
+			_limites[i][1] = limits[i][1];
 			_totalSize += _size[i];
 		}
 		
@@ -67,8 +66,8 @@ public class IndividuoBits implements Individuo {
 		{
 			if (bits_passed >= _size[current_number])
 			{
-				fenotipos[current_number] = (float) (_min[current_number] + entero * 
-						((_max[current_number] - _min[current_number]) / (Math.pow(2, _size[current_number]) - 1)));
+				fenotipos[current_number] = (float) (_limites[current_number][0] + entero * 
+						((_limites[current_number][1] - _limites[current_number][0]) / (Math.pow(2, _size[current_number]) - 1)));
 				current_number++;
 				bits_passed = 0;
 				entero = 0;

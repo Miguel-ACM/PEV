@@ -1,6 +1,5 @@
 package cruces;
 
-import individuo.Individuo;
 import individuo.IndividuoBits;
 
 public interface CruceBits{

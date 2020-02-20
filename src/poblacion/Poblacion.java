@@ -3,40 +3,32 @@ package poblacion;
 import java.util.ArrayList;
 import java.util.List;
 
-import cruces.CruceBits;
-import cruces.CruceMonopunto;
 import fitness.Fitness;
 import individuo.Individuo;
-import individuo.IndividuoBits;
 
-public class Poblacion {
-	private List<Individuo> _individuos;
+public abstract class Poblacion {
+	protected List<Individuo> _individuos;
 	private int _size;
-	private float _tolerance = 0.001f;
+	protected float _tolerance = 0.001f;
+	protected float _cruceProbability = 0.7f;
 	private float _mutationProbability = 0.1f;
-	private Fitness _fitness;
+	protected Fitness _fitness;
 	private double fitness_max;
 	private double fitness_min;
-	private CruceBits cruce;
 	
 	public Poblacion(int size, float[][] limits, Fitness fitness){
 		_individuos = new ArrayList<Individuo>();
 		_size = size;
 		_fitness = fitness;
-		cruce = new CruceMonopunto();
-		while (size > 0)
-		{
-			_individuos.add(new IndividuoBits(limits, _tolerance, _fitness));
-			size--;
-		}
 	}
 	
 	public String toString()
 	{
 		String retValue = "";
+		int j = 0;
 		for (Individuo i : _individuos)
 		{
-			retValue += i + ": ";
+			retValue += j + " | " + i + ": ";
 			boolean first = true;
 			for (float f : i.getFenotipo())
 			{
@@ -46,6 +38,7 @@ public class Poblacion {
 				retValue += f;
 			}
 			retValue += "\n";
+			j++;
 		}
 		
 		return retValue;
@@ -125,19 +118,8 @@ public class Poblacion {
 		return this.fitness_min;
 	}
 	
-	public void cruza()
-	{
-		System.out.println( _individuos.get(0));
-		System.out.println( _individuos.get(1));
-
-		
-		Individuo[] nuevosIndividuos = cruce.cruza((IndividuoBits) _individuos.get(0), (IndividuoBits) _individuos.get(1));
-		System.out.println(nuevosIndividuos[0]);
-		System.out.println(nuevosIndividuos[1]);
-
-
-	}
-
+	public abstract void cruza();
+	
 	
 }
 

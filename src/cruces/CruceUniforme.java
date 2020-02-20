@@ -1,10 +1,8 @@
 package cruces;
 
-import java.util.Random;
-
 import individuo.IndividuoBits;
 
-public class Uniforme implements CruceBits{
+public class CruceUniforme implements CruceBits{
 
 	public IndividuoBits[] cruza(IndividuoBits in1, IndividuoBits in2) {
 		boolean[] genotipoIn1 = in1.getGenotipo();
