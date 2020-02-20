@@ -38,17 +38,17 @@ public class UniversalEstocastica implements Seleccion{
 	 * cada individuo */
 	public void proporcion_Minimizada(Poblacion p) {
 		_porciones = new ArrayList<Double>();
-		List<Individuo<?>> _individuos = p.get_individuos();
+		List<Individuo> _individuos = p.get_individuos();
 		double fitMax = p.getFitness_max();
 		double totalFitnessMinimizado = 0;
 		
 		// se calcula la suma total de los fitness Maximizados
-		for(Individuo<?> i : _individuos) {			
+		for(Individuo i : _individuos) {			
 			totalFitnessMinimizado += fitMax -i.getFitness();			
 		}
 		
 		// calcula la proporción de cada uno y la añade al array
-		for(Individuo<?> i : _individuos) {
+		for(Individuo i : _individuos) {
 			tramo += ((fitMax -i.getFitness())/totalFitnessMinimizado);
 			_porciones.add(tramo);
 		}	
@@ -58,17 +58,17 @@ public class UniversalEstocastica implements Seleccion{
 	 * cada individuo */
 	public void proporcion_Maximizada(Poblacion p) {
 		_porciones = new ArrayList<Double>();
-		List<Individuo<?>> _individuos = p.get_individuos();
+		List<Individuo> _individuos = p.get_individuos();
 		double fitMin = p.getFitness_min();
 		double totalFitnessMaximizado = 0;
 		
 		// se calcula la suma total de los fitness Maximizados
-		for(Individuo<?> i : _individuos) {			
+		for(Individuo i : _individuos) {			
 			totalFitnessMaximizado += i.getFitness() - fitMin;			
 		}
 		
 		// calcula la proporción de cada uno y la añade al array
-		for(Individuo<?> i : _individuos) {
+		for(Individuo i : _individuos) {
 			tramo += ((i.getFitness() - fitMin)/totalFitnessMaximizado);
 			_porciones.add(tramo);
 		}	

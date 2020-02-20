@@ -3,12 +3,12 @@ package individuo;
 import fitness.Fitness;
 
 //Este individuo representa varios
-public class IndividuoBits implements Individuo<boolean[]> {
+public class IndividuoBits implements Individuo {
 	private boolean _genotipo[];
 	private float _min[];
 	private float _max[];
 	private int _size[];
-	private int _totalsize;
+	private int _totalSize;
 	private int _variables;
 	private Fitness _fitness;
 	
@@ -25,7 +25,7 @@ public class IndividuoBits implements Individuo<boolean[]> {
 	
 	private void initialize(float limits[][], float tol)
 	{
-		_totalsize = 0;
+		_totalSize = 0;
 		_min = new float[limits.length];
 		_max = new float[limits.length];
 		_size = new int[limits.length];
@@ -36,11 +36,11 @@ public class IndividuoBits implements Individuo<boolean[]> {
 			_size[i] = (int) (Math.log(1 + (limits[i][1] - limits[i][0]) / tol) / Math.log(2)) + 1;
 			_min[i] = limits[i][0];
 			_max[i] = limits[i][1];
-			_totalsize += _size[i];
+			_totalSize += _size[i];
 		}
 		
-		_genotipo =  new boolean[_totalsize];
-		for (int i=0; i< _totalsize; i++) {
+		_genotipo =  new boolean[_totalSize];
+		for (int i=0; i< _totalSize; i++) {
 			_genotipo[i] = Math.random() > 0.5 ? true : false;
 			//_genotipo[i] = true;
 		}
@@ -49,7 +49,7 @@ public class IndividuoBits implements Individuo<boolean[]> {
 	
 	//Posibilidad es un float de 0 a 100
 	public int mutacion(float posibilidad) {
-		for (int i = 0; i < _totalsize; i++)
+		for (int i = 0; i < _totalSize; i++)
 		{
 			_genotipo[i] = Math.random() <= posibilidad ? ! _genotipo[i] : _genotipo[i];
 		}
@@ -63,7 +63,7 @@ public class IndividuoBits implements Individuo<boolean[]> {
 		int entero = 0;
 		int current_number = 0;
 		int bits_passed = 0;
-		for (int i = 0; i <= _totalsize; i++)
+		for (int i = 0; i <= _totalSize; i++)
 		{
 			if (bits_passed >= _size[current_number])
 			{
@@ -72,7 +72,7 @@ public class IndividuoBits implements Individuo<boolean[]> {
 				current_number++;
 				bits_passed = 0;
 				entero = 0;
-				if (i == _totalsize)
+				if (i == _totalSize)
 					break;
 			}
 			
@@ -87,24 +87,26 @@ public class IndividuoBits implements Individuo<boolean[]> {
 
 	@Override
 	public double getFitness() { //TODO Comprobar que _fitness esté inicializado por algún lado
-		return _fitness.fitness(this);
+		return _fitness.fitness( this);
 	}
 	
 	public void setFitness(Fitness fitness) { 
 		_fitness = fitness;
 	}
 
-	@Override
+	
 	public boolean[] getGenotipo() {
 		return _genotipo;
 	}
+	
+	
 	
 	public String toString() {
 		String retValue = "";
 		int current_number = 0;
 		int bits_passed = 0;
 
-		for (int i = 0; i < _totalsize; i++) {
+		for (int i = 0; i < _totalSize; i++) {
 			if (bits_passed >= _size[current_number])
 			{
 				retValue += " ";
@@ -119,4 +121,31 @@ public class IndividuoBits implements Individuo<boolean[]> {
 		return retValue;
 	}
 	
-}
+	//Falta control de errores
+	public boolean[] getCromosomas(int idxBegin, int idxEnd)
+	{
+		boolean[] ret = new boolean[idxEnd - idxBegin];
+		for (int i = 0; i < idxEnd - idxBegin; i++)
+		{
+			ret[i] = ret[idxEnd + 1];
+		}
+		return ret;
+	}
+	
+	public void setCromosomas(int idxBegin, boolean[] set)
+	{
+		int len = set.length;
+		for (int i = 0; i < len; i++)
+		{
+			_genotipo[i + idxBegin] = set[i];
+		}
+	}
+
+	public int getNumCromosomas() {
+		return _totalSize;
+	}
+
+
+	public void setGenotipo(boolean[] nuevoGenotipo) {
+		_genotipo = nuevoGenotipo;
+	}}

@@ -4,7 +4,7 @@ import individuo.Individuo;
 
 public class FitnessSchubert implements Fitness{
 	
-	public double fitness(Individuo<?> individuo)
+	public double fitness(Individuo individuo)
 	{
 		float[] fenotipo = individuo.getFenotipo();
 		if (fenotipo.length < 2)

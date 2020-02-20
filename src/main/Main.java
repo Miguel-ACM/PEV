@@ -19,7 +19,7 @@ public class Main {
 		Ruleta selecRu = new Ruleta();
 		UniversalEstocastica selecUE = new UniversalEstocastica();
 		TorneoDeterministico selecTorneoDe = new TorneoDeterministico();
-		ArrayList<Integer> seleccionados ;
+		ArrayList<Integer> seleccionados;
 		/*IndividuoBits in = new IndividuoBits(min, max, 0.0001f, new FitnessSchubert());
 		float[] fenotipo = in.fenotipo();*/
 		
@@ -38,6 +38,8 @@ public class Main {
 		
 		System.out.println("F_max "+ p.getFitness_max());
 		System.out.println("F_min "+ p.getFitness_min());
+		
+		p.cruza();
 		
 
 	}
