@@ -21,7 +21,7 @@ public class TorneoDeterministico implements Seleccion{
 	
 	public ArrayList<Integer> seleccionadosTorneoDeterministico(int num, Poblacion p) {
 		ArrayList<Integer> seleccionados = new ArrayList<Integer>();
-		List<Individuo<?>> _individuos = p.get_individuos();
+		List<Individuo> _individuos = p.get_individuos();
 		
 		double max = -100;
 		int selec = 0;

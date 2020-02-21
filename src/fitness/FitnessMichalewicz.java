@@ -11,7 +11,7 @@ public class FitnessMichalewicz implements Fitness{
 		_param = param;
 	}
 	
-	public double fitness(Individuo<?> individuo)
+	public double fitness(Individuo individuo)
 	{
 		float[] fenotipo = individuo.getFenotipo();
 		int len = fenotipo.length;

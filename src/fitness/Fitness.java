@@ -3,7 +3,7 @@ package fitness;
 import individuo.Individuo;
 
 public interface Fitness {
-	public double fitness(Individuo<?> individuo);
+	public double fitness(Individuo individuo);
 	
 	public float[][] getLimits();
 	

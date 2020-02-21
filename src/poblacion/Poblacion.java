@@ -5,34 +5,30 @@ import java.util.List;
 
 import fitness.Fitness;
 import individuo.Individuo;
-import individuo.IndividuoBits;
 
-public class Poblacion {
-	private List<Individuo<?>> _individuos;
+public abstract class Poblacion {
+	protected List<Individuo> _individuos;
 	private int _size;
-	private float _tolerance = 0.001f;
+	protected float _tolerance = 0.001f;
+	protected float _cruceProbability = 0.7f;
 	private float _mutationProbability = 0.1f;
-	private Fitness _fitness;
+	protected Fitness _fitness;
 	private double fitness_max;
 	private double fitness_min;
 	
 	public Poblacion(int size, float[][] limits, Fitness fitness){
-		_individuos = new ArrayList<Individuo<?>>();
+		_individuos = new ArrayList<Individuo>();
 		_size = size;
 		_fitness = fitness;
-		while (size > 0)
-		{
-			_individuos.add(new IndividuoBits(limits, _tolerance, _fitness));
-			size--;
-		}
 	}
 	
 	public String toString()
 	{
 		String retValue = "";
-		for (Individuo<?> i : _individuos)
+		int j = 0;
+		for (Individuo i : _individuos)
 		{
-			retValue += i + ": ";
+			retValue += j + " | " + i + ": ";
 			boolean first = true;
 			for (float f : i.getFenotipo())
 			{
@@ -42,6 +38,7 @@ public class Poblacion {
 				retValue += f;
 			}
 			retValue += "\n";
+			j++;
 		}
 		
 		return retValue;
@@ -49,16 +46,26 @@ public class Poblacion {
 	
 	public void mutacion() 
 	{
-		for (Individuo<?> i : _individuos)
+		for (Individuo i : _individuos)
 		{
 			i.mutacion(_mutationProbability); //Hay que pasar la probabilidad por algún lado.
 		}
 	}
 	
 	public double[] getFitness() {
+		this.fitness_max = _individuos.get(0).getFitness();
+		this.fitness_min = _individuos.get(0).getFitness();
+
+		
 		double res[] = new double[_size];
 		for (int i = 0; i < _size; i++)
 		{
+			//Calcula de paso el fitness minimo y maximo
+			if(this.fitness_min > _individuos.get(i).getFitness())
+				this.fitness_min = _individuos.get(i).getFitness();
+			else if(this.fitness_max < _individuos.get(i).getFitness())
+				this.fitness_max = _individuos.get(i).getFitness();
+			
 			res[i] = _individuos.get(i).getFitness();
 			System.out.println(res[i]);
 		}
@@ -69,14 +76,14 @@ public class Poblacion {
 	/**
 	 * @return the _individuos
 	 */
-	public List<Individuo<?>> get_individuos() {
+	public List<Individuo> get_individuos() {
 		return _individuos;
 	}
 
 	/**
 	 * @param _individuos the _individuos to set
 	 */
-	public void set_individuos(List<Individuo<?>> _individuos) {
+	public void set_individuos(List<Individuo> _individuos) {
 		this._individuos = _individuos;
 	}
 
@@ -86,7 +93,8 @@ public class Poblacion {
 	public double getFitness_max() {
 		this.fitness_max = _individuos.get(0).getFitness();
 		
-		for (Individuo<?> i : _individuos) {
+		
+		for (Individuo i : _individuos) {
 			if(this.fitness_max < i.getFitness())
 				this.fitness_max = i.getFitness();
 		}
@@ -102,14 +110,16 @@ public class Poblacion {
 		
 		this.fitness_min = _individuos.get(0).getFitness();
 		
-		for (Individuo<?> i : _individuos) {
+		for (Individuo i : _individuos) {
 			if(this.fitness_min > i.getFitness())
 				this.fitness_min = i.getFitness();
 		}
 		
 		return this.fitness_min;
 	}
-
+	
+	public abstract void cruza();
+	
 	
 }
 
