@@ -98,8 +98,6 @@ public class IndividuoBits implements Individuo {
 		return _genotipo;
 	}
 	
-	
-	
 	public String toString() {
 		String retValue = "";
 		int current_number = 0;

@@ -3,10 +3,12 @@ package poblacion;
 import java.util.ArrayList;
 import java.util.List;
 
+import cruces.Cruce;
 import fitness.Fitness;
 import individuo.Individuo;
+import seleccion.Seleccion;
 
-public abstract class Poblacion {
+public abstract class Poblacion<T> {
 	protected List<Individuo> _individuos;
 	private int _size;
 	protected float _tolerance = 0.001f;
@@ -15,6 +17,8 @@ public abstract class Poblacion {
 	protected Fitness _fitness;
 	private double fitness_max;
 	private double fitness_min;
+	private Seleccion _seleccion;
+	protected Cruce<T> cruce;
 	
 	public Poblacion(int size, float[][] limits, Fitness fitness){
 		_individuos = new ArrayList<Individuo>();
@@ -120,6 +124,48 @@ public abstract class Poblacion {
 	
 	public abstract void cruza();
 	
+	public List<Individuo> getElite()
+	{
+		return null; //TODO
+	}
+	public void nextGen()
+	{
+		List<Individuo> elite = this.getElite();
+		
+		
+	}
 	
+	//Getters y setters
+	public float get_tolerance() {
+		return _tolerance;
+	}
+
+	public void set_tolerance(float tolerance) {
+		this._tolerance = tolerance;
+	}
+
+	public float get_mutationProbability() {
+		return _mutationProbability;
+	}
+
+	public void set_mutationProbability(float mutationProbability) {
+		this._mutationProbability = mutationProbability;
+	}
+	
+	public void set_cruceProbability(float cruceProbability) {
+		this._cruceProbability = cruceProbability;
+	}
+	
+	public float get_cruceProbability() {
+		return _cruceProbability;
+	}
+	
+	public void set_seleccion(Seleccion seleccion) {
+		this._seleccion = seleccion;
+	}
+	
+	public Seleccion get_seleccion() {
+		return this._seleccion;
+	}
 }
 

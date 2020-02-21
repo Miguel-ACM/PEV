@@ -2,7 +2,5 @@ package cruces;
 
 import individuo.IndividuoBits;
 
-public interface CruceBits{
-	public IndividuoBits[] cruza(IndividuoBits in1, IndividuoBits in2);
-
+public interface CruceBits extends Cruce<IndividuoBits>{
 }
