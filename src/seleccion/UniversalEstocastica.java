@@ -21,8 +21,8 @@ public class UniversalEstocastica implements Seleccion{
 	public ArrayList<Integer> seleccionadosRuleta(int num, Poblacion p, boolean maximiza) {
 		ArrayList<Integer> seleccionados = new ArrayList<Integer>();
 	
-		if(maximiza)proporcion_Maximizada(p);
-		else proporcion_Minimizada(p);
+		if(maximiza)proporcion_Maximizada(p, maximiza);
+		else proporcion_Minimizada(p, maximiza);
 		
 		double puntoSeleccion = Math.random()*1/num;// punto inicial entre 0 y 1/num
 		seleccionados.add(elegido(puntoSeleccion));	
@@ -36,10 +36,10 @@ public class UniversalEstocastica implements Seleccion{
 	
 	/* Crea un array con los valores de la porción minimizada de 
 	 * cada individuo */
-	public void proporcion_Minimizada(Poblacion p) {
+	public void proporcion_Minimizada(Poblacion p, boolean maximiza) {
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
-		double fitMax = p.getFitness_max();
+		double fitMax = p.getFitness_max(maximiza);
 		double totalFitnessMinimizado = 0;
 		
 		// se calcula la suma total de los fitness Maximizados
@@ -56,10 +56,10 @@ public class UniversalEstocastica implements Seleccion{
 	
 	/* Crea un array con los valores de la porción maximizada de 
 	 * cada individuo */
-	public void proporcion_Maximizada(Poblacion p) {
+	public void proporcion_Maximizada(Poblacion p, boolean maximiza) {
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
-		double fitMin = p.getFitness_min();
+		double fitMin = p.getFitness_min(maximiza);
 		double totalFitnessMaximizado = 0;
 		
 		// se calcula la suma total de los fitness Maximizados

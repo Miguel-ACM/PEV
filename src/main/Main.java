@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 
 import fitness.Fitness;
+import fitness.FitnessFuncion1;
 import fitness.FitnessHolderTable;
 import fitness.FitnessMichalewicz;
 import fitness.FitnessSchubert;
@@ -24,10 +25,11 @@ public class Main {
 		float[] fenotipo = in.fenotipo();*/
 		
 		Fitness f = new FitnessMichalewicz(2);
+		//Fitness f = new FitnessFuncion1();
 		Poblacion p = new PoblacionBits(100, f.getLimits(), f);
 		
 		// ordenar población por fitness
-		p.getFitness();
+		//p.getFitness();
 			
 		// selecciona X individuos de la poblacion p 
 		seleccionados = selecRu.seleccionadosRuleta(6, p, f.maximiza());
@@ -37,12 +39,12 @@ public class Main {
 		seleccionados = selecTorneoDe.seleccionadosTorneoDeterministico(6, p);
 		System.out.println("Por torneo determinístico "+ seleccionados);
 		
-		System.out.println("F_max "+ p.getFitness_max());
-		System.out.println("F_min "+ p.getFitness_min());
+		System.out.println("F_max "+ p.getFitness_max(f.maximiza()));
+		System.out.println("F_min "+ p.getFitness_min(f.maximiza()));
 		
-		System.out.println(p);
-		p.cruza();
-		System.out.println(p);
+//		System.out.println(p);
+//		p.cruza();
+//		System.out.println(p);
 
 		
 	}

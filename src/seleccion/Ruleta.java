@@ -24,8 +24,8 @@ public class Ruleta implements Seleccion {
 	public ArrayList<Integer> seleccionadosRuleta(int num, Poblacion p, boolean maximiza) {
 		ArrayList<Integer> seleccionados = new ArrayList<Integer>();
 		
-		if(maximiza) proporcion_Maximizada(p);
-		else proporcion_Minimizada(p);
+		if(maximiza) proporcion_Maximizada(p, maximiza);
+		else proporcion_Minimizada(p, maximiza);
 		
 		for (int i = 0; i < num; i++) {
 			seleccionados.add(elegido());			
@@ -35,10 +35,10 @@ public class Ruleta implements Seleccion {
 	
 	/* Crea un array con los valores de la porción minimizada de 
 	 * cada individuo */
-	public void proporcion_Minimizada(Poblacion p) {
+	public void proporcion_Minimizada(Poblacion p, boolean maximiza) {
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
-		double fitMax = p.getFitness_max();
+		double fitMax = p.getFitness_min(maximiza);
 		double totalFitnessMinimizado = 0;
 		
 		// se calcula la suma total de los fitness Maximizados
@@ -55,10 +55,10 @@ public class Ruleta implements Seleccion {
 	
 	/* Crea un array con los valores de la porción maximizada de 
 	 * cada individuo */
-	public void proporcion_Maximizada(Poblacion p) {
+	public void proporcion_Maximizada(Poblacion p, boolean maximiza) {
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
-		double fitMin = p.getFitness_min();
+		double fitMin = p.getFitness_min(maximiza);
 		double totalFitnessMaximizado = 0;
 		
 		// se calcula la suma total de los fitness Maximizados

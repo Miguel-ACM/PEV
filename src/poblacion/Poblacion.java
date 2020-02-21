@@ -87,18 +87,27 @@ public abstract class Poblacion<T> {
 	}
 
 	/**
-	 * @return the fitness_max
+	 * Si la función maximiza el mejor fitness es el de
+	 * la última posición al estar ordenado de manera creciente
+	 * En caso contrario el mejor es el primero
 	 */
-	public double getFitness_max() {		
-		return _individuos.get(0).getFitness();
+	public double getFitness_max(boolean maximiza) {		
+		if(maximiza)
+			return _individuos.get(_size-1).getFitness();
+		else 
+			return _individuos.get(0).getFitness();
 	}
 
-
 	/**
-	 * @return the fitness_min
+	 * Si la función maximiza el peor fitness es el de
+	 * la primera posición al estar ordenado de manera creciente
+	 * En caso contrario el peor es el último
 	 */
-	public double getFitness_min() {		
-		return _individuos.get(_size-1).getFitness();
+	public double getFitness_min(boolean maximiza) {		
+		if(maximiza)
+			return _individuos.get(0).getFitness();
+		else 
+			return _individuos.get(_size-1).getFitness();
 	}
 	
 	public abstract void cruza();
