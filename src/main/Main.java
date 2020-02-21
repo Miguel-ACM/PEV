@@ -25,9 +25,10 @@ public class Main {
 		
 		Fitness f = new FitnessMichalewicz(2);
 		Poblacion p = new PoblacionBits(100, f.getLimits(), f);
-		System.out.println(p);
-		p.getFitness();
 		
+		// ordenar población por fitness
+		p.getFitness();
+			
 		// selecciona X individuos de la poblacion p 
 		seleccionados = selecRu.seleccionadosRuleta(6, p, f.maximiza());
 		System.out.println("Por ruleta "+ seleccionados);
@@ -44,8 +45,6 @@ public class Main {
 		System.out.println(p);
 
 		
-		
-
 	}
 	
 	

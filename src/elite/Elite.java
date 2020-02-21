@@ -16,12 +16,12 @@ import poblacion.Poblacion;
  *
  */
 public class Elite {
-	private List<Individuo<?>> individuos_Elite;
+	private List<Individuo> individuos_Elite;
 	
 
 	public Elite(int num, Poblacion p, boolean maximiza) {
 				
-		this.individuos_Elite = p.get_individuos();
+	//	this.individuos_Elite = p.get_individuos();
 		
 		
 		

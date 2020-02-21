@@ -1,6 +1,7 @@
 package poblacion;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -15,7 +16,6 @@ public class PoblacionBits extends Poblacion{
 	
 	private CruceBits cruce;
 	
-	
 	public PoblacionBits(int size, float[][] limits, Fitness fitness) {
 		super(size, limits, fitness);
 		while (size > 0)
@@ -23,6 +23,9 @@ public class PoblacionBits extends Poblacion{
 			_individuos.add(new IndividuoBits(limits, _tolerance, _fitness));
 			size--;
 		}
+		
+		// ordena la población
+		Collections.sort(_individuos);
 		cruce = new CruceMonopunto();
 	}
 
