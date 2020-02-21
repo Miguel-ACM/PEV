@@ -1,11 +1,16 @@
 package vista;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+
 
 public class PanelParametros extends JPanel{
 	
@@ -32,6 +37,10 @@ public class PanelParametros extends JPanel{
 	private JLabel por_elitismo_label;
 	private JSpinner por_elitismo;
 	private JPanel por_elitismo_panel;
+	
+	private JPanel runPnl;
+	private JButton runButton;
+	private ImageIcon runIcon;
 	
 	public PanelParametros() {
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -80,6 +89,7 @@ public class PanelParametros extends JPanel{
 		por_elitismo_panel.add(por_elitismo_label);
 		por_elitismo_panel.add(por_elitismo);
 		
+		runPnl = new JPanel();
 		
 		this.add(num_generaciones_panel);
 		this.add(tam_poblacion_panel);
@@ -89,4 +99,6 @@ public class PanelParametros extends JPanel{
 		this.add(por_elitismo_panel);
 
 	}
+	
+	
 }
