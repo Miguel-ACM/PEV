@@ -1,6 +1,7 @@
 package poblacion;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -20,6 +21,9 @@ public class PoblacionBits extends Poblacion<IndividuoBits>{
 			_individuos.add(new IndividuoBits(limits, _tolerance, _fitness));
 			size--;
 		}
+		
+		// ordena la población
+		Collections.sort(_individuos);
 	}
 
 	public void cruza()

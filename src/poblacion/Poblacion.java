@@ -1,6 +1,7 @@
 package poblacion;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import cruces.Cruce;
@@ -15,8 +16,8 @@ public abstract class Poblacion<T> {
 	protected float _cruceProbability = 0.7f;
 	private float _mutationProbability = 0.1f;
 	protected Fitness _fitness;
-	private double fitness_max;
-	private double fitness_min;
+	//private double fitness_max;
+	//private double fitness_min;
 	private Seleccion _seleccion;
 	protected Cruce<T> cruce;
 	
@@ -57,25 +58,19 @@ public abstract class Poblacion<T> {
 	}
 	
 	public double[] getFitness() {
-		this.fitness_max = _individuos.get(0).getFitness();
-		this.fitness_min = _individuos.get(0).getFitness();
-
-		
 		double res[] = new double[_size];
+		
 		for (int i = 0; i < _size; i++)
 		{
-			//Calcula de paso el fitness minimo y maximo
-			if(this.fitness_min > _individuos.get(i).getFitness())
-				this.fitness_min = _individuos.get(i).getFitness();
-			else if(this.fitness_max < _individuos.get(i).getFitness())
-				this.fitness_max = _individuos.get(i).getFitness();
-			
 			res[i] = _individuos.get(i).getFitness();
-			System.out.println(res[i]);
-		}
+	//		System.out.println(res[i]);
+		}		
 		return res;
 	}
 	
+	public void sort() {
+		Collections.sort(_individuos);
+	}
 	
 	/**
 	 * @return the _individuos
@@ -94,32 +89,16 @@ public abstract class Poblacion<T> {
 	/**
 	 * @return the fitness_max
 	 */
-	public double getFitness_max() {
-		this.fitness_max = _individuos.get(0).getFitness();
-		
-		
-		for (Individuo i : _individuos) {
-			if(this.fitness_max < i.getFitness())
-				this.fitness_max = i.getFitness();
-		}
-		
-		return this.fitness_max;
+	public double getFitness_max() {		
+		return _individuos.get(0).getFitness();
 	}
 
 
 	/**
 	 * @return the fitness_min
 	 */
-	public double getFitness_min() {
-		
-		this.fitness_min = _individuos.get(0).getFitness();
-		
-		for (Individuo i : _individuos) {
-			if(this.fitness_min > i.getFitness())
-				this.fitness_min = i.getFitness();
-		}
-		
-		return this.fitness_min;
+	public double getFitness_min() {		
+		return _individuos.get(_size-1).getFitness();
 	}
 	
 	public abstract void cruza();
