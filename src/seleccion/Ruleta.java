@@ -13,7 +13,6 @@ import poblacion.Poblacion;
  */
 public class Ruleta implements Seleccion {
 	private ArrayList<Double> _porciones;// array para guardar la porción de cada individuo
-	private Double tramo = (double) 0;
 	
 	public Ruleta() {
 		
@@ -21,7 +20,7 @@ public class Ruleta implements Seleccion {
 	
 	/* Le llega la población y el num de elementos a seleccionar 
 	 * Devuelve un Array con los indices de los Individuos seleccionados    */
-	public ArrayList<Integer> seleccionadosRuleta(int num, Poblacion p, boolean maximiza) {
+	public ArrayList<Integer> selecciona(int num, Poblacion p, boolean maximiza) {
 		ArrayList<Integer> seleccionados = new ArrayList<Integer>();
 		
 		if(maximiza) proporcion_Maximizada(p, maximiza);
@@ -30,12 +29,13 @@ public class Ruleta implements Seleccion {
 		for (int i = 0; i < num; i++) {
 			seleccionados.add(elegido());			
 		}		
-		return seleccionados;	
+		return seleccionados;
 	}
 	
 	/* Crea un array con los valores de la porción minimizada de 
 	 * cada individuo */
 	public void proporcion_Minimizada(Poblacion p, boolean maximiza) {
+		Double tramo = (double) 0;
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
 		double fitMax = p.getFitness_min(maximiza);
@@ -56,6 +56,7 @@ public class Ruleta implements Seleccion {
 	/* Crea un array con los valores de la porción maximizada de 
 	 * cada individuo */
 	public void proporcion_Maximizada(Poblacion p, boolean maximiza) {
+		Double tramo = (double) 0;
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
 		double fitMin = p.getFitness_min(maximiza);
@@ -63,9 +64,9 @@ public class Ruleta implements Seleccion {
 		
 		// se calcula la suma total de los fitness Maximizados
 		for(Individuo i : _individuos) {			
-			totalFitnessMaximizado += i.getFitness() - fitMin;			
+			totalFitnessMaximizado += i.getFitness() - fitMin;	
 		}
-		
+				
 		// calcula la proporción de cada uno y la añade al array
 		for(Individuo i : _individuos) {
 			tramo += ((i.getFitness() - fitMin)/totalFitnessMaximizado);

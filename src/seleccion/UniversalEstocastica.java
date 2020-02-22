@@ -15,10 +15,10 @@ import poblacion.Poblacion;
  */
 public class UniversalEstocastica implements Seleccion{
 	private ArrayList<Double> _porciones;// array para guardar la porción de cada individuo
-	private Double tramo = (double) 0;
+	Double tramo = (double) 0;
 	
 	
-	public ArrayList<Integer> seleccionadosRuleta(int num, Poblacion p, boolean maximiza) {
+	public ArrayList<Integer> selecciona(int num, Poblacion p, boolean maximiza) {
 		ArrayList<Integer> seleccionados = new ArrayList<Integer>();
 	
 		if(maximiza)proporcion_Maximizada(p, maximiza);
@@ -37,6 +37,7 @@ public class UniversalEstocastica implements Seleccion{
 	/* Crea un array con los valores de la porción minimizada de 
 	 * cada individuo */
 	public void proporcion_Minimizada(Poblacion p, boolean maximiza) {
+		Double tramo = (double) 0;
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
 		double fitMax = p.getFitness_max(maximiza);
@@ -57,6 +58,7 @@ public class UniversalEstocastica implements Seleccion{
 	/* Crea un array con los valores de la porción maximizada de 
 	 * cada individuo */
 	public void proporcion_Maximizada(Poblacion p, boolean maximiza) {
+		Double tramo = (double) 0;
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
 		double fitMin = p.getFitness_min(maximiza);

@@ -5,20 +5,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import cruces.CruceBits;
-import cruces.CruceMonopunto;
-import cruces.CruceUniforme;
 import fitness.Fitness;
 import individuo.Individuo;
 import individuo.IndividuoBits;
 
-public class PoblacionBits extends Poblacion<IndividuoBits>{	
+public class PoblacionBits extends Poblacion{	
 	
 	public PoblacionBits(int size, float[][] limits, Fitness fitness) {
 		super(size, limits, fitness);
 		while (size > 0)
 		{
-			_individuos.add(new IndividuoBits(limits, _tolerance, _fitness));
+			_individuos.add(new IndividuoBits(_fitness, _tolerance));
 			size--;
 		}
 		
@@ -55,9 +52,9 @@ public class PoblacionBits extends Poblacion<IndividuoBits>{
 			padresIndex.remove(padre2Index);
 			padres.remove(padre2Index);
 			
-			System.out.println(padre1IndividuoIndex + " con " + padre2IndividuoIndex);
-			//Hijos sustituyen a los padres
-			Individuo[] hijos = cruce.cruza((IndividuoBits) padre1, (IndividuoBits) padre2);
+			//System.out.println(padre1IndividuoIndex + " con " + padre2IndividuoIndex);
+			//Política de reemplazamiento: Hijos sustituyen a los padres
+			Individuo[] hijos = _cruce.cruza((IndividuoBits) padre1, (IndividuoBits) padre2);
 			_individuos.set(padre1IndividuoIndex, hijos[0]);
 			_individuos.set(padre2IndividuoIndex, hijos[1]);
 		}

@@ -19,11 +19,12 @@ public class TorneoDeterministico implements Seleccion{
 	/* Le llega la población y el num de elementos a seleccionar 
 	 * Devuelve un Array con los indices de los Individuos seleccionados    */
 	
-	public ArrayList<Integer> seleccionadosTorneoDeterministico(int num, Poblacion p) {
+	//TODO 
+	public ArrayList<Integer> selecciona(int num, Poblacion p, boolean maximiza) {
 		ArrayList<Integer> seleccionados = new ArrayList<Integer>();
 		List<Individuo> _individuos = p.get_individuos();
 		
-		double max = -100;
+		double max = -100; //ESTO ES TERRIBLEMENTE ILEGAL TODO
 		int selec = 0;
 			
 		for (int i = 0; i < num; i++) {

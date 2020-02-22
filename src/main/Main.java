@@ -24,15 +24,17 @@ public class Main {
 		/*IndividuoBits in = new IndividuoBits(min, max, 0.0001f, new FitnessSchubert());
 		float[] fenotipo = in.fenotipo();*/
 		
-		Fitness f = new FitnessMichalewicz(2);
-		//Fitness f = new FitnessFuncion1();
-		Poblacion p = new PoblacionBits(100, f.getLimits(), f);
-		
+		Controlador c = new Controlador();
+		for (int i = 0; i < 1000; i++)
+		{
+			System.out.println("\n\n*****************************************************************\nGEN " + i + "\n*****************************************************************\n");
+			c.nextStep();
+		}
 		// ordenar población por fitness
 		//p.getFitness();
 			
 		// selecciona X individuos de la poblacion p 
-		seleccionados = selecRu.seleccionadosRuleta(6, p, f.maximiza());
+		/*seleccionados = selecRu.seleccionadosRuleta(6, p, f.maximiza());
 		System.out.println("Por ruleta "+ seleccionados);
 		seleccionados = selecUE.seleccionadosRuleta(6, p, f.maximiza());
 		System.out.println("Por estocástica "+ seleccionados);
@@ -40,7 +42,7 @@ public class Main {
 		System.out.println("Por torneo determinístico "+ seleccionados);
 		
 		System.out.println("F_max "+ p.getFitness_max(f.maximiza()));
-		System.out.println("F_min "+ p.getFitness_min(f.maximiza()));
+		System.out.println("F_min "+ p.getFitness_min(f.maximiza()));*/
 		
 //		System.out.println(p);
 //		p.cruza();

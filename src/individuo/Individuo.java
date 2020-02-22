@@ -1,11 +1,13 @@
 package individuo;
 
 public interface Individuo extends Comparable<Individuo> {
-	public int mutacion(float probability);
+	public Individuo mutacion(float probability);
 		
 	public float[] getFenotipo();
 	
 	public double getFitness();
+	
+	public Individuo clone();
 	
 	@Override
 	public default int compareTo(Individuo o) {

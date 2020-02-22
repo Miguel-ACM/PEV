@@ -9,17 +9,16 @@ import fitness.Fitness;
 import individuo.Individuo;
 import seleccion.Seleccion;
 
-public abstract class Poblacion<T> {
+public abstract class Poblacion {
 	protected List<Individuo> _individuos;
 	private int _size;
 	protected float _tolerance = 0.001f;
 	protected float _cruceProbability = 0.7f;
 	private float _mutationProbability = 0.1f;
 	protected Fitness _fitness;
-	//private double fitness_max;
-	//private double fitness_min;
 	private Seleccion _seleccion;
-	protected Cruce<T> cruce;
+	protected Cruce _cruce;
+	private float _elitePercent = 0.02f;
 	
 	public Poblacion(int size, float[][] limits, Fitness fitness){
 		_individuos = new ArrayList<Individuo>();
@@ -42,7 +41,8 @@ public abstract class Poblacion<T> {
 				first = false;
 				retValue += f;
 			}
-			retValue += "\n";
+			retValue += " (Fitness: " + i.getFitness();
+			retValue += ")\n";
 			j++;
 		}
 		
@@ -51,9 +51,13 @@ public abstract class Poblacion<T> {
 	
 	public void mutacion() 
 	{
-		for (Individuo i : _individuos)
+		for (int i = 0; i < _size; i++)
 		{
-			i.mutacion(_mutationProbability); //Hay que pasar la probabilidad por algún lado.
+			//_individuos.get(i).mutacion(_mutationProbability);
+			
+			//System.out.println("-------------------------------\n" +_individuos.get(i));
+			_individuos.set(i, _individuos.get(i).mutacion(_mutationProbability)); 
+			//System.out.println(_individuos.get(i));
 		}
 	}
 	
@@ -116,10 +120,38 @@ public abstract class Poblacion<T> {
 	{
 		return null; //TODO
 	}
+	
 	public void nextGen()
 	{
+		System.out.println("---------------------------------------------------------------Start\n\n\n" + this);
+		boolean maximiza = _fitness.maximiza();
+		//Extrae la elite
 		List<Individuo> elite = this.getElite();
 		
+		//Seleccionamos 100 individuos y reemplazamos la población
+		List<Integer> seleccion = _seleccion.selecciona(this._size, this, maximiza);
+		List<Individuo> nuevosIndividuos = new ArrayList<Individuo>();
+		for (Integer i : seleccion)
+		{
+			nuevosIndividuos.add(_individuos.get(i).clone());
+		}
+		this._individuos = nuevosIndividuos;
+		//System.out.println("---------------------------------------------------------------Seleccion\n\n\n" + this);
+
+		this.cruza();
+		//System.out.println("---------------------------------------------------------------Cruce\n\n\n" + this);
+		this.mutacion();
+		//System.out.println("---------------------------------------------------------------Mutacion\n\n\n" + this);
+		this.sort(); //Ordenamos segun el fitness de nuevo
+		int k = 0;
+		/*for (Individuo i: elite)
+		{
+			int index = maximiza ? k : _size - 1 - k; //Podría ser al revés;
+			_individuos.set(index, i);
+			k++;
+		}*/
+		this.sort();
+
 		
 	}
 	
@@ -154,6 +186,11 @@ public abstract class Poblacion<T> {
 	
 	public Seleccion get_seleccion() {
 		return this._seleccion;
+	}
+	
+	public void set_cruce(Cruce cruce)
+	{
+		this._cruce = cruce;
 	}
 }
 

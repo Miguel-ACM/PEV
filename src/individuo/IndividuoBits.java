@@ -10,6 +10,8 @@ public class IndividuoBits implements Individuo {
 	private int _totalSize;
 	private int _variables;
 	private Fitness _fitness;
+	private float _fenotipo[];
+	private float _tolerance;
 	
 	/*
 	//Inicializa y randomiza la cadena de bits
@@ -17,14 +19,15 @@ public class IndividuoBits implements Individuo {
 		this.initialize(limits, tol);
 	}*/
 	
-	public IndividuoBits(float limits[][], float tol, Fitness fitness) {
-		this.initialize(limits, tol);
+	public IndividuoBits(Fitness fitness, float tol) {
+		this.initialize(fitness.getLimits(), tol);
 		_fitness = fitness;
 		
 	}
 	
 	private void initialize(float limits[][], float tol)
 	{
+		_tolerance = tol;
 		_totalSize = 0;
 		_limites = limits;
 		_size = new int[limits.length];
@@ -43,21 +46,27 @@ public class IndividuoBits implements Individuo {
 			_genotipo[i] = Math.random() > 0.5 ? true : false;
 			//_genotipo[i] = true;
 		}
+		this.calculateFenotipo();
 	}
 
 	
-	//Posibilidad es un float de 0 a 100
-	public int mutacion(float posibilidad) {
+	//Posibilidad es un float de 0 a 1
+	public Individuo mutacion(float posibilidad) {
 		for (int i = 0; i < _totalSize; i++)
 		{
-			_genotipo[i] = Math.random() <= posibilidad ? ! _genotipo[i] : _genotipo[i];
+			
+			this._genotipo[i] = Math.random() <= posibilidad ? ! _genotipo[i] : _genotipo[i];
 		}
-		return 0;
+		this.calculateFenotipo();
+		return this;
+	}
+	
+	public float[] getFenotipo() {
+		return _fenotipo;
 	}
 	
 	//Devuelve el array de valores que representa
-	@Override
-	public float[] getFenotipo(){
+	private void calculateFenotipo(){
 		float[] fenotipos = new float[_variables];
 		int entero = 0;
 		int current_number = 0;
@@ -81,7 +90,7 @@ public class IndividuoBits implements Individuo {
 			}
 			bits_passed++;
 		}
-		return fenotipos;
+		_fenotipo = fenotipos;
 	}
 
 	@Override
@@ -119,7 +128,7 @@ public class IndividuoBits implements Individuo {
 	}
 	
 	//Falta control de errores
-	public boolean[] getCromosomas(int idxBegin, int idxEnd)
+	/*public boolean[] getCromosomas(int idxBegin, int idxEnd)
 	{
 		boolean[] ret = new boolean[idxEnd - idxBegin];
 		for (int i = 0; i < idxEnd - idxBegin; i++)
@@ -140,11 +149,20 @@ public class IndividuoBits implements Individuo {
 
 	public int getNumCromosomas() {
 		return _totalSize;
+	}*/
+	
+	public Individuo clone()
+	{
+		IndividuoBits in = new IndividuoBits(this._fitness, this._tolerance);
+		in.setGenotipo(this._genotipo);
+		return in;
+		
 	}
 
 
 	public void setGenotipo(boolean[] nuevoGenotipo) {
 		_genotipo = nuevoGenotipo;
+		this.calculateFenotipo();
 	}
 
 }

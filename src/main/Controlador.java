@@ -2,13 +2,17 @@ package main;
 
 import cruces.Cruce;
 import cruces.CruceBits;
+import cruces.CruceMonopunto;
+import cruces.CruceUniforme;
 import fitness.Fitness;
 import fitness.FitnessFuncion1;
 import fitness.FitnessHolderTable;
 import fitness.FitnessMichalewicz;
 import fitness.FitnessSchubert;
+import individuo.Individuo;
 import poblacion.Poblacion;
 import poblacion.PoblacionBits;
+import seleccion.Ruleta;
 import seleccion.Seleccion;
 
 public class Controlador {
@@ -17,7 +21,10 @@ public class Controlador {
 	private int _size;
 	private Fitness _fitness;
 	private Seleccion _seleccion;
-	private Cruce<?> _cruce;
+	private Cruce _cruce;
+	private float _tolerance = 0.001f;
+	private float _mutationProb = 0.1f;
+	private float _cruceProb = 0.7f;
 	
 	
 	
@@ -25,12 +32,19 @@ public class Controlador {
 	{
 		_size = 100;
 		_fitness = new FitnessFuncion1();
+		_seleccion = new Ruleta();
+		_cruce = new CruceMonopunto();
 		reestart();
 	}
 	
 	public void reestart()
 	{
 		_poblacion = new PoblacionBits(_size, _fitness.getLimits(), _fitness);
+		_poblacion.set_cruce(_cruce);
+		_poblacion.set_seleccion(_seleccion);
+		_poblacion.set_tolerance(_tolerance);
+		_poblacion.set_mutationProbability(_mutationProb);
+		_poblacion.set_cruceProbability(_cruceProb); //Falta esto
 	}
 	
 	public void nextStep()
@@ -40,7 +54,7 @@ public class Controlador {
 	
 	public void evolve()
 	{
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			_poblacion.nextGen();
 		}
@@ -66,13 +80,28 @@ public class Controlador {
 	
 	public void set_tolerance(float tol)
 	{
+		this._tolerance = tol;
 		_poblacion.set_tolerance(tol);
 	}
 	
 	public void set_mutationProbability(float mut)
 	{
+		this._mutationProb = mut;
 		_poblacion.set_mutationProbability(mut);
 	}
 	
+	public void set_cruce(String newCruce)
+	{
+		if (newCruce.equals("Monopunto"))
+			_cruce = new CruceMonopunto();
+		else 
+			_cruce = new CruceUniforme();
+		_poblacion.set_cruce(_cruce);
+	}
+	
+	public void set_seleccion(String seleccion)
+	{
+		//Poner la seleccion, que me da palo
+	}
 	
 }
