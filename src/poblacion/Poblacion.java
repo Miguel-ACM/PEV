@@ -13,8 +13,8 @@ public abstract class Poblacion {
 	protected List<Individuo> _individuos;
 	private int _size;
 	protected float _tolerance = 0.001f;
-	protected float _cruceProbability = 0.7f;
-	private float _mutationProbability = 0.1f;
+	protected float _cruceProbability = 0.6f;
+	private float _mutationProbability = 0.05f;
 	protected Fitness _fitness;
 	private Seleccion _seleccion;
 	protected Cruce _cruce;
@@ -116,17 +116,27 @@ public abstract class Poblacion {
 	
 	public abstract void cruza();
 	
-	public List<Individuo> getElite()
+	public List<Individuo> getElite(boolean maximiza)
 	{
-		return null; //TODO
+		List<Individuo> elite = new ArrayList<Individuo>();
+
+		int numElite = (int) (this._elitePercent * this._size);
+		for (int i = 0; i < numElite; i++)
+		{
+			int index = maximiza ? _size - 1 - i : i ; //Podría ser al revés;
+			elite.add(_individuos.get(index));
+			System.out.println(_individuos.get(index).getFitness());
+		}
+		
+		return elite;
 	}
 	
 	public void nextGen()
 	{
-		System.out.println("---------------------------------------------------------------Start\n\n\n" + this);
+		//System.out.println("---------------------------------------------------------------Start\n\n\n" + this);
 		boolean maximiza = _fitness.maximiza();
 		//Extrae la elite
-		List<Individuo> elite = this.getElite();
+		List<Individuo> elite = this.getElite(maximiza);
 		
 		//Seleccionamos 100 individuos y reemplazamos la población
 		List<Integer> seleccion = _seleccion.selecciona(this._size, this, maximiza);
@@ -144,15 +154,14 @@ public abstract class Poblacion {
 		//System.out.println("---------------------------------------------------------------Mutacion\n\n\n" + this);
 		this.sort(); //Ordenamos segun el fitness de nuevo
 		int k = 0;
-		/*for (Individuo i: elite)
+		for (Individuo i: elite)
 		{
-			int index = maximiza ? k : _size - 1 - k; //Podría ser al revés;
+			int index = maximiza ? _size - 1 - k : k; //Podría ser al revés;
 			_individuos.set(index, i);
 			k++;
-		}*/
+		}
 		this.sort();
 
-		
 	}
 	
 	//Getters y setters
@@ -191,6 +200,11 @@ public abstract class Poblacion {
 	public void set_cruce(Cruce cruce)
 	{
 		this._cruce = cruce;
+	}
+	
+	public void set_elite(Float elite)
+	{
+		this._elitePercent = elite;
 	}
 }
 

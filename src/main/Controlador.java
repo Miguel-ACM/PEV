@@ -14,25 +14,26 @@ import poblacion.Poblacion;
 import poblacion.PoblacionBits;
 import seleccion.Ruleta;
 import seleccion.Seleccion;
+import seleccion.TorneoDeterministico;
+import seleccion.UniversalEstocastica;
 
 public class Controlador {
 	
 	private Poblacion _poblacion;
-	private int _size;
+	private int _size = 100;
 	private Fitness _fitness;
 	private Seleccion _seleccion;
 	private Cruce _cruce;
-	private float _tolerance = 0.001f;
-	private float _mutationProb = 0.1f;
-	private float _cruceProb = 0.7f;
+	private float _tolerance = 0.1f;
+	private float _mutationProb = 0.5f;
+	private float _cruceProb = 0.6f;
 	
 	
 	
 	public Controlador()
 	{
-		_size = 100;
-		_fitness = new FitnessFuncion1();
-		_seleccion = new Ruleta();
+		_fitness = new FitnessMichalewicz(2);
+		_seleccion = new TorneoDeterministico();
 		_cruce = new CruceMonopunto();
 		reestart();
 	}
@@ -104,4 +105,8 @@ public class Controlador {
 		//Poner la seleccion, que me da palo
 	}
 	
+	public String toString()
+	{
+		return _poblacion.toString();
+	}
 }

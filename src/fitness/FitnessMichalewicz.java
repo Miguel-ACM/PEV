@@ -31,8 +31,8 @@ public class FitnessMichalewicz implements Fitness{
 		float[][] limits = new float[_param][2];
 		for (int row = 0; row < _param; row++)
 		{
-			limits[row][0] = -10f;
-			limits[row][1] = 10f;
+			limits[row][0] = 0f;
+			limits[row][1] = (float) Math.PI;
 		}
 		return limits;
 		

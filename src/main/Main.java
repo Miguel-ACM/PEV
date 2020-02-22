@@ -25,11 +25,13 @@ public class Main {
 		float[] fenotipo = in.fenotipo();*/
 		
 		Controlador c = new Controlador();
-		for (int i = 0; i < 1000; i++)
+		System.out.println(c);
+		for (int i = 0; i < 100; i++)
 		{
 			System.out.println("\n\n*****************************************************************\nGEN " + i + "\n*****************************************************************\n");
 			c.nextStep();
 		}
+
 		// ordenar población por fitness
 		//p.getFitness();
 			
