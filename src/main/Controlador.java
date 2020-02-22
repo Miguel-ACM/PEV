@@ -20,30 +20,29 @@ import seleccion.UniversalEstocastica;
 public class Controlador {
 	
 	private Poblacion _poblacion;
-	private int _size = 100;
+	private int _size = 1000;
 	private Fitness _fitness;
 	private Seleccion _seleccion;
 	private Cruce _cruce;
-	private float _tolerance = 0.1f;
-	private float _mutationProb = 0.5f;
+	private float _tolerance = 0.00001f;
+	private float _mutationProb = 0.05f;
 	private float _cruceProb = 0.6f;
 	
 	
 	
 	public Controlador()
 	{
-		_fitness = new FitnessMichalewicz(2);
-		_seleccion = new TorneoDeterministico();
-		_cruce = new CruceMonopunto();
+		_fitness = new FitnessMichalewicz(7);
+		_seleccion = new Ruleta();
+		_cruce = new CruceUniforme();
 		reestart();
 	}
 	
 	public void reestart()
 	{
-		_poblacion = new PoblacionBits(_size, _fitness.getLimits(), _fitness);
+		_poblacion = new PoblacionBits(_size, _fitness, _tolerance);
 		_poblacion.set_cruce(_cruce);
 		_poblacion.set_seleccion(_seleccion);
-		_poblacion.set_tolerance(_tolerance);
 		_poblacion.set_mutationProbability(_mutationProb);
 		_poblacion.set_cruceProbability(_cruceProb); //Falta esto
 	}
@@ -82,7 +81,7 @@ public class Controlador {
 	public void set_tolerance(float tol)
 	{
 		this._tolerance = tol;
-		_poblacion.set_tolerance(tol);
+		this.reestart();
 	}
 	
 	public void set_mutationProbability(float mut)

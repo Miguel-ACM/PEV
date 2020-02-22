@@ -11,8 +11,11 @@ import individuo.IndividuoBits;
 
 public class PoblacionBits extends Poblacion{	
 	
-	public PoblacionBits(int size, float[][] limits, Fitness fitness) {
-		super(size, limits, fitness);
+	private float _tolerance;
+	
+	public PoblacionBits(int size, Fitness fitness, float tolerance) {
+		super(size, fitness);
+		_tolerance = tolerance;
 		while (size > 0)
 		{
 			_individuos.add(new IndividuoBits(_fitness, _tolerance));
@@ -20,7 +23,8 @@ public class PoblacionBits extends Poblacion{
 		}
 		
 		// ordena la población
-		Collections.sort(_individuos);
+		this.sort();
+		_bestFitness = this.getFitness_max(fitness.maximiza());
 	}
 
 	public void cruza()
@@ -60,6 +64,20 @@ public class PoblacionBits extends Poblacion{
 		}
 	}
 
+	//Reinicia el reseteoPercent de la poblacion
+	@Override
+	public void reseteaPoblacion(float reseteoPercent, boolean maximiza) {
+		int numReset = (int) (reseteoPercent * this._size);
+		for (int i = 0; i < numReset; i++)
+		{
+			int index = maximiza ? i :  _size - 1 - i ; 
+			_individuos.set(index, new IndividuoBits(this._fitness, this._tolerance));
+		}
+		
+		this.sort();
+		_bestFitness = this.getFitness_max(maximiza);
+
+	}
 	
 }
 

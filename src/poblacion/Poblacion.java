@@ -11,8 +11,8 @@ import seleccion.Seleccion;
 
 public abstract class Poblacion {
 	protected List<Individuo> _individuos;
-	private int _size;
-	protected float _tolerance = 0.001f;
+	protected int _size;
+	protected float _tolerance;
 	protected float _cruceProbability = 0.6f;
 	private float _mutationProbability = 0.05f;
 	protected Fitness _fitness;
@@ -20,7 +20,14 @@ public abstract class Poblacion {
 	protected Cruce _cruce;
 	private float _elitePercent = 0.02f;
 	
-	public Poblacion(int size, float[][] limits, Fitness fitness){
+	//Estos son para, cuando se quede estancada la poblacion, se resetee un porcentaje de la misma.
+	protected double _bestFitness;
+	private boolean _estancamiento = true;
+	private int _numGenEstancado = 0;
+	private int _numGenEstancadoThreshold = 20;
+	private float _reseteoPercent = 0.5f;
+	
+	public Poblacion(int size, Fitness fitness){
 		_individuos = new ArrayList<Individuo>();
 		_size = size;
 		_fitness = fitness;
@@ -67,7 +74,6 @@ public abstract class Poblacion {
 		for (int i = 0; i < _size; i++)
 		{
 			res[i] = _individuos.get(i).getFitness();
-	//		System.out.println(res[i]);
 		}		
 		return res;
 	}
@@ -113,9 +119,7 @@ public abstract class Poblacion {
 		else 
 			return _individuos.get(_size-1).getFitness();
 	}
-	
-	public abstract void cruza();
-	
+		
 	public List<Individuo> getElite(boolean maximiza)
 	{
 		List<Individuo> elite = new ArrayList<Individuo>();
@@ -130,7 +134,7 @@ public abstract class Poblacion {
 		
 		return elite;
 	}
-	
+		
 	public void nextGen()
 	{
 		//System.out.println("---------------------------------------------------------------Start\n\n\n" + this);
@@ -156,12 +160,46 @@ public abstract class Poblacion {
 		int k = 0;
 		for (Individuo i: elite)
 		{
-			int index = maximiza ? _size - 1 - k : k; //Podría ser al revés;
+			int index = maximiza ? k :  _size - 1 - k; 
 			_individuos.set(index, i);
 			k++;
 		}
 		this.sort();
-
+		if (_estancamiento)
+		
+		{
+			if (this.betterFitness(getFitness_max(maximiza), _bestFitness) > 0) 
+			{
+				_bestFitness = getFitness_max(maximiza);
+				this._numGenEstancado = 0;
+			}
+			else {
+				_numGenEstancado++;
+				if (_numGenEstancado >= _numGenEstancadoThreshold)
+				{
+					this.reseteaPoblacion(_reseteoPercent, _fitness.maximiza());
+					this._numGenEstancado = 0;
+				}
+			
+			}
+		}
+	}
+	
+	//Compara dos valores de fitness
+	//Devuelve 1 si es mejor fit 1 y -1 si es mejor fit2. 0 si son iguales
+	private int betterFitness(Double fit1, Double fit2)
+	{
+		if (_fitness.maximiza())
+		{
+			if (fit1 <= fit2)
+				return -1;
+			else return 1;
+		}
+		else {
+			if (fit1 >= fit2)
+				return -1;
+			else return 1;
+		}
 	}
 	
 	//Getters y setters
@@ -197,14 +235,17 @@ public abstract class Poblacion {
 		return this._seleccion;
 	}
 	
-	public void set_cruce(Cruce cruce)
-	{
+	public void set_cruce(Cruce cruce){
 		this._cruce = cruce;
 	}
 	
-	public void set_elite(Float elite)
-	{
+	public void set_elite(Float elite){
 		this._elitePercent = elite;
 	}
+	
+	public abstract void cruza();
+	
+	public abstract void reseteaPoblacion(float reseteoPercent, boolean maximiza);
+
 }
 
