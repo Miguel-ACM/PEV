@@ -18,8 +18,8 @@ public interface Individuo extends Comparable<Individuo> {
 		else if (fitness_this < fitness_other)
 			return -1;
 		return 0;
-		
 	}
+	
 	//public T getGenotipo();
 	
 	//public T getCromosomas(int idxBegin, int idxEnd);

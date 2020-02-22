@@ -1,7 +1,6 @@
 package main;
 
 import cruces.Cruce;
-import cruces.CruceBits;
 import cruces.CruceMonopunto;
 import cruces.CruceUniforme;
 import fitness.Fitness;
@@ -9,7 +8,6 @@ import fitness.FitnessFuncion1;
 import fitness.FitnessHolderTable;
 import fitness.FitnessMichalewicz;
 import fitness.FitnessSchubert;
-import individuo.Individuo;
 import poblacion.Poblacion;
 import poblacion.PoblacionBits;
 import seleccion.Ruleta;
@@ -32,7 +30,7 @@ public class Controlador {
 	
 	public Controlador()
 	{
-		_fitness = new FitnessMichalewicz(2);
+		_fitness = new FitnessFuncion1();
 		_seleccion = new Ruleta();
 		_cruce = new CruceUniforme();
 		reestart();

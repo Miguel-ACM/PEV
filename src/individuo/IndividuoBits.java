@@ -12,13 +12,7 @@ public class IndividuoBits implements Individuo {
 	private Fitness _fitness;
 	private float _fenotipo[];
 	private float _tolerance;
-	
-	/*
-	//Inicializa y randomiza la cadena de bits
-	public IndividuoBits(float limits[][], float tol) {
-		this.initialize(limits, tol);
-	}*/
-	
+
 	public IndividuoBits(Fitness fitness, float tol) {
 		this.initialize(fitness.getLimits(), tol);
 		_fitness = fitness;
@@ -94,7 +88,7 @@ public class IndividuoBits implements Individuo {
 	}
 
 	@Override
-	public double getFitness() { //TODO Comprobar que _fitness esté inicializado por algún lado
+	public double getFitness() {
 		return _fitness.fitness( this);
 	}
 	
@@ -126,30 +120,6 @@ public class IndividuoBits implements Individuo {
 		}
 		return retValue;
 	}
-	
-	//Falta control de errores
-	/*public boolean[] getCromosomas(int idxBegin, int idxEnd)
-	{
-		boolean[] ret = new boolean[idxEnd - idxBegin];
-		for (int i = 0; i < idxEnd - idxBegin; i++)
-		{
-			ret[i] = ret[idxEnd + 1];
-		}
-		return ret;
-	}
-	
-	public void setCromosomas(int idxBegin, boolean[] set)
-	{
-		int len = set.length;
-		for (int i = 0; i < len; i++)
-		{
-			_genotipo[i + idxBegin] = set[i];
-		}
-	}
-
-	public int getNumCromosomas() {
-		return _totalSize;
-	}*/
 	
 	public Individuo clone()
 	{
