@@ -24,17 +24,17 @@ public class Controlador {
 	private Fitness _fitness;
 	private Seleccion _seleccion;
 	private Cruce _cruce;
-	private float _tolerance = 0.00001f;
+	private float _tolerance = 0.001f;
 	private float _mutationProb = 0.05f;
 	private float _cruceProb = 0.6f;
-	
+	private float _elitismoPer = 0.02f;
 	
 	
 	public Controlador()
 	{
-		_fitness = new FitnessSchubert();
+		_fitness = new FitnessMichalewicz(2);
 		_seleccion = new Ruleta();
-		_cruce = new CruceMonopunto();
+		_cruce = new CruceUniforme();
 		reestart();
 	}
 	
@@ -44,7 +44,8 @@ public class Controlador {
 		_poblacion.set_cruce(_cruce);
 		_poblacion.set_seleccion(_seleccion);
 		_poblacion.set_mutationProbability(_mutationProb);
-		_poblacion.set_cruceProbability(_cruceProb); //Falta esto
+		_poblacion.set_cruceProbability(_cruceProb); 
+		_poblacion.set_elite(_elitismoPer);
 	}
 	
 	public void nextStep()
@@ -52,30 +53,23 @@ public class Controlador {
 		_poblacion.nextGen();
 	}
 	
-	public void evolve()
-	{
-		for (int i = 0; i < 5; i++)
-		{
-			_poblacion.nextGen();
-		}
-	}
-	
-	public void setFitness(String newFitness)
+	//parametro solo sirve para la funcion 4
+	public void set_fitness(String newFitness, int parametro)
 	{
 		if (newFitness.equals("Schubert"))
 			_fitness = new FitnessSchubert();
 		else if (newFitness.equals("Holder Table"))
 			_fitness = new FitnessHolderTable();
 		else if (newFitness.equals("Michalewicz"))
-			_fitness = new FitnessMichalewicz(1); //DEBERIA COGER DE ALGUN SITIO EL VALOR DE LA N
+			_fitness = new FitnessMichalewicz(parametro);
 		else
 			_fitness = new FitnessFuncion1();
 		this.reestart();
 	}
 	
-	public void setSize(int size) {
-		this.reestart();
+	public void set_size(int size) {
 		_size = size;
+		this.reestart();
 	}
 	
 	public void set_tolerance(float tol)
@@ -99,9 +93,27 @@ public class Controlador {
 		_poblacion.set_cruce(_cruce);
 	}
 	
+	public void set_cruceProbability(float cruceProbability)
+	{
+		_cruceProb = cruceProbability;
+		_poblacion.set_cruceProbability(_cruceProb);
+	}
+	
+	public void set_elite(float elitePercent)
+	{
+		_elitismoPer = elitePercent;
+		_poblacion.set_elite(_elitismoPer);
+	}
+	
 	public void set_seleccion(String seleccion)
 	{
-		//Poner la seleccion, que me da palo
+		if (seleccion.equals("Ruleta"))
+			_seleccion = new Ruleta();
+		else if (seleccion.equals("Universal estocástica"))
+			_seleccion = new UniversalEstocastica();
+		else
+			_seleccion = new TorneoDeterministico();
+		_poblacion.set_seleccion(_seleccion);
 	}
 	
 	public String toString()
