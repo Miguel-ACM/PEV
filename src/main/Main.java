@@ -26,7 +26,7 @@ public class Main {
 		
 		Controlador c = new Controlador();
 		System.out.println(c);
-		for (int i = 0; i < 1000; i++)
+		for (int i = 0; i < 100; i++)
 		{
 			System.out.println("\n\n*****************************************************************\nGEN " + i + "\n*****************************************************************\n");
 			c.nextStep();

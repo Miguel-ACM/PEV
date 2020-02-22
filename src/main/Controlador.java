@@ -20,7 +20,7 @@ import seleccion.UniversalEstocastica;
 public class Controlador {
 	
 	private Poblacion _poblacion;
-	private int _size = 1000;
+	private int _size = 100;
 	private Fitness _fitness;
 	private Seleccion _seleccion;
 	private Cruce _cruce;
@@ -32,9 +32,9 @@ public class Controlador {
 	
 	public Controlador()
 	{
-		_fitness = new FitnessMichalewicz(7);
+		_fitness = new FitnessSchubert();
 		_seleccion = new Ruleta();
-		_cruce = new CruceUniforme();
+		_cruce = new CruceMonopunto();
 		reestart();
 	}
 	

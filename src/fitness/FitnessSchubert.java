@@ -9,7 +9,6 @@ public class FitnessSchubert implements Fitness{
 		float[] fenotipo = individuo.getFenotipo();
 		if (fenotipo.length < 2)
 			return -1; //TODO CONTROL DE EXCEPCIONES
-		fenotipo[0] = -1.959091f;
 		double firstSum = 0;
 		double secondSum = 0;
 		
