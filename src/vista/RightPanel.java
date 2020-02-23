@@ -51,7 +51,7 @@ public class RightPanel extends JPanel implements ActionListener{
 		constraints.gridy = 8;
 		constraints.weightx = 1;
 		constraints.weighty = 1;	// 
-		constraints.fill = GridBagConstraints.EAST;
+		//constraints.fill = GridBagConstraints.EAST;
 		constraints.anchor = GridBagConstraints.EAST;
 		this.add(representacionPnl, constraints);
 				
@@ -59,8 +59,8 @@ public class RightPanel extends JPanel implements ActionListener{
 		constraints.gridy = 1;
 		constraints.weightx = 1;
 		constraints.weighty = 1;	// 
-		constraints.fill = GridBagConstraints.HORIZONTAL;
-		constraints.anchor = GridBagConstraints.SOUTH;
+		//constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.anchor = GridBagConstraints.WEST;
 			
 		this.add(funcionPnl, constraints);		
 		
@@ -69,7 +69,7 @@ public class RightPanel extends JPanel implements ActionListener{
 		constraints.weightx = 1;
 		constraints.weighty = 1;	// 
 		//constraints.fill = GridBagConstraints.EAST;
-		constraints.anchor = GridBagConstraints.NORTH;		
+		constraints.anchor = GridBagConstraints.WEST;		
 		this.add(seleccionPnl, constraints);
 			
 		constraints.gridx = 0;
@@ -77,7 +77,7 @@ public class RightPanel extends JPanel implements ActionListener{
 		constraints.weightx = 1;
 		constraints.weighty = 1;	// 
 		//constraints.fill = GridBagConstraints.EAST;
-		constraints.anchor = GridBagConstraints.NORTH;
+		constraints.anchor = GridBagConstraints.WEST;
 		this.add(crucePnl, constraints);
 		
 		constraints.gridx = 0;
@@ -85,7 +85,7 @@ public class RightPanel extends JPanel implements ActionListener{
 		constraints.weightx = 1;
 		constraints.weighty = 1;	// 
 		//constraints.fill = GridBagConstraints.EAST;
-		constraints.anchor = GridBagConstraints.EAST;
+		constraints.anchor = GridBagConstraints.WEST;
 		this.add(mutacionPnl, constraints);
 		
 		constraints.gridx = 0;
@@ -93,7 +93,7 @@ public class RightPanel extends JPanel implements ActionListener{
 		constraints.weightx = 1;
 		constraints.weighty = 1;	// 
 		//constraints.fill = GridBagConstraints.EAST;
-		constraints.anchor = GridBagConstraints.NORTH;
+		constraints.anchor = GridBagConstraints.WEST;
 		this.add(elitePnl, constraints);
 		
 		constraints.gridx = 0;
@@ -101,7 +101,7 @@ public class RightPanel extends JPanel implements ActionListener{
 		constraints.weightx = 1;
 		constraints.weighty = 1;	// 
 		//constraints.fill = GridBagConstraints.EAST;
-		constraints.anchor = GridBagConstraints.NORTH;
+		constraints.anchor = GridBagConstraints.WEST;
 		this.add(poblacionPnl, constraints);
 			
 	}

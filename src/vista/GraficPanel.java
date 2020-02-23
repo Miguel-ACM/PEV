@@ -38,7 +38,17 @@ public class GraficPanel extends JPanel implements ActionListener{
 	public  GraficPanel(PanelPrincipal pp) {
 		
 		multiGrafico();
-	
+		
+		GridBagConstraints constraints = new GridBagConstraints();
+		
+		constraints.gridx = 2;
+		constraints.gridy = 4;
+		constraints.weightx = 2;
+		constraints.weighty = 2;	// 
+		constraints.fill = GridBagConstraints.VERTICAL;
+		constraints.anchor = GridBagConstraints.HORIZONTAL;
+		this.add(panel, constraints);
+		
 	}
 
 	
@@ -65,15 +75,16 @@ public class GraficPanel extends JPanel implements ActionListener{
 	
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
 		chart = ChartFactory.createXYLineChart("EVOLUCIÓN", "Generaciones", "Fitness", datasetMulti);
-		chart.getXYPlot().getRangeAxis().setRange(-10, 10); // rango del eje Y
+		chart.getXYPlot().getRangeAxis().setRange(-2, 2); // rango del eje Y
         ((NumberAxis) chart.getXYPlot().getRangeAxis()).setNumberFormatOverride(new DecimalFormat("#"));
         chart.getXYPlot().setRenderer(renderer);
         panel = new ChartPanel(chart);
         
         /*JFrame ventana = new JFrame("Gráfica");
 		ventana.setVisible(true);
-		ventana.setSize(800, 600);
+		ventana.setSize(400, 300);
 		ventana.add(panel);*/
+		
       	}
 
 	@Override

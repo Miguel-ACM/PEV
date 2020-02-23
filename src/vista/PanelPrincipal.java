@@ -19,14 +19,11 @@ public class PanelPrincipal extends JFrame{
 		gp = new GraficPanel(this);
 		
 		
-		add(gp, BorderLayout.CENTER);
-		add(rp, BorderLayout.EAST);
-		
-		
-		
-		
-		setLayout(new GridLayout(1, 2));	
-		this.setSize(1000, 800);
+		add(rp, BorderLayout.CENTER);
+		add(gp, BorderLayout.EAST);
+				
+		setLayout(new GridLayout(1, 3));	
+		this.setSize(1400, 700);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		
 		this.setVisible(true);
