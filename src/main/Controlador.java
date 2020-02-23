@@ -20,14 +20,14 @@ import seleccion.UniversalEstocastica;
 public class Controlador {
 	
 	private Poblacion _poblacion;
-	private int _size = 100;
+	private int _size = 10;
 	private Fitness _fitness;
 	private Seleccion _seleccion;
 	private Cruce _cruce;
 	private float _tolerance = 0.001f;
 	private float _mutationProb = 0.05f;
 	private float _cruceProb = 0.6f;
-	private float _elitismoPer = 0.02f;
+	private float _elitismoPer = 0.2f;
 	
 	
 	public Controlador()
@@ -40,7 +40,7 @@ public class Controlador {
 	
 	public void reestart()
 	{
-		_poblacion = new PoblacionReal(_size, _fitness);
+		_poblacion = new PoblacionBits(_size, _fitness, _tolerance);
 		_poblacion.set_cruce(_cruce);
 		_poblacion.set_seleccion(_seleccion);
 		_poblacion.set_mutationProbability(_mutationProb);
@@ -51,6 +51,12 @@ public class Controlador {
 	public void nextStep()
 	{
 		_poblacion.nextGen();
+	}
+	
+	public void executeSteps(int numSteps)
+	{
+		while (numSteps > 0)
+			_poblacion.nextGen();
 	}
 	
 	//parametro solo sirve para la funcion 4

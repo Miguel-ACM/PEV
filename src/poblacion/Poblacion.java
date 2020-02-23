@@ -124,7 +124,7 @@ public abstract class Poblacion {
 		for (int i = 0; i < numElite; i++)
 		{
 			int index = maximiza ? _size - 1 - i : i ;
-			elite.add(_individuos.get(index));
+			elite.add(_individuos.get(index).clone());
 			System.out.println(_individuos.get(index).getFitness());
 		}
 		
@@ -133,7 +133,7 @@ public abstract class Poblacion {
 		
 	public void nextGen()
 	{
-		//System.out.println("---------------------------------------------------------------Start\n\n\n" + this);
+		System.out.println("---------------------------------------------------------------Start\n\n\n" + this);
 		boolean maximiza = _fitness.maximiza();
 		//Extrae la elite
 		List<Individuo> elite = this.getElite(maximiza);
@@ -146,21 +146,24 @@ public abstract class Poblacion {
 			nuevosIndividuos.add(_individuos.get(i).clone());
 		}
 		this._individuos = nuevosIndividuos;
-		//System.out.println("---------------------------------------------------------------Seleccion\n\n\n" + this);
+		System.out.println("---------------------------------------------------------------Seleccion\n\n\n" + this);
 
 		this.cruza();
-		//System.out.println("---------------------------------------------------------------Cruce\n\n\n" + this);
+		System.out.println("---------------------------------------------------------------Cruce\n\n\n" + this);
 		this.mutacion();
-		//System.out.println("---------------------------------------------------------------Mutacion\n\n\n" + this);
 		this.sort(); //Ordenamos segun el fitness de nuevo
+		System.out.println("---------------------------------------------------------------Mutacion\n\n\n" + this);
 		int k = 0;
 		for (Individuo i: elite)
 		{
+			
 			int index = maximiza ? k :  _size - 1 - k; 
+			System.out.println("Se reemplaza: " + _individuos.get(index).getFitness() + " por " + i.getFitness());
 			_individuos.set(index, i);
 			k++;
 		}
-		this.sort();
+		System.out.println("---------------------------------------------------------------Elitismo\n\n\n" + this);
+
 		if (_estancamiento)
 		
 		{
@@ -173,12 +176,17 @@ public abstract class Poblacion {
 				_numGenEstancado++;
 				if (_numGenEstancado >= _numGenEstancadoThreshold)
 				{
+					System.out.println("RESET");
 					this.reseteaPoblacion(_reseteoPercent, _fitness.maximiza());
 					this._numGenEstancado = 0;
 				}
 			
 			}
 		}
+		this.sort();
+		System.out.println("---------------------------------------------------------------PostElitismo\n\n\n" + this);
+
+
 	}
 	
 	//Compara dos valores de fitness
