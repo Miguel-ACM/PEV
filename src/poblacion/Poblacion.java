@@ -39,7 +39,7 @@ public abstract class Poblacion {
 		int j = 0;
 		for (Individuo i : _individuos)
 		{
-			retValue += j + " | " + i + ": ";
+			retValue += j + "�|�" + i + ": ";
 			boolean first = true;
 			for (float f : i.getFenotipo())
 			{
@@ -59,12 +59,8 @@ public abstract class Poblacion {
 	public void mutacion() 
 	{
 		for (int i = 0; i < _size; i++)
-		{
-			//_individuos.get(i).mutacion(_mutationProbability);
-			
-			//System.out.println("-------------------------------\n" +_individuos.get(i));
+		{			
 			_individuos.set(i, _individuos.get(i).mutacion(_mutationProbability)); 
-			//System.out.println(_individuos.get(i));
 		}
 	}
 	
@@ -127,7 +123,7 @@ public abstract class Poblacion {
 		int numElite = (int) (this._elitePercent * this._size);
 		for (int i = 0; i < numElite; i++)
 		{
-			int index = maximiza ? _size - 1 - i : i ; //Podría ser al revés;
+			int index = maximiza ? _size - 1 - i : i ;
 			elite.add(_individuos.get(index));
 			System.out.println(_individuos.get(index).getFitness());
 		}

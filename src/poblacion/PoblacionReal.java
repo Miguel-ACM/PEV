@@ -6,7 +6,6 @@ import java.util.Random;
 
 import fitness.Fitness;
 import individuo.Individuo;
-import individuo.IndividuoBits;
 import individuo.IndividuoReal;
 
 public class PoblacionReal extends Poblacion{	

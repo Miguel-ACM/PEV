@@ -21,7 +21,7 @@ public class PoblacionBits extends Poblacion{
 			size--;
 		}
 		
-		// ordena la población
+		// ordena la poblacion
 		this.sort();
 		_bestFitness = this.getFitness_max(fitness.maximiza());
 	}
@@ -56,7 +56,7 @@ public class PoblacionBits extends Poblacion{
 			padres.remove(padre2Index);
 			
 			//System.out.println(padre1IndividuoIndex + " con " + padre2IndividuoIndex);
-			//Política de reemplazamiento: Hijos sustituyen a los padres
+			//Politica de reemplazamiento: Hijos sustituyen a los padres
 			Individuo[] hijos = _cruce.cruza((IndividuoBits) padre1, (IndividuoBits) padre2);
 			_individuos.set(padre1IndividuoIndex, hijos[0]);
 			_individuos.set(padre2IndividuoIndex, hijos[1]);
