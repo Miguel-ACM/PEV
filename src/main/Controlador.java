@@ -1,6 +1,7 @@
 package main;
 
 import cruces.Cruce;
+import cruces.CruceAritmetico;
 import cruces.CruceMonopunto;
 import cruces.CruceUniforme;
 import fitness.Fitness;
@@ -10,6 +11,7 @@ import fitness.FitnessMichalewicz;
 import fitness.FitnessSchubert;
 import poblacion.Poblacion;
 import poblacion.PoblacionBits;
+import poblacion.PoblacionReal;
 import seleccion.Ruleta;
 import seleccion.Seleccion;
 import seleccion.TorneoDeterministico;
@@ -32,13 +34,13 @@ public class Controlador {
 	{
 		_fitness = new FitnessFuncion1();
 		_seleccion = new Ruleta();
-		_cruce = new CruceUniforme();
+		_cruce = new CruceAritmetico();
 		reestart();
 	}
 	
 	public void reestart()
 	{
-		_poblacion = new PoblacionBits(_size, _fitness, _tolerance);
+		_poblacion = new PoblacionReal(_size, _fitness);
 		_poblacion.set_cruce(_cruce);
 		_poblacion.set_seleccion(_seleccion);
 		_poblacion.set_mutationProbability(_mutationProb);

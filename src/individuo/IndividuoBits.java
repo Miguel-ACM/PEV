@@ -2,7 +2,6 @@ package individuo;
 
 import fitness.Fitness;
 
-//Este individuo representa varios
 public class IndividuoBits implements Individuo {
 	private boolean _genotipo[];
 	private float _limites[][];
@@ -30,8 +29,6 @@ public class IndividuoBits implements Individuo {
 		//Calculamos cuantos bits se necesita para cada numero
 		for (int i = 0; i < _variables; i++){
 			_size[i] = (int) (Math.log(1 + (limits[i][1] - limits[i][0]) / tol) / Math.log(2)) + 1;
-			_limites[i][0] = limits[i][0];
-			_limites[i][1] = limits[i][1];
 			_totalSize += _size[i];
 		}
 		
