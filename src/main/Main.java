@@ -2,6 +2,8 @@ package main;
 
 import javax.swing.SwingUtilities;
 
+import main.Controlador;
+
 import vista.PanelPrincipal;
 
 public class Main {
@@ -9,7 +11,7 @@ public class Main {
 	public static void main(String[] args) {		
 		Controlador c = new Controlador();
 		
-		modoGrafico(Controlador c);
+		modoGrafico(c);
 		
 		/*
 		System.out.println(c);

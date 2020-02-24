@@ -23,6 +23,7 @@ import org.jfree.data.xy.DefaultXYDataset;
 
 import fitness.Fitness;
 import fitness.FitnessMichalewicz;
+import main.Controlador;
 
 import org.jfree.chart.axis.NumberAxis;
 import poblacion.Poblacion;
@@ -35,7 +36,7 @@ public class GraficPanel extends JPanel implements ActionListener{
 	private JFreeChart chart;
 	
 	
-	public  GraficPanel(PanelPrincipal pp) {
+	public  GraficPanel(PanelPrincipal pp, Controlador c) {
 		
 		multiGrafico();
 		
