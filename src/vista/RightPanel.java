@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import main.Controlador;
+import main.Controlador.Points;
 
 public class RightPanel extends JPanel {
 	private JPanel representacionPnl, crucePnl, funcionPnl, poblacionPnl, seleccionPnl, mutacionPnl, elitePnl;
@@ -34,9 +35,11 @@ public class RightPanel extends JPanel {
 	private JLabel tipoCruce, porcentCruce, tipoMutacion, porcentMutacion, porcentElite, selElite, indiL, geneL;
 	private String funcionSeleccionada, metodoSeleccion, cruce, hayElite;
 	private Controlador _c;
+	private GraficPanel _gp;
 	
-	public RightPanel(PanelPrincipal pp, Controlador c) {
+	public RightPanel(PanelPrincipal pp, Controlador c, GraficPanel gp) {
 		//this.panelP = pp;
+		_gp = gp;
 		_c = c;
 		crea_representacionPnl();
 		crea_funcionPnl();
@@ -263,7 +266,10 @@ public class RightPanel extends JPanel {
 		iniciarBtn = new JButton("Run", iniciarIcon);
 		iniciarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){  
-	            _c.executeSteps(Integer.parseInt(num_g.getText())); //TODO NECESITO EL PARAMETRO
+	            _c.executeSteps(Integer.parseInt(num_g.getText()));
+	            Points p = _c.getPoints();
+	            _gp.multiGrafico(p);
+	            
 			}  
 		});
 		representacionPnl.add(iniciarBtn, BorderLayout.EAST);

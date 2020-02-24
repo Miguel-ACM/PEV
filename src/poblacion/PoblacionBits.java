@@ -12,7 +12,8 @@ public class PoblacionBits extends Poblacion{
 	
 	private float _tolerance;
 	
-	public PoblacionBits(int size, Fitness fitness, float tolerance) {
+	public PoblacionBits(int size, Fitness fitness, float tolerance) 
+	{
 		super(size, fitness);
 		_tolerance = tolerance;
 		while (size > 0)
@@ -57,7 +58,7 @@ public class PoblacionBits extends Poblacion{
 			
 			//System.out.println(padre1IndividuoIndex + " con " + padre2IndividuoIndex);
 			//Politica de reemplazamiento: Hijos sustituyen a los padres
-			Individuo[] hijos = _cruce.cruza((IndividuoBits) padre1, (IndividuoBits) padre2);
+			Individuo[] hijos = _cruce.cruza((IndividuoBits) padre1.clone(), (IndividuoBits) padre2.clone());
 			_individuos.set(padre1IndividuoIndex, hijos[0]);
 			_individuos.set(padre2IndividuoIndex, hijos[1]);
 		}
@@ -74,7 +75,6 @@ public class PoblacionBits extends Poblacion{
 		}
 		
 		this.sort();
-		_bestFitness = this.getFitness_max(maximiza);
 
 	}
 	

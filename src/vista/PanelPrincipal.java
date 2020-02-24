@@ -16,9 +16,8 @@ public class PanelPrincipal extends JFrame{
 	public PanelPrincipal(Controlador c) {
 		super("PROGRAMACION EVOLUTIVA");
 		
-		rp = new RightPanel(this, c);
 		gp = new GraficPanel(this, c);
-		
+		rp = new RightPanel(this, c, gp);
 		
 		add(rp, BorderLayout.CENTER);
 		add(gp, BorderLayout.EAST);
