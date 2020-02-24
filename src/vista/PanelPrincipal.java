@@ -5,6 +5,7 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import main.Controlador;
 
 import javax.swing.JFrame;
 
@@ -12,11 +13,11 @@ public class PanelPrincipal extends JFrame{
 	private RightPanel rp;
 	private GraficPanel gp;
 	
-	public PanelPrincipal() {
+	public PanelPrincipal(Controlador c) {
 		super("PROGRAMACION EVOLUTIVA");
 		
-		rp = new RightPanel(this);
-		gp = new GraficPanel(this);
+		rp = new RightPanel(this, c);
+		gp = new GraficPanel(this, c);
 		
 		
 		add(rp, BorderLayout.CENTER);

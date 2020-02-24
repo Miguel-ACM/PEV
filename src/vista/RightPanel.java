@@ -22,18 +22,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class RightPanel extends JPanel implements ActionListener{
+import main.Controlador;
+
+public class RightPanel extends JPanel {
 	private JPanel representacionPnl, crucePnl, funcionPnl, poblacionPnl, seleccionPnl, mutacionPnl, elitePnl;
 	private JButton iniciarBtn, finBtn;
 	private ImageIcon iniciarIcon, finIcon;
-	private JComboBox<String> funcionSel, selecSel, cruceSel, mutacionSel, elitelSel;
+	private JComboBox<String> funcionSel, selecSel, cruceSel, mutacionSel, eliteSel;
 	private JTextField pc, pe, pm ,num_p, num_g;
 	//private PanelPrincipal panelP;
 	private JLabel tipoCruce, porcentCruce, tipoMutacion, porcentMutacion, porcentElite, selElite, indiL, geneL;
 	private String funcionSeleccionada, metodoSeleccion, cruce, mutacion, hayElite;
+	private Controlador _c;
 	
-	
-	public RightPanel(PanelPrincipal pp) {
+	public RightPanel(PanelPrincipal pp, Controlador c) {
 		//this.panelP = pp;
 		crea_representacionPnl();
 		crea_funcionPnl();
@@ -113,12 +115,16 @@ public class RightPanel extends JPanel implements ActionListener{
 		GridBagConstraints constraints = new GridBagConstraints();
 		selElite = new JLabel("SI/NO");
 		elitePnl.add(selElite);
-		elitelSel = new JComboBox<String>();
-		elitelSel.addItem("SI");
-		elitelSel.addItem("NO");
-		elitelSel.addActionListener(this);
+		eliteSel = new JComboBox<String>();
+		eliteSel.addItem("SI");
+		eliteSel.addItem("NO");
+		eliteSel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){  
+	            _c.set_elite(Float.parseFloat(eliteSel.getSelectedItem().toString()));
+	}  
+		});
 		selElite.setPreferredSize(new Dimension(100, 20));
-		elitePnl.add(elitelSel);
+		elitePnl.add(eliteSel);
 		
 		porcentElite = new JLabel("%");
 		elitePnl.add(porcentElite);
@@ -144,7 +150,11 @@ public class RightPanel extends JPanel implements ActionListener{
 		mutacionSel = new JComboBox<String>();
 		mutacionSel.addItem("Básica");
 		//mutacionSel.addItem("????");//si añadimos mas
-		mutacionSel.addActionListener(this);
+		/*eliteSel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){  
+	            _c.set_mutacion(Float.parseFloat(eliteSel.getSelectedItem().toString()));
+	}  
+		});*/
 		mutacionSel.setPreferredSize(new Dimension(100, 20));
 		mutacionPnl.add(mutacionSel);
 		
@@ -172,7 +182,11 @@ public class RightPanel extends JPanel implements ActionListener{
 		cruceSel = new JComboBox<String>();
 		cruceSel.addItem("Monopunto");
 		cruceSel.addItem("Uniforme");
-		cruceSel.addActionListener(this);
+		eliteSel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){  
+	            _c.set_cruce(cruceSel.getSelectedItem().toString());
+	}  
+		});
 		cruceSel.setPreferredSize(new Dimension(100, 20));
 		crucePnl.add(cruceSel);
 		
@@ -198,7 +212,11 @@ public class RightPanel extends JPanel implements ActionListener{
 		selecSel.addItem("Ruleta");
 		selecSel.addItem("Torneo(determinístico)");
 		selecSel.addItem("Universal estocástica");
-		funcionSel.addActionListener(this);	
+		selecSel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){  
+	            _c.set_seleccion(selecSel.getSelectedItem().toString());
+	}  
+		});
 		selecSel.setPreferredSize(new Dimension(150, 20));
 		seleccionPnl.add(selecSel);
 		seleccionPnl.setBorder(BorderFactory.createTitledBorder("Tipo de selección"));
@@ -239,7 +257,11 @@ public class RightPanel extends JPanel implements ActionListener{
 		funcionSel.addItem("Holder table");
 		funcionSel.addItem("Schubert");
 		funcionSel.addItem("Michalewicz");
-		funcionSel.addActionListener(this);
+		funcionSel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){  
+	            _c.set_fitness(funcionSel.getSelectedItem().toString(), 1); //TODO NECESITO EL PARAMETRO
+			}  
+		});
 		funcionSel.setPreferredSize(new Dimension(150, 20));
 		funcionPnl.add(funcionSel);
 		funcionPnl.setBorder(BorderFactory.createTitledBorder("Función"));
@@ -250,68 +272,33 @@ public class RightPanel extends JPanel implements ActionListener{
 		
 		iniciarIcon = createImage("rn.png");
 		iniciarBtn = new JButton("Run", iniciarIcon);
-		iniciarBtn.addActionListener(this);
+		iniciarBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){  
+	            _c.executeSteps(Integer.parseInt(num_g.getText())); //TODO NECESITO EL PARAMETRO
+			}  
+		});
 		representacionPnl.add(iniciarBtn, BorderLayout.EAST);
 
 		finIcon = createImage("ex.png");
 		finBtn = new JButton("Exit", finIcon);
-		finBtn.addActionListener(this);
+		RightPanel _this = this;
+		finBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int opcion = JOptionPane.showConfirmDialog(_this,"¿Está seguro ?\n\n "
+						+ "Si lo hace avandona la representación\n", "¿Salir?", 
+						JOptionPane.YES_NO_OPTION);
+				if(opcion == 0){
+					System.exit(0);
+				}		
+			}  
+		});	
+		
 		representacionPnl.add(finBtn, BorderLayout.EAST);
 		
 		representacionPnl.setBorder(BorderFactory.createTitledBorder("Representación"));
 		
 	}
 
-///////////////// Acciones Botones /////////////////////
-	public void actionPerformed(ActionEvent e) {
-		JButton button = (JButton) e.getSource();
-		
-	// Salir
-		if(button.equals(finBtn)){
-			int opcion = JOptionPane.showConfirmDialog(this,"¿Está seguro ?\n\n "
-					+ "Si lo hace avandona la representación\n", "¿Salir?", 
-					JOptionPane.YES_NO_OPTION);
-			if(opcion == 0){
-				System.exit(0);
-			}	
-	// Iniciar 
-		}else if(button.equals(iniciarBtn)) {
-			//String poblacion = num_p.getText();
-			//String generaciones = num_g.getText();
-			//String porcentajeCruce = pc.getText();
-			//String porcentajeElite = pe.getText();
-			//String porcentajeMutacion = pm.getText();
-			
-			int poblacion = Integer.parseInt(num_p.getText());
-			int generaciones = Integer.parseInt(num_g.getText());
-			int porcentajeCruce = Integer.parseInt(pc.getText());
-			int porcentajeElite = Integer.parseInt(pe.getText());
-			int porcentajeMutacion = Integer.parseInt(pe.getText());
-			
-		}
-	}
-	
-	//funcionSel, selecSel, cruceSel, mutacionSel, elitelSel
-	//////////////////Acciones ComboBox /////////////////////
-		public void itemStateChanged(ItemEvent e) {	
-			
-			if(e.getSource() == funcionSel) {
-				String seleccion = (String)funcionSel.getSelectedItem();
-				if(seleccion.equalsIgnoreCase("Función 1")) {
-					
-				}else if(seleccion.equalsIgnoreCase("Holder table")) {
-					
-				}else if(seleccion.equalsIgnoreCase("Schubert")) {
-					
-				}else if(seleccion.equalsIgnoreCase("Michalewicz")) {
-					
-				}
-				
-			}
-			
-		
-	}
-	
 	private ImageIcon createImage(String label) {
 		ImageIcon image = null;
 		

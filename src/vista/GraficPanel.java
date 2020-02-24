@@ -32,7 +32,7 @@ public class GraficPanel extends JPanel implements ActionListener{
 	private JFrame ventana;
 	private ChartPanel panel;
 	private JPanel graficPnl;
-	private JFreeChart chart ;
+	private JFreeChart chart;
 	
 	
 	public  GraficPanel(PanelPrincipal pp) {
