@@ -169,6 +169,7 @@ public class RightPanel extends JPanel {
 		tipoCruce = new JLabel("Tipo");
 		crucePnl.add(tipoCruce);
 		cruceSel = new JComboBox<String>();
+		cruceSel.addItem("Aritmético");
 		cruceSel.addItem("Monopunto");
 		cruceSel.addItem("Uniforme");
 		cruceSel.addActionListener(new ActionListener() {
@@ -263,36 +264,81 @@ public class RightPanel extends JPanel {
 		//// si se pulsa Run
 		iniciarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// si en porcentaje de mutación hay algo y no es texto
-				if(pm.getText().length() != 0 && pm.getText().matches("\\d*")) {
-					float porcenMutacion = Integer.parseInt(pm.getText());
+				// si en porcentaje de mutación hay algo 
+				if(pm.getText().length() != 0 ) {
+					float porcenMutacion = Float.parseFloat(pm.getText());
 					_c.set_mutationProbability(porcenMutacion);
+				}else{
+					JOptionPane.showMessageDialog(null, "¡¡¡ Error porcentaje de mutación !!!");
 				}
 				
-				// si en porcentaje de Cruce hay algo y no es texto
-				if(pc.getText().length() != 0 && pc.getText().matches("\\d*")) {
-					float porcenCruce = Integer.parseInt(pc.getText());
+				// si en porcentaje de Cruce hay algo 
+				if(pc.getText().length() != 0 ) {
+					float porcenCruce = Float.parseFloat(pc.getText());
 					_c.set_cruceProbability(porcenCruce);
+				}else{
+					JOptionPane.showMessageDialog(null, "¡¡¡ Error porcentaje de cruce !!!");
 				}
 				
-				// si en porcentaje de Élite hay algo y no es texto
-				if(pe.getText().length() != 0 && pe.getText().matches("\\d*")) {
-					float porcenElite = Integer.parseInt(pe.getText());
+				// si en porcentaje de Élite hay algo 
+				if(pe.getText().length() != 0 ) {
+					float porcenElite = Float.parseFloat(pe.getText());
 					_c.set_elite(porcenElite);
+				}else{
+					JOptionPane.showMessageDialog(null, "¡¡¡ Error porcentaje de élite !!!");
 				}
 				
-				// si en Población hay algo y no es texto num_p, num_g;
-				if(num_p.getText().length() != 0 && num_p.getText().matches("\\d*")) {
+				// si en Población hay algo 
+				if(num_p.getText().length() != 0) {
 					int poblacion = Integer.parseInt(num_p.getText());
-					_c.set_size(poblacion);
-					
+					_c.set_size(poblacion);				
+				}else{
+					JOptionPane.showMessageDialog(null, "¡¡¡ Error en casilla 'Población' !!!");
 				}
 				
-				// si en Generaciones hay algo y no es texto num_p, num_g;
+				// si en Generaciones hay algo 
 				if(num_g.getText().length() != 0 && num_g.getText().matches("\\d*")) {
 					int vueltas = Integer.parseInt(num_g.getText());
 					_c.executeSteps(vueltas);
+				}else{
+					JOptionPane.showMessageDialog(null, "¡¡¡ Error en casilla 'Generaciones' !!!");
 				}
+				
+				// Función seleccionada
+				String funcion = (String)funcionSel.getSelectedItem();
+				if(funcion.equalsIgnoreCase("Función 1")) {
+					_c.set_fitness("Función 1", 0);
+				}else if(funcion.equalsIgnoreCase("Holder table")) {
+					_c.set_fitness("Holder table", 0);
+				}else if(funcion.equalsIgnoreCase("Schubert")) {
+					_c.set_fitness("Schubert", 0);
+				}else if(funcion.equalsIgnoreCase("Michalewicz")) {
+					_c.set_fitness("Michalewicz", 6);
+				}
+				
+				// Cruce seleccionado
+				String cruce = (String)funcionSel.getSelectedItem();
+				if(cruce.equalsIgnoreCase("Aritmético")) {
+					_c.set_cruce("Aritmético");
+				}else if(cruce.equalsIgnoreCase("Monopunto")) {
+					_c.set_cruce("Monopunto");
+				}else if(cruce.equalsIgnoreCase("Uniforme")) {
+					_c.set_cruce("Uniforme");
+				}
+				
+				selecSel.addItem("Ruleta");
+				selecSel.addItem("Torneo(determinístico)");
+				selecSel.addItem("Universal estocástica");
+				// Tipo de selección
+				String seleccion = (String)funcionSel.getSelectedItem();
+				if(seleccion.equalsIgnoreCase("Ruleta")) {
+					_c.set_seleccion("Ruleta");
+				}else if(seleccion.equalsIgnoreCase("Uniforme")) {
+					_c.set_seleccion("Uniforme");
+				}else if(seleccion.equalsIgnoreCase("Monopunto")) {
+					_c.set_seleccion("Monopunto");
+				}
+				
 				
 				//_c.executeSteps(Integer.parseInt(num_g.getText())); // TODO NECESITO EL PARAMETRO
 			}
