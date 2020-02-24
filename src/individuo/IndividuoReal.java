@@ -75,7 +75,7 @@ public class IndividuoReal implements Individuo {
 
 
 	public void setGenotipo(float[] nuevoGenotipo) {
-		_genotipo = nuevoGenotipo;
+		_genotipo = nuevoGenotipo.clone();
 	}
 
 }

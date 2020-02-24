@@ -192,6 +192,8 @@ public abstract class Poblacion {
 				{
 					this.reseteaPoblacion(_reseteoPercent, _fitness.maximiza());
 					this._numGenEstancado = 0;
+					if (this.betterFitness(getFitness_max(maximiza), _bestFitness) > 0) 
+						_bestFitness = getFitness_max(maximiza);
 				}
 			
 			}
@@ -199,7 +201,7 @@ public abstract class Poblacion {
 		this.sort();
 
 		//System.out.println("---------------------------------------------------------------PostElitismo\n\n\n" + this);
-				System.out.println("---------------------------");
+		System.out.println("---------------------------");
 
 
 	}

@@ -96,7 +96,7 @@ public class Controlador {
 	public void executeSteps(int numSteps)
 	{
 		while (numSteps > 0) {
-			_poblacion.nextGen();
+			this.nextStep();
 			numSteps--;
 		}
 	}

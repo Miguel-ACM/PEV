@@ -20,7 +20,9 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 
 import main.Controlador;
 import main.Controlador.Points;
@@ -30,7 +32,7 @@ public class RightPanel extends JPanel {
 	private JButton iniciarBtn, finBtn;
 	private ImageIcon iniciarIcon, finIcon;
 	private JComboBox<String> funcionSel, selecSel, cruceSel, mutacionSel, eliteSel;
-	private JTextField pc, pe, pm, num_p, num_g;
+	private JSpinner pc, pe, pm, num_p, num_g;
 	// private PanelPrincipal panelP;
 	private JLabel tipoCruce, porcentCruce, tipoMutacion, porcentMutacion, porcentElite, selElite, indiL, geneL;
 	private String funcionSeleccionada, metodoSeleccion, cruce, hayElite;
@@ -132,7 +134,7 @@ public class RightPanel extends JPanel {
 
 		porcentElite = new JLabel("%");
 		elitePnl.add(porcentElite);
-		pe = new JTextField(3);
+		pe = new JSpinner(new SpinnerNumberModel(0.02f, 0f, 1f, 0.01f));
 
 		elitePnl.add(pe);
 
@@ -152,7 +154,10 @@ public class RightPanel extends JPanel {
 
 		porcentMutacion = new JLabel("%");
 		mutacionPnl.add(porcentMutacion);
-		pm = new JTextField(3);
+		pm = new JSpinner(new SpinnerNumberModel(0.02f, 0f, 1f, 0.01f));
+		pm.setMinimumSize(new Dimension(100, 1));
+		pm.setPreferredSize(new Dimension(100, 25));
+
 		
 		mutacionPnl.add(pm);
 
@@ -185,7 +190,7 @@ public class RightPanel extends JPanel {
 
 		porcentCruce = new JLabel("%");
 		crucePnl.add(porcentCruce);
-		pc = new JTextField(3);
+		pc = new JSpinner(new SpinnerNumberModel(0.6f, 0f, 1f, 0.01f));
 
 		crucePnl.add(pc);
 
@@ -223,12 +228,12 @@ public class RightPanel extends JPanel {
 
 		indiL = new JLabel("Población");
 		poblacionPnl.add(indiL);
-		num_p = new JTextField(3);
+		num_p = new JSpinner(new SpinnerNumberModel(100, 1, 100000, 1));;
 		poblacionPnl.add(num_p);
 
 		geneL = new JLabel("Generaciones");
 		poblacionPnl.add(geneL);
-		num_g = new JTextField(3);
+		num_g = new JSpinner(new SpinnerNumberModel(100, 1, 100000, 1));;
 		poblacionPnl.add(num_g);
 
 		constraints.gridx = 0;
@@ -268,44 +273,22 @@ public class RightPanel extends JPanel {
 		iniciarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// si en porcentaje de mutación hay algo 
-				if(pm.getText().length() != 0 ) {
-					float porcenMutacion = Float.parseFloat(pm.getText());
-					_c.set_mutationProbability(porcenMutacion);
-				}else{
-					JOptionPane.showMessageDialog(null, "¡¡¡ Error porcentaje de mutación !!!");
-				}
+				double porcenMutacion = (double) pm.getValue();
+				_c.set_mutationProbability((float) porcenMutacion);
 				
-				// si en porcentaje de Cruce hay algo 
-				if(pc.getText().length() != 0 ) {
-					float porcenCruce = Float.parseFloat(pc.getText());
-					_c.set_cruceProbability(porcenCruce);
-				}else{
-					JOptionPane.showMessageDialog(null, "¡¡¡ Error porcentaje de cruce !!!");
-				}
+				double porcenCruce =  (double) pc.getValue();
+				_c.set_cruceProbability((float)porcenCruce);
+
 				
-				// si en porcentaje de Élite hay algo 
-				if(pe.getText().length() != 0 ) {
-					float porcenElite = Float.parseFloat(pe.getText());
-					_c.set_elite(porcenElite);
-				}else{
-					JOptionPane.showMessageDialog(null, "¡¡¡ Error porcentaje de élite !!!");
-				}
-				
-				// si en Población hay algo 
-				if(num_p.getText().length() != 0) {
-					int poblacion = Integer.parseInt(num_p.getText());
-					_c.set_size(poblacion);				
-				}else{
-					JOptionPane.showMessageDialog(null, "¡¡¡ Error en casilla 'Población' !!!");
-				}
+				double porcenElite =  (double) pe.getValue();
+				_c.set_elite((float)porcenElite);
+				int poblacion =  (int) num_p.getValue();
+				_c.set_size(poblacion);				
 				
 				// si en Generaciones hay algo 
-				if(num_g.getText().length() != 0 && num_g.getText().matches("\\d*")) {
-					int vueltas = Integer.parseInt(num_g.getText());
-					_c.executeSteps(vueltas);
-				}else{
-					JOptionPane.showMessageDialog(null, "¡¡¡ Error en casilla 'Generaciones' !!!");
-				}
+				int vueltas = (int) num_g.getValue();
+				_c.executeSteps(vueltas);
+
 				
 				// Función seleccionada
 				String funcion = (String)funcionSel.getSelectedItem();
@@ -329,9 +312,6 @@ public class RightPanel extends JPanel {
 					_c.set_cruce("Uniforme");
 				}
 				
-				selecSel.addItem("Ruleta");
-				selecSel.addItem("Torneo(determinístico)");
-				selecSel.addItem("Universal estocástica");
 				// Tipo de selección
 				String seleccion = (String)funcionSel.getSelectedItem();
 				if(seleccion.equalsIgnoreCase("Ruleta")) {
@@ -342,7 +322,7 @@ public class RightPanel extends JPanel {
 					_c.set_seleccion("Monopunto");
 				}
 				
-				_c.executeSteps(Integer.parseInt(num_g.getText()));
+				_c.executeSteps((int) num_g.getValue());
 	            Points p = _c.getPoints();
 	            _gp.multiGrafico(p);
 				//_c.executeSteps(Integer.parseInt(num_g.getText())); // TODO NECESITO EL PARAMETRO

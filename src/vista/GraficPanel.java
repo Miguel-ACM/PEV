@@ -26,7 +26,7 @@ import main.Controlador.Points;
 
 import org.jfree.chart.axis.NumberAxis;
 
-public class GraficPanel extends JPanel implements ActionListener{
+public class GraficPanel extends JPanel{
 	private JFrame ventana;
 	private ChartPanel panel;
 	private JPanel graficPnl;
@@ -50,7 +50,6 @@ public class GraficPanel extends JPanel implements ActionListener{
 
 	
 	public void multiGrafico(Points points) {
-		
 		DefaultXYDataset datasetMulti = new DefaultXYDataset();	
 		double gener [] = new double[points.best_fitness.size()];
 			
@@ -83,14 +82,6 @@ public class GraficPanel extends JPanel implements ActionListener{
 		ventana.add(panel);*/
 		
       	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
 	
 	
 	

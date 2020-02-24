@@ -128,7 +128,7 @@ public class IndividuoBits implements Individuo {
 
 
 	public void setGenotipo(boolean[] nuevoGenotipo) {
-		_genotipo = nuevoGenotipo;
+		_genotipo = nuevoGenotipo.clone();
 		this.calculateFenotipo();
 	}
 
