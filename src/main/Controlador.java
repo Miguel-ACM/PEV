@@ -55,8 +55,10 @@ public class Controlador {
 	
 	public void executeSteps(int numSteps)
 	{
-		while (numSteps > 0)
+		while (numSteps > 0) {
 			_poblacion.nextGen();
+			numSteps--;
+		}
 	}
 	
 	//parametro solo sirve para la funcion 4
