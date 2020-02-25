@@ -140,7 +140,6 @@ public abstract class Poblacion {
 	{
 		//System.out.println(_size + " " +  _tolerance + " " + _cruceProbability + " " + _mutationProbability + " " + _fitness+ " " +_seleccion+ " " + _cruce+ " " + _elitePercent);
 		//System.out.println("---------------------------------------------------------------Start\n\n\n" + this);
-		
 		boolean maximiza = _fitness.maximiza();
 		//Extrae la elite
 		List<Individuo> elite = this.getElite(maximiza);
@@ -259,6 +258,14 @@ public abstract class Poblacion {
 	}
 	
 	public abstract void cruza();
+	
+	public void set_estancamiento(boolean activado, float porcentaje_reinicio, int num_gens)
+	{
+		_estancamiento = activado;
+		_numGenEstancadoThreshold = num_gens;
+		_reseteoPercent = porcentaje_reinicio;
+	}
+	
 	
 	public abstract void reseteaPoblacion(float reseteoPercent, boolean maximiza);
 

@@ -34,6 +34,11 @@ public class Controlador {
 	private Points _points;
 	private String _representacion;
 	
+	private boolean _estancamientoActivado = true;
+	private float _porcentaje_reinicio = 0.5f;
+	private int _num_gens_reinicio = 20;
+
+	
 	public class Points
 	{
 	    public List<Double> best_fitness; 
@@ -81,6 +86,7 @@ public class Controlador {
 		_poblacion.set_mutationProbability(_mutationProb);
 		_poblacion.set_cruceProbability(_cruceProb); 
 		_poblacion.set_elite(_elitismoPer);
+		_poblacion.set_estancamiento(_estancamientoActivado, _porcentaje_reinicio, _num_gens_reinicio);
 	}
 	
 	public void nextStep()
@@ -212,5 +218,13 @@ public class Controlador {
 			System.out.println("DEBUG ERROR 4");
 		this.reestart();
 
+	}
+	
+	public void set_estancamiento(boolean activado, float porcentaje_reinicio, int num_gens)
+	{
+		_estancamientoActivado = activado;
+		_porcentaje_reinicio = porcentaje_reinicio;
+		_num_gens_reinicio = num_gens;
+		_poblacion.set_estancamiento(activado, porcentaje_reinicio, num_gens);
 	}
 }

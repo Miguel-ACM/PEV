@@ -34,8 +34,8 @@ public class RightPanel extends JPanel {
 	private JButton iniciarBtn, finBtn;
 	private ImageIcon iniciarIcon, finIcon;
 	private JComboBox<String> funcionSel, genotipoSel, selecSel, cruceSel;
-	private JCheckBox eliteSel;
-	private JSpinner pc, pe, pm, num_p, num_g, param, tol, p_arit;
+	private JCheckBox eliteSel, estancamientoSel;
+	private JSpinner pc, pe, pm, num_p, num_g, param, tol, p_arit, porc_estancamiento, limit_estancamiento;
 	// private PanelPrincipal panelP;
 	private JLabel alpha, tipoCruce, porcentCruce, porcentMutacion, porcentElite, selElite, indiL, geneL, paramL, paramArit, porcenttolerancia;
 	private Controlador _c;
@@ -61,7 +61,7 @@ public class RightPanel extends JPanel {
 		GridBagConstraints constraints = new GridBagConstraints();
 
 		constraints.gridx = 0;
-		constraints.gridy = 9;
+		constraints.gridy = 10;
 		constraints.weightx = 1;
 		constraints.weighty = 1; //
 		// constraints.fill = GridBagConstraints.EAST;
@@ -212,9 +212,9 @@ public class RightPanel extends JPanel {
 		toleranciaPnl.setLayout(new GridLayout(1, 2));
 		GridBagConstraints constraints = new GridBagConstraints();
 
-		porcenttolerancia = new JLabel(",");
+		porcenttolerancia = new JLabel("Nº decimales");
 		toleranciaPnl.add(porcenttolerancia);
-		tol = new JSpinner(new SpinnerNumberModel(0.001f, 0.0009f, 1f, 0.001f)); //TODO Más precision en el spinner, no se como
+		tol = new JSpinner(new SpinnerNumberModel(3, 1, 8, 1)); 
 		tol.setMinimumSize(new Dimension(100, 1));
 		tol.setPreferredSize(new Dimension(100, 25));
 		
@@ -380,19 +380,43 @@ public class RightPanel extends JPanel {
 /////////////////   AJUSTES ESTANCAMIENTO  ////////////////////
 	private void crea_estancamientoPnl() {
 		estancamientoPnl = new JPanel();
-		estancamientoPnl.setPreferredSize(new Dimension(200, 60));
-		estancamientoPnl.setLayout(new GridLayout(2, 2));
+		estancamientoPnl.setPreferredSize(new Dimension(200, 90));
+		estancamientoPnl.setLayout(new GridLayout(3, 2));
 		
 		JLabel limite_Lbl = new JLabel("Generaciones");
-		estancamientoPnl.add(limite_Lbl);
-		JSpinner limit_estancamiento = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
-		estancamientoPnl.add(limit_estancamiento);
+		limit_estancamiento = new JSpinner(new SpinnerNumberModel(20, 1, 100, 1));
 		
 		JLabel porc_Lbl = new JLabel("%");
-		estancamientoPnl.add(porc_Lbl);
-		JSpinner porc_estancamiento = new JSpinner(new SpinnerNumberModel(0.5f, 0f, 1f, 0.01f));
-		estancamientoPnl.add(porc_estancamiento);
+		porc_estancamiento = new JSpinner(new SpinnerNumberModel(0.5f, 0f, 1f, 0.01f));
+
+		JLabel porc_Lbl2 = new JLabel("SI/NO");
+		estancamientoSel = new JCheckBox();
+		estancamientoSel.setSelected(true);
+		estancamientoSel.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (estancamientoSel.isSelected())
+				{
+					porc_estancamiento.setEnabled(true);
+					limit_estancamiento.setEnabled(true);
+				}
+				else
+				{
+					porc_estancamiento.setEnabled(false);
+					limit_estancamiento.setEnabled(false);
+				}
+				_c.set_estancamiento(estancamientoSel.isSelected(), (float) (double) porc_estancamiento.getValue(), (int) limit_estancamiento.getValue());
+				
+			}
+		});
 		
+		estancamientoPnl.add(porc_Lbl2);
+		estancamientoPnl.add(estancamientoSel);
+		
+		estancamientoPnl.add(limite_Lbl);
+		estancamientoPnl.add(limit_estancamiento);
+		
+		estancamientoPnl.add(porc_Lbl);
+		estancamientoPnl.add(porc_estancamiento);
 		estancamientoPnl.setBorder(BorderFactory.createTitledBorder("Opciones de estancamiento"));
 		
 	}
@@ -407,11 +431,10 @@ public class RightPanel extends JPanel {
 		//// si se pulsa Run
 		iniciarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// si en porcentaje de mutación hay algo 
 				double porcenMutacion = (double) pm.getValue();
 				_c.set_mutationProbability((float) porcenMutacion);
 				
-				double tolerancia = (double) tol.getValue();
+				double tolerancia = Math.pow(10, -(int) tol.getValue());
 				_c.set_tolerance((float) tolerancia);
 				
 				double porcenCruce =  (double) pc.getValue();
@@ -437,7 +460,8 @@ public class RightPanel extends JPanel {
 				// Tipo de selección
 				String seleccion = (String)selecSel.getSelectedItem();
 				_c.set_seleccion(seleccion);
-			
+				
+				_c.set_estancamiento(estancamientoSel.isSelected(), (float) (double) porc_estancamiento.getValue(), (int) limit_estancamiento.getValue());
 				
 				_c.executeSteps((int) num_g.getValue());
 	            Points p = _c.getPoints();
@@ -456,7 +480,7 @@ public class RightPanel extends JPanel {
 		finBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int opcion = JOptionPane.showConfirmDialog(_this,
-						"¿Está seguro?\n\n " + "Si lo hace avandona la representación\n", "¿Salir?",
+						"¿Está seguro?\n\n " + "Si lo hace abandonará la representación\n", "¿Salir?",
 						JOptionPane.YES_NO_OPTION);
 				if (opcion == 0) {
 					System.exit(0);

@@ -18,6 +18,7 @@ public class PanelPrincipal extends JFrame{
 	public PanelPrincipal(Controlador c) {
 		super("PROGRAMACION EVOLUTIVA");
 		
+		gp = new GraficPanel(this, c);
 		rp = new RightPanel(this, c, gp);	
 		
 		this.setLayout(new GridBagLayout());	
@@ -30,9 +31,7 @@ public class PanelPrincipal extends JFrame{
 		constraints.fill = GridBagConstraints.VERTICAL;
 		constraints.anchor = GridBagConstraints.EAST;
 		this.add(rp, constraints);
-			
-		gp = new GraficPanel(this, c);
-		
+					
 		constraints.gridx = 3;
 		constraints.gridy = 2;
 		constraints.weightx = 0;
