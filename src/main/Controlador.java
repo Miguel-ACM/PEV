@@ -30,6 +30,7 @@ public class Controlador {
 	private float _mutationProb = 0.05f;
 	private float _cruceProb = 0.6f;
 	private float _elitismoPer = 0.3f;
+	private float _alpha = 0.4f;
 	private Points _points;
 	private String _representacion;
 	
@@ -152,6 +153,20 @@ public class Controlador {
 		_poblacion.set_cruce(_cruce);
 	}
 	
+	/**
+	 * @return the _alpha
+	 */
+	public float get_alpha() {
+		return _alpha;
+	}
+
+	/**
+	 * @param _alpha the _alpha to set
+	 */
+	public void set_alpha(float _alpha) {
+		this._alpha = _alpha;
+	}
+
 	public void set_cruceProbability(float cruceProbability)
 	{
 		_cruceProb = cruceProbability;
