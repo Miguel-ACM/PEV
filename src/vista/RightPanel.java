@@ -369,21 +369,17 @@ public class RightPanel extends JPanel {
 				
 				int poblacion =  (int) num_p.getValue();
 				_c.set_size(poblacion);				
-				
-				// si en Generaciones hay algo 
-				int vueltas = (int) num_g.getValue();
-				_c.executeSteps(vueltas);
 
 				// Función seleccionada
 				String funcion = (String)funcionSel.getSelectedItem();
 				_c.set_fitness(funcion, (int) param.getValue());
 				
 				// Cruce seleccionado
-				String cruce = (String)funcionSel.getSelectedItem();
+				String cruce = (String)cruceSel.getSelectedItem();
 				_c.set_cruce(cruce);
 			
 				// Tipo de selección
-				String seleccion = (String)funcionSel.getSelectedItem();
+				String seleccion = (String)selecSel.getSelectedItem();
 				_c.set_seleccion(seleccion);
 			
 				

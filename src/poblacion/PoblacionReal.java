@@ -52,7 +52,6 @@ public class PoblacionReal extends Poblacion{
 			padresIndex.remove(padre2Index);
 			padres.remove(padre2Index);
 			
-			//System.out.println(padre1IndividuoIndex + " con " + padre2IndividuoIndex);
 			//Política de reemplazamiento: Hijos sustituyen a los padres
 			Individuo[] hijos = _cruce.cruza((IndividuoReal) padre1.clone(), (IndividuoReal) padre2.clone());
 			_individuos.set(padre1IndividuoIndex, hijos[0]);

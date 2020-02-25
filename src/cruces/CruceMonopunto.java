@@ -11,6 +11,16 @@ public class CruceMonopunto implements Cruce{
 		boolean[] genotipoIn2 = in2.getGenotipo();
 		int len = genotipoIn1.length;
 		//Generamos la pos aleatoria donde se cortan los genotipos
+		if (len == 1) //No podemos cortar con solo uno
+		{
+			//Devolvemos los mismos individuos
+			IndividuoBits[] nuevosIndividuos = new IndividuoBits[2];
+			nuevosIndividuos[0] = in1;
+			nuevosIndividuos[1] = in2;
+			
+			return nuevosIndividuos;
+		}
+		
 		int randomPos = (Math.abs(new Random().nextInt() % (len - 1)));
 		//Primer hijo
 		boolean[] nuevoGenotipoIn1 = new boolean[len];
@@ -48,6 +58,15 @@ public class CruceMonopunto implements Cruce{
 		float[] genotipoIn2 = in2.getGenotipo();
 		int len = genotipoIn1.length;
 		//Generamos la pos aleatoria donde se cortan los genotipos
+		if (len == 1) //No podemos cortar con solo uno
+		{
+			//Devolvemos los mismos individuos
+			IndividuoReal[] nuevosIndividuos = new IndividuoReal[2];
+			nuevosIndividuos[0] = in1;
+			nuevosIndividuos[1] = in2;
+			
+			return nuevosIndividuos;
+		}
 		int randomPos = (Math.abs(new Random().nextInt() % (len - 1)));
 		
 		//Primer hijo

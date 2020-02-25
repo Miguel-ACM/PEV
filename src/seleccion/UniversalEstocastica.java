@@ -28,9 +28,11 @@ public class UniversalEstocastica implements Seleccion{
 		seleccionados.add(elegido(puntoSeleccion));	
 		
 		for (int i = 1; i < num; i++) {		
-			puntoSeleccion += (double) 1/num;
+			puntoSeleccion += (double) 1 / num;
+			System.out.print(elegido(puntoSeleccion) + " ");
 			seleccionados.add(elegido(puntoSeleccion));			
 		}		
+		System.out.println("");
 		return seleccionados;	
 	}
 	
@@ -40,7 +42,7 @@ public class UniversalEstocastica implements Seleccion{
 		Double tramo = (double) 0;
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
-		double fitMax = p.getFitness_max(maximiza);
+		double fitMax = p.getFitness_max(maximiza)  + 0.1f;
 		double totalFitnessMinimizado = 0;
 		
 		// se calcula la suma total de los fitness Maximizados
@@ -61,7 +63,7 @@ public class UniversalEstocastica implements Seleccion{
 		Double tramo = (double) 0;
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
-		double fitMin = p.getFitness_min(maximiza);
+		double fitMin = p.getFitness_min(maximiza) - 0.1f;
 		double totalFitnessMaximizado = 0;
 		
 		// se calcula la suma total de los fitness Maximizados

@@ -118,7 +118,7 @@ public class Controlador {
 		else if (newFitness.equals("Función 1"))
 			_fitness = new FitnessFuncion1();
 		else
-			System.out.println("DEBUG ERROR");
+			System.out.println("DEBUG ERROR 1");
 		this.reestart();
 	}
 	
@@ -148,7 +148,7 @@ public class Controlador {
 		else if (newCruce.equals("Aritmético"))
 			_cruce = new CruceAritmetico();
 		else
-			System.out.println("DEBUG ERROR");
+			System.out.println("DEBUG ERROR 2");
 		_poblacion.set_cruce(_cruce);
 	}
 	
@@ -173,7 +173,7 @@ public class Controlador {
 		else if (seleccion.equals("Torneo determinístico"))
 			_seleccion = new TorneoDeterministico();
 		else
-			System.out.println("DEBUG ERROR");
+			System.out.println("DEBUG ERROR 3");
 		_poblacion.set_seleccion(_seleccion);
 	}
 	
@@ -194,7 +194,7 @@ public class Controlador {
 		else if (representacion.equals("Real"))
 			_representacion = "Real";
 		else
-			System.out.println("DEBUG ERROR");
+			System.out.println("DEBUG ERROR 4");
 		this.reestart();
 
 	}

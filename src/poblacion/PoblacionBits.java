@@ -56,7 +56,6 @@ public class PoblacionBits extends Poblacion{
 			padresIndex.remove(padre2Index);
 			padres.remove(padre2Index);
 			
-			//System.out.println(padre1IndividuoIndex + " con " + padre2IndividuoIndex);
 			//Politica de reemplazamiento: Hijos sustituyen a los padres
 			Individuo[] hijos = _cruce.cruza((IndividuoBits) padre1.clone(), (IndividuoBits) padre2.clone());
 			_individuos.set(padre1IndividuoIndex, hijos[0]);

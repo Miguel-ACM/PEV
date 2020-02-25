@@ -154,13 +154,8 @@ public abstract class Poblacion {
 			nuevosIndividuos.add(_individuos.get(i).clone());
 		}
 		this._individuos = nuevosIndividuos;
-		//System.out.println("---------------------------------------------------------------Seleccion\n\n\n" + this);
-
 		this.cruza();
-		//System.out.println("---------------------------------------------------------------Cruce\n\n\n" + this);
-
 		this.mutacion();
-
 		this.sort(); //Ordenamos segun el fitness de nuevo
 		//System.out.println("---------------------------------------------------------------Mutacion\n\n\n" + this);
 
@@ -171,6 +166,7 @@ public abstract class Poblacion {
 			_individuos.set(index, i);
 			k++;
 		}
+		this.sort();
 
 		//System.out.println("---------------------------------------------------------------Elitismo\n\n\n" + this);
 		if (this.betterFitness(getFitness_max(maximiza), _bestFitness) > 0) 
@@ -184,7 +180,7 @@ public abstract class Poblacion {
 			{
 				_numGenEstancado++;
 				if (_numGenEstancado >= _numGenEstancadoThreshold)
-				{
+				{			
 					this.reseteaPoblacion(_reseteoPercent, _fitness.maximiza());
 					this._numGenEstancado = 0;		
 					this.sort();

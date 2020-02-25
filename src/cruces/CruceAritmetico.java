@@ -17,7 +17,6 @@ public class CruceAritmetico implements Cruce{
 	//No se puede hacer cruce arimetico con individuos bits, por lo que devolvemos los dos individuos
 	//sin cruzar
 	public IndividuoBits[] cruza(IndividuoBits in1, IndividuoBits in2) {
-		//TODO ALGO VA MAL ¿AQUI
 		IndividuoBits[] nuevosIndividuos = new IndividuoBits[2];
 		nuevosIndividuos[0] = in1;
 		nuevosIndividuos[1] = in2;

@@ -14,9 +14,7 @@ import poblacion.Poblacion;
 public class Ruleta implements Seleccion {
 	private ArrayList<Double> _porciones;// array para guardar la porción de cada individuo
 	
-	public Ruleta() {
-		
-	}
+	
 	
 	/* Le llega la población y el num de elementos a seleccionar 
 	 * Devuelve un Array con los indices de los Individuos seleccionados    */
@@ -27,9 +25,10 @@ public class Ruleta implements Seleccion {
 		else proporcion_Minimizada(p, maximiza);
 		
 		for (int i = 0; i < num; i++) {
-			seleccionados.add(elegido());			
-		}		
+			seleccionados.add(elegido());	
+		}
 		return seleccionados;
+		
 	}
 	
 	/* Crea un array con los valores de la porción minimizada de 
@@ -38,7 +37,7 @@ public class Ruleta implements Seleccion {
 		Double tramo = (double) 0;
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
-		double fitMax = p.getFitness_min(maximiza);
+		double fitMax = p.getFitness_min(maximiza) + 0.1f;
 		double totalFitnessMinimizado = 0;
 		
 		// se calcula la suma total de los fitness Maximizados
@@ -59,7 +58,7 @@ public class Ruleta implements Seleccion {
 		Double tramo = (double) 0;
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
-		double fitMin = p.getFitness_min(maximiza);
+		double fitMin = p.getFitness_min(maximiza) - 0.1f;
 		double totalFitnessMaximizado = 0;
 		
 		// se calcula la suma total de los fitness Maximizados
@@ -72,6 +71,7 @@ public class Ruleta implements Seleccion {
 			tramo += ((i.getFitness() - fitMin)/totalFitnessMaximizado);
 			_porciones.add(tramo);
 		}	
+
 		
 	}
 	
@@ -80,7 +80,7 @@ public class Ruleta implements Seleccion {
 		int num_Ind = 0;
 		Double seleccion = Math.random();
 		
-		while(seleccion > _porciones.get(num_Ind)) {
+		while(seleccion > _porciones.get(num_Ind) && num_Ind != _porciones.size()) {
 			num_Ind++;		
 		}
 				
