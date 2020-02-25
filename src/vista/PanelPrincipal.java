@@ -17,13 +17,18 @@ public class PanelPrincipal extends JFrame{
 		super("PROGRAMACION EVOLUTIVA");
 		
 		gp = new GraficPanel(this, c);
+	//	gp.setSize(500, 500);
 		rp = new RightPanel(this, c, gp);
 		
-		add(rp, BorderLayout.CENTER);
 		add(gp, BorderLayout.EAST);
+		add(rp);
+	
+		
+		//add(rp, BorderLayout.CENTER);
+		//add(gp, BorderLayout.EAST);
 				
-		setLayout(new GridLayout(1, 3));	
-		this.setSize(1400, 700);
+	//	setLayout(new GridLayout(1, 3));	
+		this.setSize(1300, 700);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		
 		this.setVisible(true);
