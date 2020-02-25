@@ -138,7 +138,7 @@ public abstract class Poblacion {
 		
 	public void nextGen()
 	{
-		System.out.println(_size + " " +  _tolerance + " " + _cruceProbability + " " + _mutationProbability + " " + _fitness+ " " +_seleccion+ " " + _cruce+ " " + _elitePercent);
+		//System.out.println(_size + " " +  _tolerance + " " + _cruceProbability + " " + _mutationProbability + " " + _fitness+ " " +_seleccion+ " " + _cruce+ " " + _elitePercent);
 		//System.out.println("---------------------------------------------------------------Start\n\n\n" + this);
 		
 		boolean maximiza = _fitness.maximiza();
@@ -170,20 +170,18 @@ public abstract class Poblacion {
 			int index = maximiza ? k :  _size - 1 - k; 
 			_individuos.set(index, i);
 			k++;
-			System.out.println(i.getFitness());
 		}
 
 		//System.out.println("---------------------------------------------------------------Elitismo\n\n\n" + this);
-
-		if (_estancamiento)
-		
+		if (this.betterFitness(getFitness_max(maximiza), _bestFitness) > 0) 
 		{
-			if (this.betterFitness(getFitness_max(maximiza), _bestFitness) > 0) 
+			_bestFitness = getFitness_max(maximiza);
+			this._numGenEstancado = 0;
+			
+		}
+		else {
+			if (_estancamiento)
 			{
-				_bestFitness = getFitness_max(maximiza);
-				this._numGenEstancado = 0;
-			}
-			else {
 				_numGenEstancado++;
 				if (_numGenEstancado >= _numGenEstancadoThreshold)
 				{
@@ -193,13 +191,15 @@ public abstract class Poblacion {
 					if (this.betterFitness(getFitness_max(maximiza), _bestFitness) > 0) 
 						_bestFitness = getFitness_max(maximiza);
 				}
-			
 			}
+		
 		}
+			
+		
 		this.sort();
 
 		//System.out.println("---------------------------------------------------------------PostElitismo\n\n\n" + this);
-		System.out.println("---------------------------");
+		//System.out.println("---------------------------");
 
 
 	}
