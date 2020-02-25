@@ -35,9 +35,9 @@ public class RightPanel extends JPanel {
 	private ImageIcon iniciarIcon, finIcon;
 	private JComboBox<String> funcionSel, genotipoSel, selecSel, cruceSel;
 	private JCheckBox eliteSel;
-	private JSpinner pc, pe, pm, num_p, num_g, param, tol;
+	private JSpinner pc, pe, pm, num_p, num_g, param, tol, p_arit;
 	// private PanelPrincipal panelP;
-	private JLabel tipoCruce, porcentCruce, porcentMutacion, porcentElite, selElite, indiL, geneL, paramL, porcenttolerancia;
+	private JLabel alpha, tipoCruce, porcentCruce, porcentMutacion, porcentElite, selElite, indiL, geneL, paramL, paramArit, porcenttolerancia;
 	private Controlador _c;
 	private GraficPanel _gp;
 	
@@ -217,30 +217,46 @@ public class RightPanel extends JPanel {
 		toleranciaPnl.setBorder(BorderFactory.createTitledBorder("Tolerancia"));
 	}
 
-
+/////////////////   SECCIÓN CRUCE   ////////////////////
 	private void crea_crucePnl() {
 		crucePnl = new JPanel();
-		crucePnl.setLayout(new GridLayout(2, 2));
+		paramArit = new JLabel("Parámetro: ");
+		p_arit = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+		p_arit.setEnabled(false);
+		crucePnl.setLayout(new GridLayout(3, 2));
 		GridBagConstraints constraints = new GridBagConstraints();
+		
 		tipoCruce = new JLabel("Tipo");
 		crucePnl.add(tipoCruce);
 		cruceSel = new JComboBox<String>();
 		cruceSel.addItem("Monopunto");
 		cruceSel.addItem("Uniforme");
-		cruceSel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				_c.set_cruce(cruceSel.getSelectedItem().toString());
-			}
-		});
+		cruceSel.addItem("Aritmético");
+		
 		cruceSel.setPreferredSize(new Dimension(100, 20));
 		crucePnl.add(cruceSel);
 
 		porcentCruce = new JLabel("%");
 		crucePnl.add(porcentCruce);
 		pc = new JSpinner(new SpinnerNumberModel(0.6f, 0f, 1f, 0.01f));
-
 		crucePnl.add(pc);
-
+		
+		alpha = new JLabel("Alpha(solo en aritmético)");
+		crucePnl.add(alpha);
+		p_arit= new JSpinner(new SpinnerNumberModel(0.4f, 0f, 1f, 0.1f));
+		p_arit.setEnabled(false);
+		crucePnl.add(p_arit);
+		
+		cruceSel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				_c.set_cruce(cruceSel.getSelectedItem().toString());
+				if(cruceSel.getSelectedItem().equals("Aritmético")) 
+					p_arit.setEnabled(true);					
+				else
+					p_arit.setEnabled(false);	
+			}
+		});
+		
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.weightx = 1;
@@ -381,6 +397,10 @@ public class RightPanel extends JPanel {
 				// Cruce seleccionado
 				String cruce = (String)funcionSel.getSelectedItem();
 				_c.set_cruce(cruce);
+				
+				// alpha , solo para cruce aritmético
+				double p_alpha = (double)p_arit.getValue();
+				_c.set_alpha((float)p_alpha);
 			
 				// Tipo de selección
 				String seleccion = (String)funcionSel.getSelectedItem();
