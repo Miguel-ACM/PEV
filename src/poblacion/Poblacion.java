@@ -126,15 +126,12 @@ public abstract class Poblacion {
 		List<Individuo> elite = new ArrayList<Individuo>();
 
 		int numElite = (int) (this._elitePercent * this._size);
-		System.out.println(numElite);
 		//System.out.println("La elite es: ");
 		for (int i = 0; i < numElite; i++)
 		{
 			int index = maximiza ? _size - 1 - i : i ;
 			elite.add(_individuos.get(index).clone());
-			System.out.println(_individuos.get(index).getFitness());
 		}
-		System.out.println("in");
 		
 		return elite;
 	}
@@ -191,7 +188,8 @@ public abstract class Poblacion {
 				if (_numGenEstancado >= _numGenEstancadoThreshold)
 				{
 					this.reseteaPoblacion(_reseteoPercent, _fitness.maximiza());
-					this._numGenEstancado = 0;
+					this._numGenEstancado = 0;		
+					this.sort();
 					if (this.betterFitness(getFitness_max(maximiza), _bestFitness) > 0) 
 						_bestFitness = getFitness_max(maximiza);
 				}
