@@ -141,7 +141,7 @@ public abstract class Poblacion {
 		
 	public void nextGen()
 	{
-		//System.out.println(_size + " " +  _tolerance + " " + _cruceProbability + " " + _mutationProbability + " " + _fitness+ " " +_seleccion+ " " + _cruce+ " " + _elitePercent);
+		System.out.println(_size + " " +  _tolerance + " " + _cruceProbability + " " + _mutationProbability + " " + _fitness+ " " +_seleccion+ " " + _cruce+ " " + _elitePercent);
 		//System.out.println("---------------------------------------------------------------Start\n\n\n" + this);
 		
 		boolean maximiza = _fitness.maximiza();

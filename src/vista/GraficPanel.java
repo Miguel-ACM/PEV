@@ -64,7 +64,7 @@ public class GraficPanel extends JPanel{
 		datasetMulti.addSeries("Mejor", new double[][] {gener,points.toArray(points.best_fitness)});
 		datasetMulti.addSeries("Mejor absoluto", new double[][] {gener,points.toArray(points.best_overall_fitness)});
 		datasetMulti.addSeries("Media", new double[][] {gener,points.toArray(points.mean_fitness)});
-		datasetMulti.addSeries("Peor", new double[][] {gener,points.toArray(points.worst_fitness)});
+		//datasetMulti.addSeries("Peor", new double[][] {gener,points.toArray(points.worst_fitness)});
 
 		//datasetMulti.addSeries("Absoluto", new double[][] {gener,fit});
 		//datasetMulti.addSeries("Media", new double[][] {gener,fit});

@@ -31,6 +31,7 @@ public class Controlador {
 	private float _cruceProb = 0.6f;
 	private float _elitismoPer = 0.3f;
 	private Points _points;
+	private String _representacion;
 	
 	public class Points
 	{
@@ -63,13 +64,17 @@ public class Controlador {
 		_fitness = new FitnessFuncion1();
 		_seleccion = new Ruleta();
 		_cruce = new CruceMonopunto();
+		_representacion = "Bits";
 		reestart();
 	}
 	
 	public void reestart()
 	{
 		_points = new Points();
-		_poblacion = new PoblacionBits(_size, _fitness, _tolerance);
+		if (_representacion.equals("Bits"))
+			_poblacion = new PoblacionBits(_size, _fitness, _tolerance);
+		else
+			_poblacion = new PoblacionReal(_size, _fitness);
 		_poblacion.set_cruce(_cruce);
 		_poblacion.set_seleccion(_seleccion);
 		_poblacion.set_mutationProbability(_mutationProb);
@@ -110,8 +115,10 @@ public class Controlador {
 			_fitness = new FitnessHolderTable();
 		else if (newFitness.equals("Michalewicz"))
 			_fitness = new FitnessMichalewicz(parametro);
-		else
+		else if (newFitness.equals("Función 1"))
 			_fitness = new FitnessFuncion1();
+		else
+			System.out.println("DEBUG ERROR");
 		this.reestart();
 	}
 	
@@ -136,8 +143,12 @@ public class Controlador {
 	{
 		if (newCruce.equals("Monopunto"))
 			_cruce = new CruceMonopunto();
-		else 
+		else if (newCruce.equals("Uniforme"))
 			_cruce = new CruceUniforme();
+		else if (newCruce.equals("Aritmético"))
+			_cruce = new CruceAritmetico();
+		else
+			System.out.println("DEBUG ERROR");
 		_poblacion.set_cruce(_cruce);
 	}
 	
@@ -159,8 +170,10 @@ public class Controlador {
 			_seleccion = new Ruleta();
 		else if (seleccion.equals("Universal estocástica"))
 			_seleccion = new UniversalEstocastica();
-		else
+		else if (seleccion.equals("Torneo determinístico"))
 			_seleccion = new TorneoDeterministico();
+		else
+			System.out.println("DEBUG ERROR");
 		_poblacion.set_seleccion(_seleccion);
 	}
 	
@@ -172,5 +185,17 @@ public class Controlador {
 	public Points getPoints()
 	{
 		return _points;
+	}
+	
+	public void set_representacion(String representacion)
+	{
+		if (representacion.equals("Bits"))
+			_representacion = "Bits";
+		else if (representacion.equals("Real"))
+			_representacion = "Real";
+		else
+			System.out.println("DEBUG ERROR");
+		this.reestart();
+
 	}
 }

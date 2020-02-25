@@ -11,11 +11,13 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.net.URL;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,14 +30,14 @@ import main.Controlador;
 import main.Controlador.Points;
 
 public class RightPanel extends JPanel {
-	private JPanel representacionPnl, crucePnl, funcionPnl, poblacionPnl, seleccionPnl, mutacionPnl, elitePnl;
+	private JPanel representacionPnl, genotipoPnl, crucePnl, funcionPnl,  poblacionPnl, seleccionPnl, mutacionPnl, elitePnl, toleranciaPnl;
 	private JButton iniciarBtn, finBtn;
 	private ImageIcon iniciarIcon, finIcon;
-	private JComboBox<String> funcionSel, selecSel, cruceSel, mutacionSel, eliteSel;
-	private JSpinner pc, pe, pm, num_p, num_g;
+	private JComboBox<String> funcionSel, genotipoSel, selecSel, cruceSel;
+	private JCheckBox eliteSel;
+	private JSpinner pc, pe, pm, num_p, num_g, param, tol;
 	// private PanelPrincipal panelP;
-	private JLabel tipoCruce, porcentCruce, tipoMutacion, porcentMutacion, porcentElite, selElite, indiL, geneL;
-	private String funcionSeleccionada, metodoSeleccion, cruce, hayElite;
+	private JLabel tipoCruce, porcentCruce, porcentMutacion, porcentElite, selElite, indiL, geneL, paramL, porcenttolerancia;
 	private Controlador _c;
 	private GraficPanel _gp;
 	
@@ -47,6 +49,8 @@ public class RightPanel extends JPanel {
 		crea_funcionPnl();
 		crea_poblacionPnl();
 		crea_crucePnl();
+		crea_toleranciaPnl();
+		crea_genotipoPnl();
 		crea_seleccionPnl();
 		crea_mutacionPnl();
 		crea_elitePnl();
@@ -56,15 +60,33 @@ public class RightPanel extends JPanel {
 		GridBagConstraints constraints = new GridBagConstraints();
 
 		constraints.gridx = 0;
-		constraints.gridy = 8;
+		constraints.gridy = 9;
 		constraints.weightx = 1;
 		constraints.weighty = 1; //
 		// constraints.fill = GridBagConstraints.EAST;
 		constraints.anchor = GridBagConstraints.EAST;
 		this.add(representacionPnl, constraints);
-
+		
 		constraints.gridx = 0;
 		constraints.gridy = 1;
+		constraints.weightx = 1;
+		constraints.weighty = 1; //
+		// constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.anchor = GridBagConstraints.WEST;
+
+		this.add(genotipoPnl, constraints);
+		
+		constraints.gridx = 0;
+		constraints.gridy = 2;
+		constraints.weightx = 1;
+		constraints.weighty = 1; //
+		// constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.anchor = GridBagConstraints.WEST;
+
+		this.add(toleranciaPnl, constraints);
+
+		constraints.gridx = 0;
+		constraints.gridy = 3;
 		constraints.weightx = 1;
 		constraints.weighty = 1; //
 		// constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -73,7 +95,7 @@ public class RightPanel extends JPanel {
 		this.add(funcionPnl, constraints);
 
 		constraints.gridx = 0;
-		constraints.gridy = 2;
+		constraints.gridy = 4;
 		constraints.weightx = 1;
 		constraints.weighty = 1; //
 		// constraints.fill = GridBagConstraints.EAST;
@@ -81,7 +103,7 @@ public class RightPanel extends JPanel {
 		this.add(seleccionPnl, constraints);
 
 		constraints.gridx = 0;
-		constraints.gridy = 3;
+		constraints.gridy = 5;
 		constraints.weightx = 1;
 		constraints.weighty = 1; //
 		// constraints.fill = GridBagConstraints.EAST;
@@ -89,7 +111,7 @@ public class RightPanel extends JPanel {
 		this.add(crucePnl, constraints);
 
 		constraints.gridx = 0;
-		constraints.gridy = 4;
+		constraints.gridy = 6;
 		constraints.weightx = 1;
 		constraints.weighty = 1; //
 		// constraints.fill = GridBagConstraints.EAST;
@@ -97,7 +119,7 @@ public class RightPanel extends JPanel {
 		this.add(mutacionPnl, constraints);
 
 		constraints.gridx = 0;
-		constraints.gridy = 5;
+		constraints.gridy = 7;
 		constraints.weightx = 1;
 		constraints.weighty = 1; //
 		// constraints.fill = GridBagConstraints.EAST;
@@ -105,7 +127,7 @@ public class RightPanel extends JPanel {
 		this.add(elitePnl, constraints);
 
 		constraints.gridx = 0;
-		constraints.gridy = 6;
+		constraints.gridy = 8;
 		constraints.weightx = 1;
 		constraints.weighty = 1; //
 		// constraints.fill = GridBagConstraints.EAST;
@@ -120,22 +142,25 @@ public class RightPanel extends JPanel {
 		GridBagConstraints constraints = new GridBagConstraints();
 		selElite = new JLabel("SI/NO");
 		elitePnl.add(selElite);
-		eliteSel = new JComboBox<String>();
-		eliteSel.addItem("SI");
-		eliteSel.addItem("NO");
-		eliteSel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				_c.set_elite(eliteSel.getSelectedItem().toString() == "SI" ? 0.02f : 0f); // EL 0.02f tiene que sacarse
-																							// de otro panel
-			}
-		});
+		
 		selElite.setPreferredSize(new Dimension(100, 20));
-		elitePnl.add(eliteSel);
 
 		porcentElite = new JLabel("%");
-		elitePnl.add(porcentElite);
 		pe = new JSpinner(new SpinnerNumberModel(0.02f, 0f, 1f, 0.01f));
-
+		eliteSel = new JCheckBox();
+		eliteSel.setSelected(true);
+		eliteSel.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (eliteSel.isSelected())
+					pe.setEnabled(true);
+				else
+					pe.setEnabled(false);
+				_c.set_elite(eliteSel.isSelected() ? (float)(double) pe.getValue() : 0f); // EL 0.02f tiene que sacarse
+				
+			}
+		});
+		elitePnl.add(eliteSel);
+		elitePnl.add(porcentElite);
 		elitePnl.add(pe);
 
 		constraints.gridx = 0;
@@ -169,6 +194,29 @@ public class RightPanel extends JPanel {
 
 		mutacionPnl.setBorder(BorderFactory.createTitledBorder("Mutación"));
 	}
+	
+	private void crea_toleranciaPnl() {
+		toleranciaPnl = new JPanel();
+		toleranciaPnl.setLayout(new GridLayout(1, 2));
+		GridBagConstraints constraints = new GridBagConstraints();
+
+		porcenttolerancia = new JLabel(",");
+		toleranciaPnl.add(porcenttolerancia);
+		tol = new JSpinner(new SpinnerNumberModel(0.001f, 0.0009f, 1f, 0.001f)); //TODO Más precision en el spinner, no se como
+		tol.setMinimumSize(new Dimension(100, 1));
+		tol.setPreferredSize(new Dimension(100, 25));
+		
+		toleranciaPnl.add(tol);
+
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		constraints.weightx = 1;
+		constraints.weighty = 1;
+		constraints.anchor = GridBagConstraints.NORTH;
+
+		toleranciaPnl.setBorder(BorderFactory.createTitledBorder("Tolerancia"));
+	}
+
 
 	private void crea_crucePnl() {
 		crucePnl = new JPanel();
@@ -177,7 +225,6 @@ public class RightPanel extends JPanel {
 		tipoCruce = new JLabel("Tipo");
 		crucePnl.add(tipoCruce);
 		cruceSel = new JComboBox<String>();
-		cruceSel.addItem("Aritmético");
 		cruceSel.addItem("Monopunto");
 		cruceSel.addItem("Uniforme");
 		cruceSel.addActionListener(new ActionListener() {
@@ -208,7 +255,7 @@ public class RightPanel extends JPanel {
 		seleccionPnl = new JPanel();
 		selecSel = new JComboBox<String>();
 		selecSel.addItem("Ruleta");
-		selecSel.addItem("Torneo(determinístico)");
+		selecSel.addItem("Torneo determinístico");
 		selecSel.addItem("Universal estocástica");
 		selecSel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -245,9 +292,39 @@ public class RightPanel extends JPanel {
 		poblacionPnl.setBorder(BorderFactory.createTitledBorder("Población y generaciones"));
 
 	}
+	
+	private void crea_genotipoPnl() {
+		genotipoPnl = new JPanel();
+		genotipoSel = new JComboBox<String>();
+		genotipoSel.addItem("Bits");
+		genotipoSel.addItem("Real");
+		genotipoSel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (genotipoSel.getSelectedItem().toString().equals("Bits"))
+				{
+					if (cruceSel.getItemAt(cruceSel.getItemCount() - 1).toString().equals("Aritmético"))
+						cruceSel.removeItemAt(cruceSel.getItemCount() - 1);
+					toleranciaPnl.setVisible(true);
+				}
+				else
+				{
+					if (!cruceSel.getItemAt(cruceSel.getItemCount() - 1).toString().equals("Aritmético"))
+						cruceSel.addItem("Aritmético");
+					toleranciaPnl.setVisible(false);
+				}
+				_c.set_representacion(genotipoSel.getSelectedItem().toString());
+			}
+		});
+		genotipoSel.setPreferredSize(new Dimension(150, 20));
+		genotipoPnl.add(genotipoSel);
+		genotipoPnl.setBorder(BorderFactory.createTitledBorder("Genotipo"));
+	}
 
 	private void crea_funcionPnl() {
 		funcionPnl = new JPanel();
+		paramL = new JLabel("Parámetro: ");
+		param = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+		param.setEnabled(false);
 		funcionSel = new JComboBox<String>();
 		funcionSel.addItem("Función 1");
 		funcionSel.addItem("Holder Table");
@@ -255,11 +332,17 @@ public class RightPanel extends JPanel {
 		funcionSel.addItem("Michalewicz");
 		funcionSel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				_c.set_fitness(funcionSel.getSelectedItem().toString(), 1); // TODO NECESITO EL PARAMETRO
+				_c.set_fitness(funcionSel.getSelectedItem().toString(), (int) param.getValue());
+				if (funcionSel.getSelectedItem().equals("Michalewicz"))
+					param.setEnabled(true);
+				else
+					param.setEnabled(false);
 			}
 		});
 		funcionSel.setPreferredSize(new Dimension(150, 20));
 		funcionPnl.add(funcionSel);
+		funcionPnl.add(paramL);
+		funcionPnl.add(param);
 		funcionPnl.setBorder(BorderFactory.createTitledBorder("Función"));
 	}
 
@@ -276,12 +359,14 @@ public class RightPanel extends JPanel {
 				double porcenMutacion = (double) pm.getValue();
 				_c.set_mutationProbability((float) porcenMutacion);
 				
+				double tolerancia = (double) tol.getValue();
+				_c.set_tolerance((float) tolerancia);
+				
 				double porcenCruce =  (double) pc.getValue();
 				_c.set_cruceProbability((float)porcenCruce);
 
+				_c.set_elite(eliteSel.isSelected() ? (float)(double) pe.getValue() : 0f);
 				
-				double porcenElite =  (double) pe.getValue();
-				_c.set_elite((float)porcenElite);
 				int poblacion =  (int) num_p.getValue();
 				_c.set_size(poblacion);				
 				
@@ -289,38 +374,18 @@ public class RightPanel extends JPanel {
 				int vueltas = (int) num_g.getValue();
 				_c.executeSteps(vueltas);
 
-				
 				// Función seleccionada
 				String funcion = (String)funcionSel.getSelectedItem();
-				if(funcion.equalsIgnoreCase("Función 1")) {
-					_c.set_fitness("Función 1", 0);
-				}else if(funcion.equalsIgnoreCase("Holder table")) {
-					_c.set_fitness("Holder table", 0);
-				}else if(funcion.equalsIgnoreCase("Schubert")) {
-					_c.set_fitness("Schubert", 0);
-				}else if(funcion.equalsIgnoreCase("Michalewicz")) {
-					_c.set_fitness("Michalewicz", 6);
-				}
+				_c.set_fitness(funcion, (int) param.getValue());
 				
 				// Cruce seleccionado
 				String cruce = (String)funcionSel.getSelectedItem();
-				if(cruce.equalsIgnoreCase("Aritmético")) {
-					_c.set_cruce("Aritmético");
-				}else if(cruce.equalsIgnoreCase("Monopunto")) {
-					_c.set_cruce("Monopunto");
-				}else if(cruce.equalsIgnoreCase("Uniforme")) {
-					_c.set_cruce("Uniforme");
-				}
-				
+				_c.set_cruce(cruce);
+			
 				// Tipo de selección
 				String seleccion = (String)funcionSel.getSelectedItem();
-				if(seleccion.equalsIgnoreCase("Ruleta")) {
-					_c.set_seleccion("Ruleta");
-				}else if(seleccion.equalsIgnoreCase("Uniforme")) {
-					_c.set_seleccion("Uniforme");
-				}else if(seleccion.equalsIgnoreCase("Monopunto")) {
-					_c.set_seleccion("Monopunto");
-				}
+				_c.set_seleccion(seleccion);
+			
 				
 				_c.executeSteps((int) num_g.getValue());
 	            Points p = _c.getPoints();
