@@ -157,7 +157,7 @@ public abstract class Poblacion {
 		//Extrae la elite
 		List<Individuo> elite = this.getElite(maximiza);
 
-		//Seleccionamos 100 individuos y reemplazamos la población
+		//Seleccionamos X individuos y reemplazamos la población
 		List<Integer> seleccion = _seleccion.selecciona(this._size, this, maximiza);
 		List<Individuo> nuevosIndividuos = new ArrayList<Individuo>();
 

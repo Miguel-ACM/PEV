@@ -32,8 +32,8 @@ public class PanelPrincipal extends JFrame{
 		constraints.gridwidth = 1;
 	//	constraints.weightx = 2;
 	//	constraints.weighty = 2;	// 
-	//	constraints.anchor = GridBagConstraints.WEST;
-		//constraints.fill = GridBagConstraints.VERTICAL;
+	//	constraints.anchor = GridBagConstraints.CENTER;
+	//	constraints.fill = GridBagConstraints.VERTICAL;
 			
 		this.add(gp, constraints);
 		

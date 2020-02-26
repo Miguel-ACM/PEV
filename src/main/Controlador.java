@@ -102,7 +102,6 @@ public class Controlador {
 		}
 		_points.mean_fitness.add(new Double(sumFitness / allFitness.length));
 			
-
 	}
 	
 	public void executeSteps(int numSteps)
