@@ -13,6 +13,7 @@ import fitness.FitnessFuncion1;
 import fitness.FitnessHolderTable;
 import fitness.FitnessMichalewicz;
 import fitness.FitnessSchubert;
+import individuo.Individuo;
 import poblacion.Poblacion;
 import poblacion.PoblacionBits;
 import poblacion.PoblacionReal;
@@ -48,6 +49,7 @@ public class Controlador {
 	    public List<Double> worst_fitness;  
 	    public List<Double> mean_fitness;
 	    public List<Double> best_overall_fitness;
+	    public Individuo mejor;
 	    
 	    public Points()
 	    {
@@ -103,6 +105,7 @@ public class Controlador {
 			sumFitness += i;
 		}
 		_points.mean_fitness.add(new Double(sumFitness / allFitness.length));
+		_points.mejor = _poblacion.getBest_individuo_absoluto(_fitness.maximiza());
 	}
 	
 	public void nextStep()

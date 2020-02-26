@@ -164,7 +164,6 @@ public abstract class Poblacion {
 		{
 			nuevosIndividuos.add(_individuos.get(i).clone());
 		}
-		System.out.println("SIZE:" + nuevosIndividuos.size());
 		this._individuos = nuevosIndividuos;
 		//Cruce
 		this.cruza();

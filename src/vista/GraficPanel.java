@@ -82,10 +82,13 @@ public class GraficPanel extends JPanel{
 		this.fit_Area = new JTextArea(1, 6);
 		
 		JLabel X1 = new JLabel("X1");
-		this.X1_Area = new JTextArea(1, 6);		
+		this.X1_Area = new JTextArea(1, 6);
+		this.X1_Area.setEditable(false);
 		
 		JLabel X2 = new JLabel("X2");
 		X2_Area = new JTextArea(1, 6);
+		this.X2_Area.setEditable(false);
+
 				
 		this.mejorPnl.add(fit);
 		this.mejorPnl.add(fit_Area);
@@ -100,8 +103,9 @@ public class GraficPanel extends JPanel{
 	public void actualizar_mejor(Points points) {
 		int best = points.best_fitness.size() -1;
 		this.fit_Area.setText(Double.toString( points.best_fitness.get(best)));
-		
-			
+		this.X1_Area.setText(Double.toString(points.mejor.getFenotipo()[0]));
+		this.X2_Area.setText(Double.toString(points.mejor.getFenotipo()[1]));
+
 	}
 
 	public void multiGrafico(Points points) {
