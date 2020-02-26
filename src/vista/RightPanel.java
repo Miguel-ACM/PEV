@@ -188,9 +188,7 @@ public class RightPanel extends JPanel {
 		constraints.gridy = 0;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
-		//constraints.weightx = 1;
-		//constraints.weighty = 1; //
-		//constraints.anchor = GridBagConstraints.NORTH;
+
 
 		elitePnl.setBorder(BorderFactory.createTitledBorder("Élite"));
 	}
@@ -214,8 +212,6 @@ public class RightPanel extends JPanel {
 		constraints.gridy = 1;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
-		//constraints.weightx = 1;
-		//constraints.weighty = 1; //
 		constraints.anchor = GridBagConstraints.NORTH;
 
 		mutacionPnl.setBorder(BorderFactory.createTitledBorder("Mutación"));

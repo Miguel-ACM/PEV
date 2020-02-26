@@ -50,7 +50,7 @@ public class PanelPrincipal extends JFrame{
 
 	//	this.setBackground(Color.gray);
 		this.setBackground(Color.GRAY);
-		this.setSize(1100, 800);
+		this.setSize(1400, 900);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		
 		this.setVisible(true);

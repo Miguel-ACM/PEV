@@ -3,7 +3,9 @@
  */
 package vista;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -31,16 +33,13 @@ public class GraficPanel extends JPanel{
 		chart.setBackgroundPaint(Color.orange);
 		
 		panel = new ChartPanel(chart);
-		
+		panel.setPreferredSize(new Dimension(1000, 650));
 		ventana = new JFrame();
 		ventana.getContentPane().add(panel);
-	
-			
+		
 		this.add(panel);
-		//this.add(panel, constraints);
 	}
 
-	
 	public void multiGrafico(Points points) {
 		DefaultXYDataset datasetMulti = new DefaultXYDataset();	
 
@@ -52,19 +51,16 @@ public class GraficPanel extends JPanel{
 		
 		/*  Por cada gráfica a mostrar 
 			datasetMulti.addSeries("Nombre", new double[][] {arrayDatosX,arrayDatosY});*/			
-		datasetMulti.addSeries("Mejor", new double[][] {gener,points.toArray(points.best_fitness)});
+		datasetMulti.addSeries("Mejor", new double[][] {gener,points.toArray(points.best_fitness)});	
 		datasetMulti.addSeries("Mejor absoluto", new double[][] {gener,points.toArray(points.best_overall_fitness)});
 		datasetMulti.addSeries("Media", new double[][] {gener,points.toArray(points.mean_fitness)});
-		
+		// XYPlot plot = (XYPlot) chart.getPlot();
 		//datasetMulti.addSeries("Peor", new double[][] {gener,points.toArray(points.worst_fitness)});
 		//datasetMulti.addSeries("Absoluto", new double[][] {gener,fit});
 		//datasetMulti.addSeries("Media", new double[][] {gener,fit});
         chart.getXYPlot().setDataset(datasetMulti);
+        chart.getXYPlot().setBackgroundPaint(Color.black);
         ((NumberAxis)chart.getXYPlot().getRangeAxis()).setAutoRangeIncludesZero(false);
-        
-		
+            
       	}
-	
-	
-	
 }
