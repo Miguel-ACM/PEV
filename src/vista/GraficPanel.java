@@ -31,9 +31,10 @@ public class GraficPanel extends JPanel{
 		chart.setBackgroundPaint(Color.orange);
 		
 		panel = new ChartPanel(chart);
+		
 		ventana = new JFrame();
 		ventana.getContentPane().add(panel);
-		ventana.setSize(800, 700);
+	
 			
 		this.add(panel);
 		//this.add(panel, constraints);

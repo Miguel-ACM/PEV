@@ -62,16 +62,19 @@ public class RightPanel extends JPanel {
 
 		constraints.gridx = 0;
 		constraints.gridy = 10;
-		constraints.weightx = 1;
-		constraints.weighty = 1; //
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		//constraints.weightx = 1;
+		//constraints.weighty = 1; //
 		// constraints.fill = GridBagConstraints.EAST;
 		constraints.anchor = GridBagConstraints.EAST;
 		this.add(representacionPnl, constraints);
 		
 		constraints.gridx = 0;
 		constraints.gridy = 1;
-		constraints.weightx = 1;
-		constraints.weighty = 1; //
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		//constraints.weightx = 1;
 		// constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.anchor = GridBagConstraints.WEST;
 
@@ -79,8 +82,9 @@ public class RightPanel extends JPanel {
 		
 		constraints.gridx = 0;
 		constraints.gridy = 2;
-		constraints.weightx = 1;
-		constraints.weighty = 1; //
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		//constraints.weightx = 1;
 		// constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.anchor = GridBagConstraints.WEST;
 
@@ -88,8 +92,9 @@ public class RightPanel extends JPanel {
 
 		constraints.gridx = 0;
 		constraints.gridy = 3;
-		constraints.weightx = 1;
-		constraints.weighty = 1; //
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		//constraints.weightx = 1;
 		// constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.anchor = GridBagConstraints.WEST;
 
@@ -97,48 +102,54 @@ public class RightPanel extends JPanel {
 
 		constraints.gridx = 0;
 		constraints.gridy = 4;
-		constraints.weightx = 1;
-		constraints.weighty = 1; //
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		//constraints.weightx = 1;
 		// constraints.fill = GridBagConstraints.EAST;
 		constraints.anchor = GridBagConstraints.WEST;
 		this.add(seleccionPnl, constraints);
 
 		constraints.gridx = 0;
 		constraints.gridy = 5;
-		constraints.weightx = 1;
-		constraints.weighty = 1; //
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		//constraints.weightx = 1;
 		// constraints.fill = GridBagConstraints.EAST;
 		constraints.anchor = GridBagConstraints.WEST;
 		this.add(crucePnl, constraints);
 
 		constraints.gridx = 0;
 		constraints.gridy = 6;
-		constraints.weightx = 1;
-		constraints.weighty = 1; //
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		//constraints.weightx = 1;
 		// constraints.fill = GridBagConstraints.EAST;
 		constraints.anchor = GridBagConstraints.WEST;
 		this.add(mutacionPnl, constraints);
 
 		constraints.gridx = 0;
 		constraints.gridy = 7;
-		constraints.weightx = 1;
-		constraints.weighty = 1; //
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		//constraints.weightx = 1;
 		// constraints.fill = GridBagConstraints.EAST;
 		constraints.anchor = GridBagConstraints.WEST;
 		this.add(elitePnl, constraints);
 		
 		constraints.gridx = 0;
 		constraints.gridy = 8;
-		constraints.weightx = 1;
-		constraints.weighty = 1; //
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		//constraints.weightx = 1;
 		// constraints.fill = GridBagConstraints.EAST;
 		constraints.anchor = GridBagConstraints.WEST;
 		this.add(estancamientoPnl, constraints);
 
 		constraints.gridx = 0;
 		constraints.gridy = 9;
-		constraints.weightx = 1;
-		constraints.weighty = 1; //
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		//constraints.weightx = 1;
 		// constraints.fill = GridBagConstraints.EAST;
 		constraints.anchor = GridBagConstraints.WEST;
 		this.add(poblacionPnl, constraints);
@@ -147,8 +158,8 @@ public class RightPanel extends JPanel {
 
 	private void crea_elitePnl() {
 		elitePnl = new JPanel();
-		elitePnl.setPreferredSize(new Dimension(200, 65));
-		elitePnl.setLayout(new GridLayout(2, 2));
+		elitePnl.setPreferredSize(new Dimension(200, 50));
+		elitePnl.setLayout(new GridLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
 		selElite = new JLabel("SI/NO");
 		elitePnl.add(selElite);
@@ -170,14 +181,16 @@ public class RightPanel extends JPanel {
 			}
 		});
 		elitePnl.add(eliteSel);
-		elitePnl.add(porcentElite);
+		
 		elitePnl.add(pe);
-
+		elitePnl.add(porcentElite);
 		constraints.gridx = 0;
-		constraints.gridy = 1;
-		constraints.weightx = 1;
-		constraints.weighty = 1;
-		constraints.anchor = GridBagConstraints.NORTH;
+		constraints.gridy = 0;
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		//constraints.weightx = 1;
+		//constraints.weighty = 1; //
+		//constraints.anchor = GridBagConstraints.NORTH;
 
 		elitePnl.setBorder(BorderFactory.createTitledBorder("Élite"));
 	}
@@ -199,8 +212,10 @@ public class RightPanel extends JPanel {
 
 		constraints.gridx = 0;
 		constraints.gridy = 1;
-		constraints.weightx = 1;
-		constraints.weighty = 1;
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		//constraints.weightx = 1;
+		//constraints.weighty = 1; //
 		constraints.anchor = GridBagConstraints.NORTH;
 
 		mutacionPnl.setBorder(BorderFactory.createTitledBorder("Mutación"));
@@ -222,8 +237,10 @@ public class RightPanel extends JPanel {
 
 		constraints.gridx = 0;
 		constraints.gridy = 1;
-		constraints.weightx = 1;
-		constraints.weighty = 1;
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		//constraints.weightx = 1;
+		//constraints.weighty = 1; //
 		constraints.anchor = GridBagConstraints.NORTH;
 
 		toleranciaPnl.setBorder(BorderFactory.createTitledBorder("Tolerancia"));
@@ -270,8 +287,10 @@ public class RightPanel extends JPanel {
 		
 		constraints.gridx = 0;
 		constraints.gridy = 1;
-		constraints.weightx = 1;
-		constraints.weighty = 1;
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		//constraints.weightx = 1;
+		//constraints.weighty = 1; //
 		constraints.anchor = GridBagConstraints.CENTER;
 
 		crucePnl.setBorder(BorderFactory.createTitledBorder("Cruce"));
