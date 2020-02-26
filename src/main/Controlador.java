@@ -109,6 +109,7 @@ public class Controlador {
 	{
 		_poblacion.nextGen(); 
 		_addPoints();
+
 	}
 	
 	public void executeSteps(int numSteps)
