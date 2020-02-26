@@ -9,10 +9,6 @@ import java.util.List;
 import individuo.Individuo;
 import poblacion.Poblacion;
 
-/**
- * @author areaj
- *
- */
 public class UniversalEstocastica implements Seleccion{
 	private ArrayList<Double> _porciones;// array para guardar la porción de cada individuo
 	Double tramo = (double) 0;
@@ -32,7 +28,7 @@ public class UniversalEstocastica implements Seleccion{
 			System.out.print(elegido(puntoSeleccion) + " ");
 			seleccionados.add(elegido(puntoSeleccion));			
 		}		
-		System.out.println("");
+		//System.out.println("");
 		return seleccionados;	
 	}
 	

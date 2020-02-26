@@ -36,13 +36,11 @@ public class RightPanel extends JPanel {
 	private JComboBox<String> funcionSel, genotipoSel, selecSel, cruceSel;
 	private JCheckBox eliteSel, estancamientoSel;
 	private JSpinner pc, pe, pm, num_p, num_g, param, tol, p_arit, porc_estancamiento, limit_estancamiento;
-	// private PanelPrincipal panelP;
-	private JLabel alpha, tipoCruce, porcentCruce, porcentMutacion, porcentElite, selElite, indiL, geneL, paramL, paramArit, porcenttolerancia;
+	private JLabel alpha, tipoCruce, porcentCruce, porcentMutacion, porcentElite, selElite, indiL, geneL, paramL, porcenttolerancia;
 	private Controlador _c;
 	private GraficPanel _gp;
 	
 	public RightPanel(PanelPrincipal pp, Controlador c, GraficPanel gp) {
-		// this.panelP = pp;
 		_gp = gp;
 		_c = c;
 		crea_representacionPnl();
@@ -64,9 +62,7 @@ public class RightPanel extends JPanel {
 		constraints.gridy = 10;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
-		//constraints.weightx = 1;
-		//constraints.weighty = 1; //
-		// constraints.fill = GridBagConstraints.EAST;
+		
 		constraints.anchor = GridBagConstraints.EAST;
 		this.add(representacionPnl, constraints);
 		
@@ -74,8 +70,6 @@ public class RightPanel extends JPanel {
 		constraints.gridy = 1;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
-		//constraints.weightx = 1;
-		// constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.anchor = GridBagConstraints.WEST;
 
 		this.add(genotipoPnl, constraints);
@@ -84,8 +78,6 @@ public class RightPanel extends JPanel {
 		constraints.gridy = 2;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
-		//constraints.weightx = 1;
-		// constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.anchor = GridBagConstraints.WEST;
 
 		this.add(toleranciaPnl, constraints);
