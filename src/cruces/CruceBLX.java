@@ -3,13 +3,13 @@ package cruces;
 import individuo.IndividuoBits;
 import individuo.IndividuoReal;
 
-public class CruceAritmeticoBLX implements Cruce{
+public class CruceBLX implements Cruce{
 	
 	private float _alpha = 0.4f;
 	
-	public CruceAritmeticoBLX() {}
+	public CruceBLX() {}
 	
-	public CruceAritmeticoBLX(float alpha)
+	public CruceBLX(float alpha)
 	{
 		_alpha = alpha;
 	}
@@ -42,9 +42,9 @@ public class CruceAritmeticoBLX implements Cruce{
 			float I = cmax - cmin;
 			float rand1 = (float) (Math.random() * (cmin - I * _alpha) + cmax + I * _alpha);
 			float rand2 = (float) (Math.random() * (cmin - I * _alpha) + cmax + I * _alpha);
-			System.out.println("1: " + genotipoIn1[i] + " 2: " + genotipoIn2[i]);
-			System.out.println("cmin: " + cmin + " cmax: " + cmax + " I: " + I );
-			System.out.println("rand1: " + rand1 + " rand2: " + rand2);
+			//System.out.println("1: " + genotipoIn1[i] + " 2: " + genotipoIn2[i]);
+			//System.out.println("cmin: " + cmin + " cmax: " + cmax + " I: " + I );
+			//System.out.println("rand1: " + rand1 + " rand2: " + rand2);
 			nuevoGenotipoIn1[i] = rand1;
 			nuevoGenotipoIn2[i] = rand1;
 		}

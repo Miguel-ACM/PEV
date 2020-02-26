@@ -28,13 +28,11 @@ public class TorneoProbabilistico implements Seleccion{
 			
 		for (int i = 0; i < num; i++) {
 			boolean mejor = Math.random() < _probabilidadMejor;
-			System.out.println("MEJOR: " + mejor);
 			for(int j = 0; j < 3; j++) { // el mejor de 3
 				int x = (int)(Math.random()*_individuos.size());// se toma uno cualquiera
 				
 				if (mejor)//Selecciona el mejor
 				{
-					System.out.print(_individuos.get(x).getFitness() + " ");
 					if(maximiza && _individuos.get(x).getFitness() >= best) {				
 						best = _individuos.get(x).getFitness();
 						selec = x;
@@ -44,7 +42,6 @@ public class TorneoProbabilistico implements Seleccion{
 						selec = x;
 					}
 				} else { //Selecciona el peor
-					System.out.print(_individuos.get(x).getFitness() + " ");
 					if(maximiza && _individuos.get(x).getFitness() <= worst) {	
 						worst = _individuos.get(x).getFitness();
 						selec = x;
@@ -55,7 +52,6 @@ public class TorneoProbabilistico implements Seleccion{
 					}
 				}
 			}
-			System.out.println("\nELEGIDO: " + (mejor ? best : worst));
 			seleccionados.add(selec);
 			best = p.getFitness_min(maximiza);
 			worst = p.getFitness_max(maximiza);

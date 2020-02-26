@@ -151,36 +151,28 @@ public abstract class Poblacion {
 		
 	public void nextGen()
 	{
-		//System.out.println(_size + " " +  _tolerance + " " + _cruceProbability + " " + _mutationProbability + " " + _fitness+ " " +_seleccion+ " " + _cruce+ " " + _elitePercent);
-		//System.out.println("---------------------------------------------------------------Start\n\n\n" + this);
 		boolean maximiza = _fitness.maximiza();
 		//Extrae la elite
 		List<Individuo> elite = this.getElite(maximiza);
 
-		//Seleccionamos 100 individuos y reemplazamos la población
+		//Seleccionamos individuos y reemplazamos la población
 		List<Integer> seleccion = _seleccion.selecciona(this._size, this, maximiza);
 		List<Individuo> nuevosIndividuos = new ArrayList<Individuo>();
-
+		
 		for (Integer i : seleccion)
 		{
 			nuevosIndividuos.add(_individuos.get(i).clone());
 		}
+		System.out.println("SIZE:" + nuevosIndividuos.size());
 		this._individuos = nuevosIndividuos;
+		//Cruce
 		this.cruza();
+		//Mutacion
 		this.mutacion();
 		this.sort(); //Ordenamos segun el fitness de nuevo
-		//System.out.println("---------------------------------------------------------------Mutacion\n\n\n" + this);
 
-		int k = 0;
-		for (Individuo i: elite)
-		{
-			int index = maximiza ? k :  _size - 1 - k; 
-			_individuos.set(index, i);
-			k++;
-		}
-		this.sort();
-
-		//System.out.println("---------------------------------------------------------------Elitismo\n\n\n" + this);
+		
+		//Vemos si algun nuevo individuo ha mejorado el absoluto
 		if (this.betterFitness(getFitness_max(maximiza), _bestFitness) > 0) 
 		{
 			_bestFitness = getFitness_max(maximiza);
@@ -189,6 +181,7 @@ public abstract class Poblacion {
 			
 		}
 		else {
+			//Estancamiento
 			if (_estancamiento)
 			{
 				_numGenEstancado++;
@@ -206,8 +199,17 @@ public abstract class Poblacion {
 			}
 		
 		}
-			
-		
+		this.sort();
+		//System.out.println("---------------------------------------------------------------PreElitismo\n\n\n" + this);
+
+		//Elite
+		int k = 0;
+		for (Individuo i: elite)
+		{
+			int index = maximiza ? k :  _size - 1 - k; 
+			_individuos.set(index, i);
+			k++;
+		}
 		this.sort();
 
 		//System.out.println("---------------------------------------------------------------PostElitismo\n\n\n" + this);

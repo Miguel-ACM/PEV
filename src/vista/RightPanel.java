@@ -247,9 +247,8 @@ public class RightPanel extends JPanel {
 		cruceSel = new JComboBox<String>();
 		cruceSel.addItem("Monopunto");
 		cruceSel.addItem("Uniforme");
-		cruceSel.addItem("Aritmético");
 		
-		cruceSel.setPreferredSize(new Dimension(50, 20));
+		cruceSel.setPreferredSize(new Dimension(150, 20));
 		crucePnl.add(cruceSel);
 
 		porcentCruce = new JLabel("%");
@@ -257,7 +256,7 @@ public class RightPanel extends JPanel {
 		pc = new JSpinner(new SpinnerNumberModel(0.6f, 0f, 1f, 0.01f));
 		crucePnl.add(pc);
 		
-		alpha = new JLabel("Alpha(solo en aritmético)");
+		alpha = new JLabel("Alpha");
 		crucePnl.add(alpha);
 		p_arit= new JSpinner(new SpinnerNumberModel(0.4f, 0f, 1f, 0.1f));
 		p_arit.setEnabled(false);
@@ -265,8 +264,8 @@ public class RightPanel extends JPanel {
 		
 		cruceSel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				_c.set_cruce(cruceSel.getSelectedItem().toString());
-				if(cruceSel.getSelectedItem().equals("Aritmético")) 
+				_c.set_cruce(cruceSel.getSelectedItem().toString(), (float)(double)p_arit.getValue());
+				if(cruceSel.getSelectedItem().equals("Aritmético") /*|| cruceSel.getSelectedItem().equals("BLX")*/) 
 					p_arit.setEnabled(true);					
 				else
 					p_arit.setEnabled(false);	
@@ -291,7 +290,10 @@ public class RightPanel extends JPanel {
 		selecSel = new JComboBox<String>();
 		selecSel.addItem("Ruleta");
 		selecSel.addItem("Torneo determinístico");
+		selecSel.addItem("Torneo probabilístico");
 		selecSel.addItem("Universal estocástica");
+		selecSel.addItem("Restos");
+		
 		selecSel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				_c.set_seleccion(selecSel.getSelectedItem().toString());
@@ -333,6 +335,8 @@ public class RightPanel extends JPanel {
 		genotipoPnl = new JPanel();
 		genotipoPnl.setPreferredSize(new Dimension(200, 50));
 		genotipoSel = new JComboBox<String>();
+		
+
 		genotipoSel.addItem("Bits");
 		genotipoSel.addItem("Real");
 		genotipoSel.addActionListener(new ActionListener() {
@@ -340,13 +344,19 @@ public class RightPanel extends JPanel {
 				if (genotipoSel.getSelectedItem().toString().equals("Bits"))
 				{
 					if (cruceSel.getItemAt(cruceSel.getItemCount() - 1).toString().equals("Aritmético"))
+					{
 						cruceSel.removeItemAt(cruceSel.getItemCount() - 1);
+						//cruceSel.removeItemAt(cruceSel.getItemCount() - 1);
+					}
 					toleranciaPnl.setVisible(true);
 				}
 				else
 				{
 					if (!cruceSel.getItemAt(cruceSel.getItemCount() - 1).toString().equals("Aritmético"))
+					{
+						//cruceSel.addItem("BLX");
 						cruceSel.addItem("Aritmético");
+					}
 					toleranciaPnl.setVisible(false);
 				}
 				_c.set_representacion(genotipoSel.getSelectedItem().toString());
@@ -458,7 +468,7 @@ public class RightPanel extends JPanel {
 				
 				// Cruce seleccionado
 				String cruce = (String)cruceSel.getSelectedItem();
-				_c.set_cruce(cruce);
+				_c.set_cruce(cruce, (float)(double)p_arit.getValue());
 				
 				// alpha , solo para cruce aritmético
 				double p_alpha = (double)p_arit.getValue();

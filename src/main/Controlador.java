@@ -5,6 +5,7 @@ import java.util.List;
 
 import cruces.Cruce;
 import cruces.CruceAritmetico;
+import cruces.CruceBLX;
 import cruces.CruceMonopunto;
 import cruces.CruceUniforme;
 import fitness.Fitness;
@@ -15,9 +16,11 @@ import fitness.FitnessSchubert;
 import poblacion.Poblacion;
 import poblacion.PoblacionBits;
 import poblacion.PoblacionReal;
+import seleccion.Restos;
 import seleccion.Ruleta;
 import seleccion.Seleccion;
 import seleccion.TorneoDeterministico;
+import seleccion.TorneoProbabilistico;
 import seleccion.UniversalEstocastica;
 
 public class Controlador {	
@@ -89,9 +92,8 @@ public class Controlador {
 		_poblacion.set_estancamiento(_estancamientoActivado, _porcentaje_reinicio, _num_gens_reinicio);
 	}
 	
-	public void nextStep()
+	private void _addPoints()
 	{
-		_poblacion.nextGen(); 
 		_points.best_fitness.add(_poblacion.getFitness_max(_fitness.maximiza()));
 		_points.worst_fitness.add(_poblacion.getFitness_min(_fitness.maximiza()));
 		_points.best_overall_fitness.add(_poblacion.getBest_overall(_fitness.maximiza()));
@@ -101,12 +103,17 @@ public class Controlador {
 			sumFitness += i;
 		}
 		_points.mean_fitness.add(new Double(sumFitness / allFitness.length));
-			
-
+	}
+	
+	public void nextStep()
+	{
+		_poblacion.nextGen(); 
+		_addPoints();
 	}
 	
 	public void executeSteps(int numSteps)
 	{
+		_addPoints();
 		while (numSteps > 0) {
 			this.nextStep();
 			numSteps--;
@@ -146,14 +153,16 @@ public class Controlador {
 		_poblacion.set_mutationProbability(mut);
 	}
 	
-	public void set_cruce(String newCruce)
+	public void set_cruce(String newCruce, float alpha)
 	{
 		if (newCruce.equals("Monopunto"))
 			_cruce = new CruceMonopunto();
 		else if (newCruce.equals("Uniforme"))
 			_cruce = new CruceUniforme();
 		else if (newCruce.equals("Aritmético"))
-			_cruce = new CruceAritmetico();
+			_cruce = new CruceAritmetico(alpha);
+		else if (newCruce.equals("BLX"))
+			_cruce = new CruceBLX(alpha);
 		else
 			System.out.println("DEBUG ERROR 2");
 		_poblacion.set_cruce(_cruce);
@@ -193,6 +202,10 @@ public class Controlador {
 			_seleccion = new UniversalEstocastica();
 		else if (seleccion.equals("Torneo determinístico"))
 			_seleccion = new TorneoDeterministico();
+		else if (seleccion.equals("Torneo probabilístico"))
+			_seleccion = new TorneoProbabilistico();
+		else if (seleccion.equals("Restos"))
+			_seleccion = new Restos();
 		else
 			System.out.println("DEBUG ERROR 3");
 		_poblacion.set_seleccion(_seleccion);

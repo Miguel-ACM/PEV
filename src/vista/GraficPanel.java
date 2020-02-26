@@ -79,14 +79,14 @@ public class GraficPanel extends JPanel{
 
 		double gener [] = new double[points.best_fitness.size()];
 			
-		for(int i =1; i<= gener.length; i++) {			
-			gener[i-1] = i;
+		for(int i =0; i< gener.length; i++) {			
+			gener[i] = i;
 		}
 		
 		datasetMulti.addSeries("Mejor", new double[][] {gener,points.toArray(points.best_fitness)});	
 		datasetMulti.addSeries("Mejor absoluto", new double[][] {gener,points.toArray(points.best_overall_fitness)});
 		datasetMulti.addSeries("Media", new double[][] {gener,points.toArray(points.mean_fitness)});
-		datasetMulti.addSeries("Peor", new double[][] {gener,points.toArray(points.worst_fitness)});
+		//datasetMulti.addSeries("Peor", new double[][] {gener,points.toArray(points.worst_fitness)});
 
         chart.getXYPlot().setDataset(datasetMulti);
         
