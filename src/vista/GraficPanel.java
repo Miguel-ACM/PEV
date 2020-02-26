@@ -31,6 +31,8 @@ public class GraficPanel extends JPanel{
 		chart = ChartFactory.createXYLineChart("EVOLUCIÓN", "Generaciones", "Fitness", datasetMulti);
 		chart.setBorderPaint(Color.MAGENTA);
 		chart.setBackgroundPaint(Color.orange);
+        chart.getXYPlot().setBackgroundPaint(Color.black);
+
 		
 		panel = new ChartPanel(chart);
 		panel.setPreferredSize(new Dimension(1000, 650));
@@ -49,15 +51,11 @@ public class GraficPanel extends JPanel{
 			gener[i-1] = i;
 		}
 		
-		/*  Por cada gráfica a mostrar 
-			datasetMulti.addSeries("Nombre", new double[][] {arrayDatosX,arrayDatosY});*/			
 		datasetMulti.addSeries("Mejor", new double[][] {gener,points.toArray(points.best_fitness)});	
 		datasetMulti.addSeries("Mejor absoluto", new double[][] {gener,points.toArray(points.best_overall_fitness)});
 		datasetMulti.addSeries("Media", new double[][] {gener,points.toArray(points.mean_fitness)});
-		// XYPlot plot = (XYPlot) chart.getPlot();
-		//datasetMulti.addSeries("Peor", new double[][] {gener,points.toArray(points.worst_fitness)});
-		//datasetMulti.addSeries("Absoluto", new double[][] {gener,fit});
-		//datasetMulti.addSeries("Media", new double[][] {gener,fit});
+		datasetMulti.addSeries("Peor", new double[][] {gener,points.toArray(points.worst_fitness)});
+
         chart.getXYPlot().setDataset(datasetMulti);
         chart.getXYPlot().setBackgroundPaint(Color.black);
         ((NumberAxis)chart.getXYPlot().getRangeAxis()).setAutoRangeIncludesZero(false);

@@ -21,6 +21,7 @@ public class PoblacionReal extends Poblacion{
 		// ordena la población
 		this.sort();
 		_bestFitness = this.getFitness_max(fitness.maximiza());
+		_bestIndividuo = this.getBest_individuo(fitness.maximiza());
 	}
 
 	public void cruza()

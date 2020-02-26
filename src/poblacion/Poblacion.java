@@ -26,6 +26,7 @@ public abstract class Poblacion {
 	private int _numGenEstancado = 0;
 	private int _numGenEstancadoThreshold = 20;
 	private float _reseteoPercent = 0.5f;
+	protected Individuo _bestIndividuo;
 	
 	public Poblacion(int size, Fitness fitness){
 		_individuos = new ArrayList<Individuo>();
@@ -103,6 +104,18 @@ public abstract class Poblacion {
 		else 
 			return _individuos.get(0).getFitness();
 	}
+	
+	//Obtiene el mejor individuo actual
+	public Individuo getBest_individuo(boolean maximiza) {		
+		if(maximiza)
+			return _individuos.get(_size-1).clone();
+		else 
+			return _individuos.get(0).clone();
+	}
+	
+	public Individuo getBest_individuo_absoluto(boolean maximiza) {		
+		return _bestIndividuo;
+	}
 
 	/**
 	 * Si la funcion maximiza el peor fitness es el de
@@ -171,6 +184,7 @@ public abstract class Poblacion {
 		if (this.betterFitness(getFitness_max(maximiza), _bestFitness) > 0) 
 		{
 			_bestFitness = getFitness_max(maximiza);
+			_bestIndividuo = this.getBest_individuo(_fitness.maximiza());
 			this._numGenEstancado = 0;
 			
 		}
@@ -184,7 +198,10 @@ public abstract class Poblacion {
 					this._numGenEstancado = 0;		
 					this.sort();
 					if (this.betterFitness(getFitness_max(maximiza), _bestFitness) > 0) 
+					{
 						_bestFitness = getFitness_max(maximiza);
+						_bestIndividuo = this.getBest_individuo(_fitness.maximiza());
+					}
 				}
 			}
 		

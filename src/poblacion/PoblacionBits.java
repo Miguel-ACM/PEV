@@ -24,6 +24,7 @@ public class PoblacionBits extends Poblacion{
 		
 		// ordena la poblacion
 		this.sort();
+		_bestIndividuo = this.getBest_individuo(fitness.maximiza());
 		_bestFitness = this.getFitness_max(fitness.maximiza());
 	}
 
