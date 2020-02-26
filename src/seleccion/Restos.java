@@ -20,7 +20,8 @@ public class Restos implements Seleccion {
 	 * Devuelve un Array con los indices de los Individuos seleccionados    */
 	public ArrayList<Integer> selecciona(int num, Poblacion p, boolean maximiza) {
 		ArrayList<Integer> seleccionados = new ArrayList<Integer>();
-		k = (float) Math.pow(num, .06f);
+		k = num * 1.05f; //Con esto coge un 80% de la poblacion aproximadamente
+						 //Se podria jugar con este valor como parametro
 		
 		if(maximiza) proporcion_Maximizada(p, maximiza);
 		else proporcion_Minimizada(p, maximiza);
@@ -32,11 +33,12 @@ public class Restos implements Seleccion {
 			{
 				aniadidos++;
 				seleccionados.add(i);
+				System.out.print(i + " ");
 				numInds--;
 			}
 			i++;
 		}
-		System.out.println(aniadidos);
+		
 		//los que falten se seleccionan mediante Torneo probabilistico
 		if (aniadidos < num) {
 			ArrayList<Integer> otroMetodo = new TorneoProbabilistico().selecciona(num - aniadidos, p, maximiza);
@@ -50,7 +52,7 @@ public class Restos implements Seleccion {
 	
 	/* Crea un array con los valores de la porción minimizada de 
 	 * cada individuo */
-	public void proporcion_Minimizada(Poblacion p, boolean maximiza) {
+	private void proporcion_Minimizada(Poblacion p, boolean maximiza) {
 		Double tramo = (double) 0;
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
@@ -64,14 +66,14 @@ public class Restos implements Seleccion {
 		
 		// calcula la proporción de cada uno y la añade al array
 		for(Individuo i : _individuos) {
-			tramo += ((fitMax -i.getFitness())/totalFitnessMinimizado);
+			tramo = ((fitMax -i.getFitness())/totalFitnessMinimizado);
 			_porciones.add(tramo);
 		}	
 	}
 	
 	/* Crea un array con los valores de la porción maximizada de 
 	 * cada individuo */
-	public void proporcion_Maximizada(Poblacion p, boolean maximiza) {
+	private void proporcion_Maximizada(Poblacion p, boolean maximiza) {
 		Double tramo = (double) 0;
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
@@ -85,7 +87,7 @@ public class Restos implements Seleccion {
 				
 		// calcula la proporción de cada uno y la añade al array
 		for(Individuo i : _individuos) {
-			tramo += ((i.getFitness() - fitMin)/totalFitnessMaximizado);
+			tramo = ((i.getFitness() - fitMin)/totalFitnessMaximizado);
 			_porciones.add(tramo);
 		}	
 

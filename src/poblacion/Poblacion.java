@@ -57,6 +57,7 @@ public abstract class Poblacion {
 		return retValue;
 	}
 	
+	//Muta cada individuo
 	public void mutacion() 
 	{
 		for (int i = 0; i < _size; i++)
@@ -65,6 +66,7 @@ public abstract class Poblacion {
 		}
 	}
 	
+	//Obtiene el fitness de toda la poblacion
 	public double[] getFitness() {
 		double res[] = new double[_size];
 		
@@ -134,12 +136,12 @@ public abstract class Poblacion {
 		return _bestFitness;
 	}
 		
+	//Obtiene un porcentaje de individuos como elite
 	public List<Individuo> getElite(boolean maximiza)
 	{
 		List<Individuo> elite = new ArrayList<Individuo>();
 
 		int numElite = (int) (this._elitePercent * this._size);
-		//System.out.println("La elite es: ");
 		for (int i = 0; i < numElite; i++)
 		{
 			int index = maximiza ? _size - 1 - i : i ;
@@ -154,7 +156,7 @@ public abstract class Poblacion {
 		boolean maximiza = _fitness.maximiza();
 		//Extrae la elite
 		List<Individuo> elite = this.getElite(maximiza);
-
+		
 
 		//Seleccionamos X individuos y reemplazamos la población
 		List<Integer> seleccion = _seleccion.selecciona(this._size, this, maximiza);

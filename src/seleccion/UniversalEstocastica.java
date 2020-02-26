@@ -21,12 +21,11 @@ public class UniversalEstocastica implements Seleccion{
 		else proporcion_Minimizada(p, maximiza);
 		
 		double puntoSeleccion = Math.random()*1/num;// punto inicial entre 0 y 1/num
-		seleccionados.add(elegido(puntoSeleccion));	
-		
+		seleccionados.add(elegido(puntoSeleccion, maximiza, num));	
+
 		for (int i = 1; i < num; i++) {		
 			puntoSeleccion += (double) 1 / num;
-			System.out.print(elegido(puntoSeleccion) + " ");
-			seleccionados.add(elegido(puntoSeleccion));			
+			seleccionados.add(elegido(puntoSeleccion,maximiza, num));			
 		}		
 		//System.out.println("");
 		return seleccionados;	
@@ -34,7 +33,7 @@ public class UniversalEstocastica implements Seleccion{
 	
 	/* Crea un array con los valores de la porción minimizada de 
 	 * cada individuo */
-	public void proporcion_Minimizada(Poblacion p, boolean maximiza) {
+	private void proporcion_Minimizada(Poblacion p, boolean maximiza) {
 		Double tramo = (double) 0;
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
@@ -55,7 +54,7 @@ public class UniversalEstocastica implements Seleccion{
 	
 	/* Crea un array con los valores de la porción maximizada de 
 	 * cada individuo */
-	public void proporcion_Maximizada(Poblacion p, boolean maximiza) {
+	private void proporcion_Maximizada(Poblacion p, boolean maximiza) {
 		Double tramo = (double) 0;
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
@@ -77,10 +76,10 @@ public class UniversalEstocastica implements Seleccion{
 	
 	/* Le llega un valor y devuelve el individuo al que
 	 * corresponde */
-	public int elegido(Double puntoSeleccion) {
+	private int elegido(Double puntoSeleccion, boolean maximiza, int size) {
 		int num_Ind = 0;
 		
-		while(puntoSeleccion > _porciones.get(num_Ind)) {
+		while((maximiza ? puntoSeleccion > _porciones.get(num_Ind) : puntoSeleccion <= _porciones.get(num_Ind)) && num_Ind < size - 1) {
 			num_Ind++;		
 		}
 				

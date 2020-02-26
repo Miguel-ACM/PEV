@@ -33,7 +33,7 @@ public class Ruleta implements Seleccion {
 	
 	/* Crea un array con los valores de la porción minimizada de 
 	 * cada individuo */
-	public void proporcion_Minimizada(Poblacion p, boolean maximiza) {
+	private void proporcion_Minimizada(Poblacion p, boolean maximiza) {
 		Double tramo = (double) 0;
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
@@ -54,7 +54,7 @@ public class Ruleta implements Seleccion {
 	
 	/* Crea un array con los valores de la porción maximizada de 
 	 * cada individuo */
-	public void proporcion_Maximizada(Poblacion p, boolean maximiza) {
+	private void proporcion_Maximizada(Poblacion p, boolean maximiza) {
 		Double tramo = (double) 0;
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
@@ -76,7 +76,7 @@ public class Ruleta implements Seleccion {
 	}
 	
 
-	public int elegido() {
+	private int elegido() {
 		int num_Ind = 0;
 		Double seleccion = Math.random();
 		
