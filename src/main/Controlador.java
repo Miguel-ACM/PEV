@@ -35,16 +35,9 @@ public class Controlador {
 	private float _cruceProb = 0.6f;
 	private float _elitismoPer = 0.3f;
 	private float _alpha = 0.4f;
-	/**
-	 * @return the _num_Fun4
-	 */
-	public int get_num_Fun4() {
-		return _num_Fun4;
-	}
 
 	private Points _points;
 	private String _representacion;
-	private int _num_Fun4 = 0;
 	private boolean _estancamientoActivado = true;
 	private float _porcentaje_reinicio = 0.5f;
 	private int _num_gens_reinicio = 20;
@@ -134,15 +127,12 @@ public class Controlador {
 	//n solo sirve para la funcion 4
 	public void set_fitness(String newFitness, int n)
 	{
-		this._num_Fun4 = 0;
 		if (newFitness.equals("Schubert"))
 			_fitness = new FitnessSchubert();
 		else if (newFitness.equals("Holder Table"))
 			_fitness = new FitnessHolderTable();
-		else if (newFitness.equals("Michalewicz")) {
-			this._num_Fun4 = n;
+		else if (newFitness.equals("Michalewicz")) 
 			_fitness = new FitnessMichalewicz(n);
-		}
 		else if (newFitness.equals("Función 1"))
 			_fitness = new FitnessFuncion1();
 		else

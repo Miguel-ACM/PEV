@@ -29,18 +29,16 @@ public class GraficPanel extends JPanel{
 	private ChartPanel panel;
 	private JFreeChart chart;
 	private JPanel mejorPnl, f4Pnl;
-	private JTextArea fit_Area, X1_Area, X2_Area;
-	private Controlador _c;
+	private JTextArea fit_Area;
 	private JLabel[] arregloPanel ;
 	private JTextArea[] arregloText;
 	
 	public  GraficPanel(PanelPrincipal pp, Controlador c) {
-		this._c = c;
 		crearMejorPnl();
 		crearMichalewiczPnl();
 		
 		this.mejorPnl.setPreferredSize(new Dimension(1000, 50));
-		this.mejorPnl.setBorder(BorderFactory.createTitledBorder("Mejor individuo"));
+		this.mejorPnl.setBorder(BorderFactory.createTitledBorder("Mejor fitness"));
 		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
@@ -55,7 +53,7 @@ public class GraficPanel extends JPanel{
 		this.add(mejorPnl, constraints);
 		
 		this.f4Pnl.setPreferredSize(new Dimension(1000, 60));
-		this.f4Pnl.setBorder(BorderFactory.createTitledBorder("Función Michalewicz(muestra histórico)"));
+		this.f4Pnl.setBorder(BorderFactory.createTitledBorder("Mejor Fenotipo"));
 			
 		constraints.gridx = 0;
 		constraints.gridy = 1;
@@ -97,21 +95,9 @@ public class GraficPanel extends JPanel{
 		
 		JLabel fit = new JLabel("Fitness");
 		this.fit_Area = new JTextArea(1, 6);
-		
-		JLabel X1 = new JLabel("X1");
-		this.X1_Area = new JTextArea(1, 6);
-		this.X1_Area.setEditable(false);
-		
-		JLabel X2 = new JLabel("X2");
-		X2_Area = new JTextArea(1, 6);
-		this.X2_Area.setEditable(false);
 				
 		this.mejorPnl.add(fit);
 		this.mejorPnl.add(fit_Area);
-		this.mejorPnl.add(X1);
-		this.mejorPnl.add(X1_Area);
-		this.mejorPnl.add(X2);
-		this.mejorPnl.add(X2_Area);
 	
 	}
 	
@@ -126,8 +112,10 @@ public class GraficPanel extends JPanel{
 		
 		for(int i = 0; i < 12 ;i++) {
 			arregloPanel[i] = new JLabel(" n= "+( i+1));
+			arregloPanel[i].setVisible(false);
 			arregloText[i]=  new JTextArea(1, 3);
 			arregloText[i].setEditable(false);
+			arregloText[i].setVisible(false);
 			this.f4Pnl.add(arregloPanel[i]);
 			this.f4Pnl.add(arregloText[i]);			
 		}			
@@ -136,29 +124,24 @@ public class GraficPanel extends JPanel{
 	
 	
 	public void actualizar_mejor(Points points) {	
-		int numf4 = _c.get_num_Fun4();
-		int best = points.best_fitness.size() -1;
-		String dato = Double.toString(points.best_fitness.get(best));
-		
+		float[] fenotipo = points.mejor.getFenotipo();
+		int size = fenotipo.length;
 		// si es la función Michalewicz
-		if(numf4 >0) {
-			// limpia las otras funciones
-			this.fit_Area.setText(" ");
-			this.X1_Area.setText(" ");
-			this.X2_Area.setText(" ");
-			
-			// muestra Michalewicz
-			this.arregloText[numf4 -1].setText(dato);
-			
-		}else {	
-			// limpia Michalewicz
-			for(int i = 0; i < 12 ;i++) {
-				this.arregloText[i].setText(" ");
+		// limpia las otras funciones
+		this.fit_Area.setText(Double.toString(points.mejor.getFitness()));
+		for (int i = 0; i < 12; i++)
+		{
+			if (i < size)
+			{
+				this.arregloText[i].setVisible(true);
+				this.arregloText[i].setText(Double.toString(points.mejor.getFenotipo()[0]));
+				this.arregloPanel[i].setVisible(true);
+			} else {
+				this.arregloText[i].setVisible(false);
+				this.arregloText[i].setText("");
+				this.arregloPanel[i].setVisible(false);
+				
 			}
-			// muestra las otras
-			this.fit_Area.setText(dato);
-			this.X1_Area.setText(Double.toString(points.mejor.getFenotipo()[0]));
-			this.X2_Area.setText(Double.toString(points.mejor.getFenotipo()[1]));
 			
 		}
 
