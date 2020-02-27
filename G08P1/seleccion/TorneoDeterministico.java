@@ -14,19 +14,19 @@ import poblacion.Poblacion;
  *
  */
 public class TorneoDeterministico implements Seleccion{
-	
-	
+
+
 	/* Le llega la población y el num de elementos a seleccionar 
 	 * Devuelve un Array con los indices de los Individuos seleccionados    */
 	public ArrayList<Integer> selecciona(int num, Poblacion p, boolean maximiza) {
 		ArrayList<Integer> seleccionados = new ArrayList<Integer>();
 		List<Individuo> _individuos = p.get_individuos();
-		
+
 		double best = p.getFitness_min(maximiza); 
 		int selec = 0;
-			
+
 		for (int i = 0; i < num; i++) {
-			
+
 			for(int j = 0; j < 3; j++) { // el mejor de 3
 				int x = (int)(Math.random()*_individuos.size());// se toma uno cualquiera
 				if(maximiza && _individuos.get(x).getFitness() > best) {				
@@ -43,7 +43,7 @@ public class TorneoDeterministico implements Seleccion{
 		}		
 		return seleccionados;	
 	}
-	
-	
-	
+
+
+
 }

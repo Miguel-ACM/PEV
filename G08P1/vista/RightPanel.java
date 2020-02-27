@@ -198,7 +198,7 @@ public class RightPanel extends JPanel {
 
 		porcentMutacion = new JLabel("%");
 		mutacionPnl.add(porcentMutacion);
-		pm = new JSpinner(new SpinnerNumberModel(0.02f, 0f, 1f, 0.01f));
+		pm = new JSpinner(new SpinnerNumberModel(0.05f, 0f, 1f, 0.01f));
 		pm.setMinimumSize(new Dimension(100, 1));
 		pm.setPreferredSize(new Dimension(100, 25));
 
@@ -263,7 +263,7 @@ public class RightPanel extends JPanel {
 
 		alpha = new JLabel("Alpha");
 		crucePnl.add(alpha);
-		p_arit= new JSpinner(new SpinnerNumberModel(0.4f, 0f, 1f, 0.1f));
+		p_arit= new JSpinner(new SpinnerNumberModel(0.4f, 0f, 1f, 0.01f));
 		p_arit.setEnabled(false);
 		crucePnl.add(p_arit);
 
