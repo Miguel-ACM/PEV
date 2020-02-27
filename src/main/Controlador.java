@@ -210,6 +210,8 @@ public class Controlador {
 			_seleccion = new TorneoProbabilistico();
 		else if (seleccion.equals("Restos"))
 			_seleccion = new Restos();
+		else if (seleccion.equals("Sin selección"))
+			_seleccion = null;
 		else
 			System.out.println("DEBUG ERROR 3");
 		_poblacion.set_seleccion(_seleccion);

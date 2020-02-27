@@ -159,14 +159,18 @@ public abstract class Poblacion {
 		
 
 		//Seleccionamos X individuos y reemplazamos la población
-		List<Integer> seleccion = _seleccion.selecciona(this._size, this, maximiza);
-		List<Individuo> nuevosIndividuos = new ArrayList<Individuo>();
 		
-		for (Integer i : seleccion)
+		
+		if (_seleccion != null)
 		{
-			nuevosIndividuos.add(_individuos.get(i).clone());
+			List<Individuo> nuevosIndividuos = new ArrayList<Individuo>();
+			List<Integer> seleccion = _seleccion.selecciona(this._size, this, maximiza);
+			for (Integer i : seleccion)
+			{
+				nuevosIndividuos.add(_individuos.get(i).clone());
+			}
+			this._individuos = nuevosIndividuos;
 		}
-		this._individuos = nuevosIndividuos;
 		//Cruce
 		this.cruza();
 		//Mutacion

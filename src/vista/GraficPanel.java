@@ -95,6 +95,7 @@ public class GraficPanel extends JPanel{
 		
 		JLabel fit = new JLabel("Fitness");
 		this.fit_Area = new JTextArea(1, 6);
+		this.fit_Area.setEditable(false);
 				
 		this.mejorPnl.add(fit);
 		this.mejorPnl.add(fit_Area);
@@ -126,8 +127,7 @@ public class GraficPanel extends JPanel{
 	public void actualizar_mejor(Points points) {	
 		float[] fenotipo = points.mejor.getFenotipo();
 		int size = fenotipo.length;
-		// si es la función Michalewicz
-		// limpia las otras funciones
+
 		this.fit_Area.setText(Double.toString(points.mejor.getFitness()));
 		for (int i = 0; i < 12; i++)
 		{

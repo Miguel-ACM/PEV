@@ -152,7 +152,7 @@ public class RightPanel extends JPanel {
 
 	private void crea_elitePnl() {
 		elitePnl = new JPanel();
-		elitePnl.setPreferredSize(new Dimension(200, 50));
+		elitePnl.setPreferredSize(new Dimension(250, 50));
 		elitePnl.setLayout(new GridLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
 		selElite = new JLabel("SI/NO");
@@ -162,6 +162,8 @@ public class RightPanel extends JPanel {
 
 		porcentElite = new JLabel("%");
 		pe = new JSpinner(new SpinnerNumberModel(0.02f, 0f, 1f, 0.01f));
+		pe.setMinimumSize(new Dimension(200, 1));
+		pe.setPreferredSize(new Dimension(200, 25));
 		eliteSel = new JCheckBox();
 		eliteSel.setSelected(true);
 		eliteSel.addItemListener(new ItemListener() {
@@ -170,7 +172,7 @@ public class RightPanel extends JPanel {
 					pe.setEnabled(true);
 				else
 					pe.setEnabled(false);
-				_c.set_elite(eliteSel.isSelected() ? (float)(double) pe.getValue() : 0f); // EL 0.02f tiene que sacarse
+				_c.set_elite(eliteSel.isSelected() ? (float)(double) pe.getValue() : 0f);
 				
 			}
 		});
@@ -181,7 +183,8 @@ public class RightPanel extends JPanel {
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.gridheight = 1;
-		constraints.gridwidth = 2;
+		constraints.gridwidth = 3;
+
 
 
 		elitePnl.setBorder(BorderFactory.createTitledBorder("Élite"));
@@ -295,6 +298,7 @@ public class RightPanel extends JPanel {
 		selecSel.addItem("Torneo probabilístico");
 		selecSel.addItem("Universal estocástica");
 		selecSel.addItem("Restos");
+		selecSel.addItem("Sin selección");
 		
 		selecSel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
