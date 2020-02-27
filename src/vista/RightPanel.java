@@ -4,6 +4,7 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -41,8 +42,8 @@ public class RightPanel extends JPanel {
 	private GraficPanel _gp;
 	
 	public RightPanel(PanelPrincipal pp, Controlador c, GraficPanel gp) {
-		_gp = gp;
-		_c = c;
+		this._gp = gp;
+		this._c = c;
 		crea_representacionPnl();
 		crea_funcionPnl();
 		crea_poblacionPnl();
@@ -54,6 +55,7 @@ public class RightPanel extends JPanel {
 		crea_elitePnl();
 		crea_estancamientoPnl();
 
+		//this.setBackground(Color.gray);
 		this.setLayout(new GridBagLayout());
 
 		GridBagConstraints constraints = new GridBagConstraints();
@@ -370,20 +372,25 @@ public class RightPanel extends JPanel {
 	private void crea_funcionPnl() {
 		funcionPnl = new JPanel();
 		paramL = new JLabel("Parámetro: ");
-		param = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+		param = new JSpinner(new SpinnerNumberModel(1, 1, 12, 1));
 		param.setEnabled(false);
 		funcionSel = new JComboBox<String>();
 		funcionSel.addItem("Función 1");
 		funcionSel.addItem("Holder Table");
 		funcionSel.addItem("Schubert");
 		funcionSel.addItem("Michalewicz");
+		
 		funcionSel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				_c.set_fitness(funcionSel.getSelectedItem().toString(), (int) param.getValue());
-				if (funcionSel.getSelectedItem().equals("Michalewicz"))
+				
+				if (funcionSel.getSelectedItem().equals("Michalewicz")) {
 					param.setEnabled(true);
-				else
+				}					
+				else {
 					param.setEnabled(false);
+				}
+				
 			}
 		});
 		funcionSel.setPreferredSize(new Dimension(150, 20));
