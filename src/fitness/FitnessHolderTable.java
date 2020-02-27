@@ -7,8 +7,6 @@ public class FitnessHolderTable implements Fitness{
 	public double fitness(Individuo individuo)
 	{
 		float[] fenotipo = individuo.getFenotipo();
-		if (fenotipo.length < 2)
-			return -1; //TODO CONTROL DE EXCEPCIONES
 		
 		double value = -Math.abs(
 							Math.sin(fenotipo[0]) * Math.cos(fenotipo[1]) * 

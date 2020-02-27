@@ -22,7 +22,9 @@ public class IndividuoReal implements Individuo {
 		
 		_genotipo =  new float[_variables];
 		for (int i=0; i< _variables; i++) {
-			_genotipo[i] = (float) (Math.random() * _limites[i][1] + _limites[i][0]);
+			_genotipo[i] = (float) (Math.random() * (_limites[i][1] - _limites[i][0]) + _limites[i][0]);
+			//if (i == 1)
+				//System.out.println(_genotipo[i]);
 		}
 	}
 	
@@ -30,7 +32,7 @@ public class IndividuoReal implements Individuo {
 	public Individuo mutacion(float posibilidad) {
 		for (int i = 0; i < _variables; i++)
 		{
-			this._genotipo[i] = Math.random() <= posibilidad ? (float) (Math.random() * _limites[i][1] + _limites[i][0]) : _genotipo[i];
+			this._genotipo[i] = Math.random() <= posibilidad ? (float) (Math.random() * (_limites[i][1] - _limites[i][0]) + _limites[i][0]) : _genotipo[i];
 		}
 		return this;
 	}

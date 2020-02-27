@@ -111,7 +111,7 @@ public class GraficPanel extends JPanel{
 		
 		
 		for(int i = 0; i < 12 ;i++) {
-			arregloPanel[i] = new JLabel(" n= "+( i+1));
+			arregloPanel[i] = new JLabel(" x"+( i+1) + "=");
 			arregloPanel[i].setVisible(false);
 			arregloText[i]=  new JTextArea(1, 3);
 			arregloText[i].setEditable(false);
@@ -134,13 +134,12 @@ public class GraficPanel extends JPanel{
 			if (i < size)
 			{
 				this.arregloText[i].setVisible(true);
-				this.arregloText[i].setText(Double.toString(points.mejor.getFenotipo()[0]));
+				this.arregloText[i].setText(Double.toString(points.mejor.getFenotipo()[i]));
 				this.arregloPanel[i].setVisible(true);
 			} else {
 				this.arregloText[i].setVisible(false);
 				this.arregloText[i].setText("");
 				this.arregloPanel[i].setVisible(false);
-				
 			}
 			
 		}
