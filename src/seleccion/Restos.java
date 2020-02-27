@@ -33,7 +33,6 @@ public class Restos implements Seleccion {
 			{
 				aniadidos++;
 				seleccionados.add(i);
-				System.out.print(i + " ");
 				numInds--;
 			}
 			i++;

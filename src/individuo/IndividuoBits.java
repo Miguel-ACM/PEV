@@ -88,12 +88,8 @@ public class IndividuoBits implements Individuo {
 	public double getFitness() {
 		return _fitness.fitness( this);
 	}
-	
-	public void setFitness(Fitness fitness) { 
-		_fitness = fitness;
-	}
 
-	
+	//Obtiene el genotipo
 	public boolean[] getGenotipo() {
 		return _genotipo;
 	}
@@ -126,7 +122,7 @@ public class IndividuoBits implements Individuo {
 		
 	}
 
-
+	//Establece el genotipo a uno dado
 	public void setGenotipo(boolean[] nuevoGenotipo) {
 		_genotipo = nuevoGenotipo.clone();
 		this.calculateFenotipo();

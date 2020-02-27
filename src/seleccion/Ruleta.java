@@ -75,7 +75,7 @@ public class Ruleta implements Seleccion {
 		
 	}
 	
-
+	//Elige un individuo
 	private int elegido() {
 		int num_Ind = 0;
 		Double seleccion = Math.random();

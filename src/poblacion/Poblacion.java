@@ -77,6 +77,7 @@ public abstract class Poblacion {
 		return res;
 	}
 	
+	//ordena los individuos en funcion de su fitness
 	public void sort() {
 		Collections.sort(_individuos);
 	}
@@ -115,6 +116,7 @@ public abstract class Poblacion {
 			return _individuos.get(0).clone();
 	}
 	
+	//Obtiene el mejor individuo historico
 	public Individuo getBest_individuo_absoluto(boolean maximiza) {		
 		return _bestIndividuo;
 	}
@@ -150,7 +152,8 @@ public abstract class Poblacion {
 		
 		return elite;
 	}
-		
+	
+	//realiza una generacion con todos sus pasos
 	public void nextGen()
 	{
 		boolean maximiza = _fitness.maximiza();
@@ -160,7 +163,7 @@ public abstract class Poblacion {
 
 		//Seleccionamos X individuos y reemplazamos la población
 		
-		
+		//No se hace nada si no hay seleccion
 		if (_seleccion != null)
 		{
 			List<Individuo> nuevosIndividuos = new ArrayList<Individuo>();
@@ -206,7 +209,6 @@ public abstract class Poblacion {
 		
 		}
 		this.sort();
-		//System.out.println("---------------------------------------------------------------PreElitismo\n\n\n" + this);
 
 		//Elite
 		int k = 0;
@@ -217,10 +219,6 @@ public abstract class Poblacion {
 			k++;
 		}
 		this.sort();
-
-		//System.out.println("---------------------------------------------------------------PostElitismo\n\n\n" + this);
-		//System.out.println("---------------------------");
-
 
 	}
 	
@@ -281,9 +279,7 @@ public abstract class Poblacion {
 	public void set_elite(Float elite){
 		this._elitePercent = elite;
 	}
-	
-	public abstract void cruza();
-	
+		
 	public void set_estancamiento(boolean activado, float porcentaje_reinicio, int num_gens)
 	{
 		_estancamiento = activado;
@@ -291,7 +287,13 @@ public abstract class Poblacion {
 		_reseteoPercent = porcentaje_reinicio;
 	}
 	
+	// El cruce tal y como esta diseñada la aplicacion tiene que hacerse sabiendo el
+	// Genotipo, por lo que se deja la implementacion a poblacionBits y poblacionReal
+	public abstract void cruza();
 	
+	// El reseteo de la poblacion, en el que un reseteoPercent de la poblacion se reinicializa,
+	// tiene que hacerse en la clase que herede de esta ya que esta no sabe que tipo de individuo
+	// tiene que crear
 	public abstract void reseteaPoblacion(float reseteoPercent, boolean maximiza);
 
 }

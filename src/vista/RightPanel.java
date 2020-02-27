@@ -40,7 +40,7 @@ public class RightPanel extends JPanel {
 	private JLabel alpha, tipoCruce, porcentCruce, porcentMutacion, porcentElite, selElite, indiL, geneL, paramL, porcenttolerancia;
 	private Controlador _c;
 	private GraficPanel _gp;
-	
+
 	public RightPanel(PanelPrincipal pp, Controlador c, GraficPanel gp) {
 		this._gp = gp;
 		this._c = c;
@@ -64,10 +64,10 @@ public class RightPanel extends JPanel {
 		constraints.gridy = 10;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
-		
+
 		constraints.anchor = GridBagConstraints.EAST;
 		this.add(representacionPnl, constraints);
-		
+
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.gridheight = 1;
@@ -75,7 +75,7 @@ public class RightPanel extends JPanel {
 		constraints.anchor = GridBagConstraints.WEST;
 
 		this.add(genotipoPnl, constraints);
-		
+
 		constraints.gridx = 0;
 		constraints.gridy = 2;
 		constraints.gridheight = 1;
@@ -129,7 +129,7 @@ public class RightPanel extends JPanel {
 		// constraints.fill = GridBagConstraints.EAST;
 		constraints.anchor = GridBagConstraints.WEST;
 		this.add(elitePnl, constraints);
-		
+
 		constraints.gridx = 0;
 		constraints.gridy = 8;
 		constraints.gridheight = 1;
@@ -157,7 +157,7 @@ public class RightPanel extends JPanel {
 		GridBagConstraints constraints = new GridBagConstraints();
 		selElite = new JLabel("SI/NO");
 		elitePnl.add(selElite);
-		
+
 		selElite.setPreferredSize(new Dimension(100, 20));
 
 		porcentElite = new JLabel("%");
@@ -173,11 +173,11 @@ public class RightPanel extends JPanel {
 				else
 					pe.setEnabled(false);
 				_c.set_elite(eliteSel.isSelected() ? (float)(double) pe.getValue() : 0f);
-				
+
 			}
 		});
 		elitePnl.add(eliteSel);
-		
+
 		elitePnl.add(pe);
 		elitePnl.add(porcentElite);
 		constraints.gridx = 0;
@@ -202,7 +202,7 @@ public class RightPanel extends JPanel {
 		pm.setMinimumSize(new Dimension(100, 1));
 		pm.setPreferredSize(new Dimension(100, 25));
 
-		
+
 		mutacionPnl.add(pm);
 
 		constraints.gridx = 0;
@@ -213,7 +213,7 @@ public class RightPanel extends JPanel {
 
 		mutacionPnl.setBorder(BorderFactory.createTitledBorder("Mutación"));
 	}
-	
+
 	private void crea_toleranciaPnl() {
 		toleranciaPnl = new JPanel();
 		toleranciaPnl.setPreferredSize(new Dimension(200, 42));
@@ -225,7 +225,7 @@ public class RightPanel extends JPanel {
 		tol = new JSpinner(new SpinnerNumberModel(3, 1, 8, 1)); 
 		tol.setMinimumSize(new Dimension(100, 1));
 		tol.setPreferredSize(new Dimension(100, 25));
-		
+
 		toleranciaPnl.add(tol);
 
 		constraints.gridx = 0;
@@ -239,20 +239,20 @@ public class RightPanel extends JPanel {
 		toleranciaPnl.setBorder(BorderFactory.createTitledBorder("Tolerancia"));
 	}
 
-/////////////////   SECCIÓN CRUCE   ////////////////////
+	/////////////////   SECCIÓN CRUCE   ////////////////////
 	private void crea_crucePnl() {
 		crucePnl = new JPanel();
 		p_arit = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
 		p_arit.setEnabled(false);
 		crucePnl.setLayout(new GridLayout(3, 2));
 		GridBagConstraints constraints = new GridBagConstraints();
-		
+
 		tipoCruce = new JLabel("Tipo");
 		crucePnl.add(tipoCruce);
 		cruceSel = new JComboBox<String>();
 		cruceSel.addItem("Monopunto");
 		cruceSel.addItem("Uniforme");
-		
+
 		cruceSel.setPreferredSize(new Dimension(150, 20));
 		crucePnl.add(cruceSel);
 
@@ -260,13 +260,13 @@ public class RightPanel extends JPanel {
 		crucePnl.add(porcentCruce);
 		pc = new JSpinner(new SpinnerNumberModel(0.6f, 0f, 1f, 0.01f));
 		crucePnl.add(pc);
-		
+
 		alpha = new JLabel("Alpha");
 		crucePnl.add(alpha);
 		p_arit= new JSpinner(new SpinnerNumberModel(0.4f, 0f, 1f, 0.1f));
 		p_arit.setEnabled(false);
 		crucePnl.add(p_arit);
-		
+
 		cruceSel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				_c.set_cruce(cruceSel.getSelectedItem().toString(), (float)(double)p_arit.getValue());
@@ -276,7 +276,7 @@ public class RightPanel extends JPanel {
 					p_arit.setEnabled(false);	
 			}
 		});
-		
+
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.gridheight = 1;
@@ -299,13 +299,13 @@ public class RightPanel extends JPanel {
 		selecSel.addItem("Universal estocástica");
 		selecSel.addItem("Restos");
 		selecSel.addItem("Sin selección");
-		
+
 		selecSel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				_c.set_seleccion(selecSel.getSelectedItem().toString());
 			}
 		});
-	//	selecSel.setPreferredSize(new Dimension(150, 20));
+		//	selecSel.setPreferredSize(new Dimension(150, 20));
 		seleccionPnl.add(selecSel);
 		seleccionPnl.setBorder(BorderFactory.createTitledBorder("Tipo de selección"));
 
@@ -336,12 +336,12 @@ public class RightPanel extends JPanel {
 		poblacionPnl.setBorder(BorderFactory.createTitledBorder("Población y generaciones"));
 
 	}
-	
+
 	private void crea_genotipoPnl() {
 		genotipoPnl = new JPanel();
 		genotipoPnl.setPreferredSize(new Dimension(200, 50));
 		genotipoSel = new JComboBox<String>();
-		
+
 
 		genotipoSel.addItem("Bits");
 		genotipoSel.addItem("Real");
@@ -383,18 +383,18 @@ public class RightPanel extends JPanel {
 		funcionSel.addItem("Holder Table");
 		funcionSel.addItem("Schubert");
 		funcionSel.addItem("Michalewicz");
-		
+
 		funcionSel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				_c.set_fitness(funcionSel.getSelectedItem().toString(), (int) param.getValue());
-				
+
 				if (funcionSel.getSelectedItem().equals("Michalewicz")) {
 					param.setEnabled(true);
 				}					
 				else {
 					param.setEnabled(false);
 				}
-				
+
 			}
 		});
 		funcionSel.setPreferredSize(new Dimension(150, 20));
@@ -404,16 +404,16 @@ public class RightPanel extends JPanel {
 		funcionPnl.setBorder(BorderFactory.createTitledBorder("Función"));
 	}
 
-	
-/////////////////   AJUSTES ESTANCAMIENTO  ////////////////////
+
+	/////////////////   AJUSTES ESTANCAMIENTO  ////////////////////
 	private void crea_estancamientoPnl() {
 		estancamientoPnl = new JPanel();
 		estancamientoPnl.setPreferredSize(new Dimension(200, 90));
 		estancamientoPnl.setLayout(new GridLayout(3, 2));
-		
+
 		JLabel limite_Lbl = new JLabel("Generaciones");
 		limit_estancamiento = new JSpinner(new SpinnerNumberModel(20, 1, 100, 1));
-		
+
 		JLabel porc_Lbl = new JLabel("%");
 		porc_estancamiento = new JSpinner(new SpinnerNumberModel(0.5f, 0f, 1f, 0.01f));
 
@@ -433,23 +433,23 @@ public class RightPanel extends JPanel {
 					limit_estancamiento.setEnabled(false);
 				}
 				_c.set_estancamiento(estancamientoSel.isSelected(), (float) (double) porc_estancamiento.getValue(), (int) limit_estancamiento.getValue());
-				
+
 			}
 		});
-		
+
 		estancamientoPnl.add(porc_Lbl2);
 		estancamientoPnl.add(estancamientoSel);
-		
+
 		estancamientoPnl.add(limite_Lbl);
 		estancamientoPnl.add(limit_estancamiento);
-		
+
 		estancamientoPnl.add(porc_Lbl);
 		estancamientoPnl.add(porc_estancamiento);
 		estancamientoPnl.setBorder(BorderFactory.createTitledBorder("Opciones de estancamiento"));
-		
+
 	}
-	
-/////////////////   BOTONES RUN Y EXIT  ////////////////////
+
+	/////////////////   BOTONES RUN Y EXIT  ////////////////////
 	private void crea_representacionPnl() {
 
 		representacionPnl = new JPanel();
@@ -461,39 +461,39 @@ public class RightPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				double porcenMutacion = (double) pm.getValue();
 				_c.set_mutationProbability((float) porcenMutacion);
-				
+
 				double tolerancia = Math.pow(10, -(int) tol.getValue());
 				_c.set_tolerance((float) tolerancia);
-				
+
 				double porcenCruce =  (double) pc.getValue();
 				_c.set_cruceProbability((float)porcenCruce);
 
 				_c.set_elite(eliteSel.isSelected() ? (float)(double) pe.getValue() : 0f);
-				
+
 				int poblacion =  (int) num_p.getValue();
 				_c.set_size(poblacion);				
 
 				// Función seleccionada
 				String funcion = (String)funcionSel.getSelectedItem();
 				_c.set_fitness(funcion, (int) param.getValue());
-				
+
 				// Cruce seleccionado
 				String cruce = (String)cruceSel.getSelectedItem();
 				_c.set_cruce(cruce, (float)(double)p_arit.getValue());
-				
+
 				// alpha , solo para cruce aritmético
 				double p_alpha = (double)p_arit.getValue();
 				_c.set_alpha((float)p_alpha);
-			
+
 				// Tipo de selección
 				String seleccion = (String)selecSel.getSelectedItem();
 				_c.set_seleccion(seleccion);
-				
+
 				_c.set_estancamiento(estancamientoSel.isSelected(), (float) (double) porc_estancamiento.getValue(), (int) limit_estancamiento.getValue());
-				
+
 				_c.executeSteps((int) num_g.getValue());
-	            Points p = _c.getPoints();
-	            _gp.multiGrafico(p);
+				Points p = _c.getPoints();
+				_gp.multiGrafico(p);
 				//_c.executeSteps(Integer.parseInt(num_g.getText())); // TODO NECESITO EL PARAMETRO
 			}
 		});
@@ -502,8 +502,8 @@ public class RightPanel extends JPanel {
 		finIcon = createImage("ex.png");
 		finBtn = new JButton("Exit", finIcon);
 		RightPanel _this = this;
-		
-		
+
+
 		//// si se pulsa Exit
 		finBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

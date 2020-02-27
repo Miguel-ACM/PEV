@@ -23,8 +23,6 @@ public class IndividuoReal implements Individuo {
 		_genotipo =  new float[_variables];
 		for (int i=0; i< _variables; i++) {
 			_genotipo[i] = (float) (Math.random() * (_limites[i][1] - _limites[i][0]) + _limites[i][0]);
-			//if (i == 1)
-				//System.out.println(_genotipo[i]);
 		}
 	}
 	
@@ -46,11 +44,7 @@ public class IndividuoReal implements Individuo {
 		return _fitness.fitness( this);
 	}
 	
-	public void setFitness(Fitness fitness) { 
-		_fitness = fitness;
-	}
-
-	
+	//Obtiene el genotipo
 	public float[] getGenotipo() {
 		return _genotipo;
 	}
@@ -75,7 +69,7 @@ public class IndividuoReal implements Individuo {
 		
 	}
 
-
+	//Estable el genotipo a uno dado
 	public void setGenotipo(float[] nuevoGenotipo) {
 		_genotipo = nuevoGenotipo.clone();
 	}

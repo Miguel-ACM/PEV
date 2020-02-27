@@ -18,8 +18,6 @@ public class TorneoDeterministico implements Seleccion{
 	
 	/* Le llega la población y el num de elementos a seleccionar 
 	 * Devuelve un Array con los indices de los Individuos seleccionados    */
-	
-	//TODO 
 	public ArrayList<Integer> selecciona(int num, Poblacion p, boolean maximiza) {
 		ArrayList<Integer> seleccionados = new ArrayList<Integer>();
 		List<Individuo> _individuos = p.get_individuos();

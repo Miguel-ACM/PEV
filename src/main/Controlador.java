@@ -42,7 +42,8 @@ public class Controlador {
 	private float _porcentaje_reinicio = 0.5f;
 	private int _num_gens_reinicio = 20;
 
-	
+	//Esta clase es la encargada de guardar toda la informacion historica del algoritmo
+	//La cual se utilizara para la representacion grafica u otras visualizaciones
 	public class Points
 	{
 	    public List<Double> best_fitness; 
@@ -69,7 +70,6 @@ public class Controlador {
 	    }
 	 };
 	
-	
 	public Controlador()
 	{
 		_fitness = new FitnessFuncion1();
@@ -79,6 +79,7 @@ public class Controlador {
 		reestart();
 	}
 	
+	//Reinicia la poblacion con los parametros establecidos
 	public void reestart()
 	{
 		_points = new Points();
@@ -94,6 +95,7 @@ public class Controlador {
 		_poblacion.set_estancamiento(_estancamientoActivado, _porcentaje_reinicio, _num_gens_reinicio);
 	}
 	
+	//Agrega los puntos obtenidos de una generacion
 	private void _addPoints()
 	{
 		_points.best_fitness.add(_poblacion.getFitness_max(_fitness.maximiza()));
@@ -108,6 +110,7 @@ public class Controlador {
 		_points.mejor = _poblacion.getBest_individuo_absoluto(_fitness.maximiza());
 	}
 	
+	//Avanza una generacion
 	public void nextStep()
 	{
 		_poblacion.nextGen(); 
@@ -115,6 +118,8 @@ public class Controlador {
 
 	}
 	
+	//Avanza multiples generaciones
+	//Antes de empezar, agrega la generacion inicial como punto
 	public void executeSteps(int numSteps)
 	{
 		_addPoints();
@@ -124,6 +129,7 @@ public class Controlador {
 		}
 	}
 	
+	//Establece la funcion de fitness
 	//n solo sirve para la funcion 4
 	public void set_fitness(String newFitness, int n)
 	{
@@ -136,27 +142,32 @@ public class Controlador {
 		else if (newFitness.equals("Función 1"))
 			_fitness = new FitnessFuncion1();
 		else
-			System.out.println("DEBUG ERROR 1");
+			System.out.println("ERROR SELECCIONANDO LA FUNCION DE FITNESS");
 		this.reestart();
 	}
 	
+	//Establece el tamaño de la poblacion
 	public void set_size(int size) {
 		_size = size;
 		this.reestart();
 	}
 	
+	//Establece la tolerancia para los decimales
+	//Solo funciona para la representacion binaria
 	public void set_tolerance(float tol)
 	{
 		this._tolerance = tol;
 		this.reestart();
 	}
 	
+	//Establece la probabilidad de mutacion
 	public void set_mutationProbability(float mut)
 	{
 		this._mutationProb = mut;
 		_poblacion.set_mutationProbability(mut);
 	}
 	
+	//Establece el tipo de cruce
 	public void set_cruce(String newCruce, float alpha)
 	{
 		if (newCruce.equals("Monopunto"))
@@ -168,36 +179,33 @@ public class Controlador {
 		else if (newCruce.equals("BLX"))
 			_cruce = new CruceBLX(alpha);
 		else
-			System.out.println("DEBUG ERROR 2");
+			System.out.println("ERROR SELECCIONANDO EL CRUCE");
 		_poblacion.set_cruce(_cruce);
 	}
 	
-	/**
-	 * @return the _alpha
-	 */
 	public float get_alpha() {
 		return _alpha;
 	}
 
-	/**
-	 * @param _alpha the _alpha to set
-	 */
 	public void set_alpha(float _alpha) {
 		this._alpha = _alpha;
 	}
 
+	//EStablece la probabilidad de cruce
 	public void set_cruceProbability(float cruceProbability)
 	{
 		_cruceProb = cruceProbability;
 		_poblacion.set_cruceProbability(_cruceProb);
 	}
 	
+	//EStablece el porcentaje de elite
 	public void set_elite(float elitePercent)
 	{
 		_elitismoPer = elitePercent;
 		_poblacion.set_elite(_elitismoPer);
 	}
 	
+	//Establece el metodo de seleccion
 	public void set_seleccion(String seleccion)
 	{
 		if (seleccion.equals("Ruleta"))
@@ -213,7 +221,7 @@ public class Controlador {
 		else if (seleccion.equals("Sin selección"))
 			_seleccion = null;
 		else
-			System.out.println("DEBUG ERROR 3");
+			System.out.println("ERROR SELECCIONANDO LA SELECCION");
 		_poblacion.set_seleccion(_seleccion);
 	}
 	
@@ -222,11 +230,13 @@ public class Controlador {
 		return _poblacion.toString();
 	}
 	
+	//Obtiene los puntos (para la representacion grafica)
 	public Points getPoints()
 	{
 		return _points;
 	}
 	
+	//Establece el tipo de genetipo
 	public void set_representacion(String representacion)
 	{
 		if (representacion.equals("Bits"))
@@ -234,11 +244,12 @@ public class Controlador {
 		else if (representacion.equals("Real"))
 			_representacion = "Real";
 		else
-			System.out.println("DEBUG ERROR 4");
+			System.out.println("ERROR SELECCIONANDO LA REPRESENTACION");
 		this.reestart();
 
 	}
 	
+	//establece los parametros para el reseteo de la poblacion por estancamiento
 	public void set_estancamiento(boolean activado, float porcentaje_reinicio, int num_gens)
 	{
 		_estancamientoActivado = activado;
