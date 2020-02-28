@@ -127,6 +127,7 @@ public class Controlador {
 			this.nextStep();
 			numSteps--;
 		}
+		System.out.println("Población final:\n" + _poblacion);
 	}
 	
 	//Establece la funcion de fitness
