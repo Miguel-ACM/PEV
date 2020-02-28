@@ -106,7 +106,7 @@ public class Controlador {
 		for (double i : allFitness){
 			sumFitness += i;
 		}
-		_points.mean_fitness.add(new Double(sumFitness / allFitness.length));
+		_points.mean_fitness.add(sumFitness / allFitness.length);
 		_points.mejor = _poblacion.getBest_individuo_absoluto(_fitness.maximiza());
 	}
 	

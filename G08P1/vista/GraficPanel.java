@@ -37,7 +37,7 @@ public class GraficPanel extends JPanel{
 		crearMejorPnl();
 		crearMichalewiczPnl();
 
-		this.mejorPnl.setPreferredSize(new Dimension(1000, 50));
+		this.mejorPnl.setPreferredSize(new Dimension(900, 50));
 		this.mejorPnl.setBorder(BorderFactory.createTitledBorder("Mejor fitness"));
 
 		this.setLayout(new GridBagLayout());
@@ -52,7 +52,7 @@ public class GraficPanel extends JPanel{
 
 		this.add(mejorPnl, constraints);
 
-		this.f4Pnl.setPreferredSize(new Dimension(1000, 60));
+		this.f4Pnl.setPreferredSize(new Dimension(900, 60));
 		this.f4Pnl.setBorder(BorderFactory.createTitledBorder("Mejor Fenotipo"));
 
 		constraints.gridx = 0;
@@ -71,7 +71,7 @@ public class GraficPanel extends JPanel{
 		chart.getXYPlot().setBackgroundPaint(Color.black);
 
 		panel = new ChartPanel(chart);
-		panel.setPreferredSize(new Dimension(1000, 600));
+		panel.setPreferredSize(new Dimension(900, 550));
 		ventana = new JFrame();
 		ventana.getContentPane().add(panel);
 

@@ -42,11 +42,10 @@ public class CruceBLX implements Cruce{
 			float I = cmax - cmin;
 			float rand1 = (float) (Math.random() * (cmin - I * _alpha) + cmax + I * _alpha);
 			float rand2 = (float) (Math.random() * (cmin - I * _alpha) + cmax + I * _alpha);
-			//System.out.println("1: " + genotipoIn1[i] + " 2: " + genotipoIn2[i]);
-			//System.out.println("cmin: " + cmin + " cmax: " + cmax + " I: " + I );
-			//System.out.println("rand1: " + rand1 + " rand2: " + rand2);
+			//La formula es correcta, seria necesario limitar segun el limte minimo y maximo
+			//de la funcion, porque ahora mismo se puede salir de ahi rapidamente
 			nuevoGenotipoIn1[i] = rand1;
-			nuevoGenotipoIn2[i] = rand1;
+			nuevoGenotipoIn2[i] = rand2;
 		}
 		
 		//Ponemos los nuevos genotipos a los individuos y los añadimos al array a devolver

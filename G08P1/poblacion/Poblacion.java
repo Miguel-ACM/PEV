@@ -181,6 +181,18 @@ public abstract class Poblacion {
 		this.sort(); //Ordenamos segun el fitness de nuevo
 
 		
+		
+
+		//Elite
+		int k = 0;
+		for (Individuo i: elite)
+		{
+			int index = maximiza ? k :  _size - 1 - k; 
+			_individuos.set(index, i);
+			k++;
+		}
+		this.sort();
+		
 		//Vemos si algun nuevo individuo ha mejorado el absoluto
 		if (this.betterFitness(getFitness_max(maximiza), _bestFitness) > 0) 
 		{
@@ -209,17 +221,6 @@ public abstract class Poblacion {
 		
 		}
 		this.sort();
-
-		//Elite
-		int k = 0;
-		for (Individuo i: elite)
-		{
-			int index = maximiza ? k :  _size - 1 - k; 
-			_individuos.set(index, i);
-			k++;
-		}
-		this.sort();
-
 	}
 	
 	//Compara dos valores de fitness
