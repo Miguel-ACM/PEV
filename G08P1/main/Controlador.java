@@ -4,19 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cruces.Cruce;
-import cruces.CruceAritmetico;
-import cruces.CruceBLX;
-import cruces.CruceMonopunto;
-import cruces.CruceUniforme;
 import fitness.Fitness;
-import fitness.FitnessFuncion1;
-import fitness.FitnessHolderTable;
-import fitness.FitnessMichalewicz;
-import fitness.FitnessSchubert;
+import fitness.FitnessHospital;
 import individuo.Individuo;
 import poblacion.Poblacion;
-import poblacion.PoblacionBits;
-import poblacion.PoblacionReal;
 import seleccion.Restos;
 import seleccion.Ruleta;
 import seleccion.Seleccion;
@@ -37,7 +28,6 @@ public class Controlador {
 	private float _alpha = 0.4f;
 
 	private Points _points;
-	private String _representacion;
 	private boolean _estancamientoActivado = true;
 	private float _porcentaje_reinicio = 0.5f;
 	private int _num_gens_reinicio = 20;
@@ -72,10 +62,9 @@ public class Controlador {
 	
 	public Controlador()
 	{
-		_fitness = new FitnessFuncion1();
+		_fitness = new FitnessHospital("ajuste.txt");
 		_seleccion = new Ruleta();
-		_cruce = new CruceMonopunto();
-		_representacion = "Bits";
+		_cruce = new Cruce();
 		reestart();
 	}
 	
@@ -83,10 +72,7 @@ public class Controlador {
 	public void reestart()
 	{
 		_points = new Points();
-		if (_representacion.equals("Bits"))
-			_poblacion = new PoblacionBits(_size, _fitness, _tolerance);
-		else
-			_poblacion = new PoblacionReal(_size, _fitness);
+		_poblacion = new Poblacion(_size, _fitness);
 		_poblacion.set_cruce(_cruce);
 		_poblacion.set_seleccion(_seleccion);
 		_poblacion.set_mutationProbability(_mutationProb);
@@ -98,16 +84,16 @@ public class Controlador {
 	//Agrega los puntos obtenidos de una generacion
 	private void _addPoints()
 	{
-		_points.best_fitness.add(_poblacion.getFitness_max(_fitness.maximiza()));
-		_points.worst_fitness.add(_poblacion.getFitness_min(_fitness.maximiza()));
-		_points.best_overall_fitness.add(_poblacion.getBest_overall(_fitness.maximiza()));
+		_points.best_fitness.add(_poblacion.getFitness_max();
+		_points.worst_fitness.add(_poblacion.getFitness_min();
+		_points.best_overall_fitness.add(_poblacion.getBest_overall();
 		double[] allFitness = _poblacion.getFitness();
 		double sumFitness = 0d;
 		for (double i : allFitness){
 			sumFitness += i;
 		}
 		_points.mean_fitness.add(sumFitness / allFitness.length);
-		_points.mejor = _poblacion.getBest_individuo_absoluto(_fitness.maximiza());
+		_points.mejor = _poblacion.getBest_individuo_absoluto();
 	}
 	
 	//Avanza una generacion
@@ -132,18 +118,9 @@ public class Controlador {
 	
 	//Establece la funcion de fitness
 	//n solo sirve para la funcion 4
-	public void set_fitness(String newFitness, int n)
+	public void set_fitness(String newFitnessFilePath)
 	{
-		if (newFitness.equals("Schubert"))
-			_fitness = new FitnessSchubert();
-		else if (newFitness.equals("Holder Table"))
-			_fitness = new FitnessHolderTable();
-		else if (newFitness.equals("Michalewicz")) 
-			_fitness = new FitnessMichalewicz(n);
-		else if (newFitness.equals("Función 1"))
-			_fitness = new FitnessFuncion1();
-		else
-			System.out.println("ERROR SELECCIONANDO LA FUNCION DE FITNESS");
+		_fitness = new FitnessHospital(newFitnessFilePath);
 		this.reestart();
 	}
 	
@@ -171,7 +148,7 @@ public class Controlador {
 	//Establece el tipo de cruce
 	public void set_cruce(String newCruce, float alpha)
 	{
-		if (newCruce.equals("Monopunto"))
+		/*if (newCruce.equals("Monopunto"))
 			_cruce = new CruceMonopunto();
 		else if (newCruce.equals("Uniforme"))
 			_cruce = new CruceUniforme();
@@ -180,7 +157,7 @@ public class Controlador {
 		else if (newCruce.equals("BLX"))
 			_cruce = new CruceBLX(alpha);
 		else
-			System.out.println("ERROR SELECCIONANDO EL CRUCE");
+			System.out.println("ERROR SELECCIONANDO EL CRUCE");*/
 		_poblacion.set_cruce(_cruce);
 	}
 	
@@ -235,19 +212,6 @@ public class Controlador {
 	public Points getPoints()
 	{
 		return _points;
-	}
-	
-	//Establece el tipo de genetipo
-	public void set_representacion(String representacion)
-	{
-		if (representacion.equals("Bits"))
-			_representacion = "Bits";
-		else if (representacion.equals("Real"))
-			_representacion = "Real";
-		else
-			System.out.println("ERROR SELECCIONANDO LA REPRESENTACION");
-		this.reestart();
-
 	}
 	
 	//establece los parametros para el reseteo de la poblacion por estancamiento

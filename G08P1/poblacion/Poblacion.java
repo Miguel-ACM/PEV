@@ -3,13 +3,14 @@ package poblacion;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import cruces.Cruce;
 import fitness.Fitness;
 import individuo.Individuo;
 import seleccion.Seleccion;
 
-public abstract class Poblacion {
+public class Poblacion {
 	protected List<Individuo> _individuos;
 	protected int _size;
 	protected float _tolerance;
@@ -288,14 +289,71 @@ public abstract class Poblacion {
 		_reseteoPercent = porcentaje_reinicio;
 	}
 	
-	// El cruce tal y como esta diseñada la aplicacion tiene que hacerse sabiendo el
-	// Genotipo, por lo que se deja la implementacion a poblacionBits y poblacionReal
-	public abstract void cruza();
 	
-	// El reseteo de la poblacion, en el que un reseteoPercent de la poblacion se reinicializa,
-	// tiene que hacerse en la clase que herede de esta ya que esta no sabe que tipo de individuo
-	// tiene que crear
-	public abstract void reseteaPoblacion(float reseteoPercent, boolean maximiza);
+	/*public PoblacionBits(int size, Fitness fitness, float tolerance) 
+	{
+		super(size, fitness);
+		_tolerance = tolerance;
+		while (size > 0)
+		{
+			_individuos.add(new IndividuoBits(_fitness, _tolerance));
+			size--;
+		}
 
+		// ordena la poblacion
+		this.sort();
+		_bestIndividuo = this.getBest_individuo(fitness.maximiza());
+		_bestFitness = this.getFitness_max(fitness.maximiza());
+	}*/
+
+	public void cruza()
+	{
+		List<Individuo> padres = new ArrayList<Individuo>();
+		List<Integer> padresIndex = new ArrayList<Integer>();
+		int j = 0;
+		for (Individuo i: _individuos)
+		{
+			if (Math.random() < _cruceProbability)
+			{
+				padres.add(i);
+				padresIndex.add(j);
+			}
+			j++;
+		}
+		Random rand = new Random();
+		while (padres.size() > 1)
+		{
+			int padre1Index = Math.abs(rand.nextInt() % padres.size());
+			Individuo padre1 = padres.get(padre1Index);
+			int padre1IndividuoIndex = padresIndex.get(padre1Index);
+			padresIndex.remove(padre1Index);
+			padres.remove(padre1Index);
+
+			int padre2Index = Math.abs(rand.nextInt() % padres.size());
+			Individuo padre2 = padres.get(padre2Index);
+			int padre2IndividuoIndex = padresIndex.get(padre2Index);
+			padresIndex.remove(padre2Index);
+			padres.remove(padre2Index);
+
+			//Politica de reemplazamiento: Hijos sustituyen a los padres
+			Individuo[] hijos = _cruce.cruza(padre1.clone(), padre2.clone());
+			_individuos.set(padre1IndividuoIndex, hijos[0]);
+			_individuos.set(padre2IndividuoIndex, hijos[1]);
+		}
+	}
+
+	//Reinicia el reseteoPercent de la poblacion
+	public void reseteaPoblacion(float reseteoPercent, boolean maximiza) {
+		int numReset = (int) (reseteoPercent * this._size);
+		for (int i = 0; i < numReset; i++)
+		{
+			int index = maximiza ? i :  _size - 1 - i ; 
+			_individuos.set(index, new Individuo(this._fitness));
+		}
+
+		this.sort();
+
+	}
+	
 }
 

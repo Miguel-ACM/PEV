@@ -43,10 +43,8 @@ public class Restos implements Seleccion {
 			ArrayList<Integer> otroMetodo = new TorneoProbabilistico().selecciona(num - aniadidos, p, maximiza);
 			for (Integer k : otroMetodo)
 				seleccionados.add(k);
-			
 		}
 		return seleccionados;
-		
 	}
 	
 	/* Crea un array con los valores de la porción minimizada de 

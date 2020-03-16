@@ -365,7 +365,7 @@ public class RightPanel extends JPanel {
 					}
 					toleranciaPnl.setVisible(false);
 				}
-				_c.set_representacion(genotipoSel.getSelectedItem().toString());
+				//_c.set_representacion(genotipoSel.getSelectedItem().toString());
 			}
 		});
 		genotipoSel.setPreferredSize(new Dimension(150, 20));
@@ -386,7 +386,7 @@ public class RightPanel extends JPanel {
 
 		funcionSel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				_c.set_fitness(funcionSel.getSelectedItem().toString(), (int) param.getValue());
+				_c.set_fitness(funcionSel.getSelectedItem().toString());
 
 				if (funcionSel.getSelectedItem().equals("Michalewicz")) {
 					param.setEnabled(true);
@@ -475,7 +475,7 @@ public class RightPanel extends JPanel {
 
 				// Función seleccionada
 				String funcion = (String)funcionSel.getSelectedItem();
-				_c.set_fitness(funcion, (int) param.getValue());
+				_c.set_fitness(funcion);
 
 				// Cruce seleccionado
 				String cruce = (String)cruceSel.getSelectedItem();
