@@ -7,6 +7,7 @@ import cruces.Cruce;
 import fitness.Fitness;
 import fitness.FitnessHospital;
 import individuo.Individuo;
+import mutacion.Mutacion;
 import poblacion.Poblacion;
 import seleccion.Restos;
 import seleccion.Ruleta;
@@ -21,6 +22,7 @@ public class Controlador {
 	private Fitness _fitness;
 	private Seleccion _seleccion;
 	private Cruce _cruce;
+	private Mutacion _mutacion;
 	private float _tolerance = 0.001f;
 	private float _mutationProb = 0.05f;
 	private float _cruceProb = 0.6f;
@@ -64,7 +66,8 @@ public class Controlador {
 	{
 		_fitness = new FitnessHospital("ajuste.txt");
 		_seleccion = new Ruleta();
-		_cruce = new Cruce();
+		_cruce = null;//new Cruce(); TODO
+		_mutacion = null; //TODO
 		reestart();
 	}
 	
@@ -72,7 +75,7 @@ public class Controlador {
 	public void reestart()
 	{
 		_points = new Points();
-		_poblacion = new Poblacion(_size, _fitness);
+		_poblacion = new Poblacion(_size, _fitness, _mutacion);
 		_poblacion.set_cruce(_cruce);
 		_poblacion.set_seleccion(_seleccion);
 		_poblacion.set_mutationProbability(_mutationProb);
@@ -84,9 +87,9 @@ public class Controlador {
 	//Agrega los puntos obtenidos de una generacion
 	private void _addPoints()
 	{
-		_points.best_fitness.add(_poblacion.getFitness_max();
-		_points.worst_fitness.add(_poblacion.getFitness_min();
-		_points.best_overall_fitness.add(_poblacion.getBest_overall();
+		_points.best_fitness.add(_poblacion.getFitness_max());
+		_points.worst_fitness.add(_poblacion.getFitness_min());
+		_points.best_overall_fitness.add(_poblacion.getBest_fitness_absoluto());
 		double[] allFitness = _poblacion.getFitness();
 		double sumFitness = 0d;
 		for (double i : allFitness){

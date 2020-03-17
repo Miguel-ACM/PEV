@@ -22,7 +22,7 @@ public class TorneoDeterministico implements Seleccion{
 		ArrayList<Integer> seleccionados = new ArrayList<Integer>();
 		List<Individuo> _individuos = p.get_individuos();
 
-		double best = p.getFitness_min(maximiza); 
+		double best = p.getFitness_min(); 
 		int selec = 0;
 
 		for (int i = 0; i < num; i++) {
@@ -39,7 +39,7 @@ public class TorneoDeterministico implements Seleccion{
 				}
 			}
 			seleccionados.add(selec);
-			best = p.getFitness_min(maximiza);
+			best = p.getFitness_min();
 		}		
 		return seleccionados;	
 	}

@@ -22,8 +22,8 @@ public class TorneoProbabilistico implements Seleccion{
 		ArrayList<Integer> seleccionados = new ArrayList<Integer>();
 		List<Individuo> _individuos = p.get_individuos();
 
-		double best = p.getFitness_min(maximiza);
-		double worst = p.getFitness_max(maximiza);
+		double best = p.getFitness_min();
+		double worst = p.getFitness_max();
 
 		int selec = 0;
 
@@ -54,8 +54,8 @@ public class TorneoProbabilistico implements Seleccion{
 				}
 			}
 			seleccionados.add(selec);
-			best = p.getFitness_min(maximiza);
-			worst = p.getFitness_max(maximiza);
+			best = p.getFitness_min();
+			worst = p.getFitness_max();
 
 		}		
 		return seleccionados;	

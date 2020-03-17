@@ -48,5 +48,9 @@ public class FitnessHospital implements Fitness{
 	public double fitness(Individuo individuo) {
 		return 0;
 	}
+	
+	public int getSize() {
+		return size;
+	}
 
 }

@@ -17,8 +17,7 @@ public class UniversalEstocastica implements Seleccion{
 	public ArrayList<Integer> selecciona(int num, Poblacion p, boolean maximiza) {
 		ArrayList<Integer> seleccionados = new ArrayList<Integer>();
 
-		if(maximiza)proporcion_Maximizada(p, maximiza);
-		else proporcion_Minimizada(p, maximiza);
+		proporcion_Minimizada(p, maximiza);
 
 		double puntoSeleccion = Math.random()*1/num;// punto inicial entre 0 y 1/num
 		seleccionados.add(elegido(puntoSeleccion, maximiza, num));	
@@ -36,7 +35,7 @@ public class UniversalEstocastica implements Seleccion{
 		Double tramo = (double) 0;
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
-		double fitMax = p.getFitness_max(maximiza)  + 0.1f;
+		double fitMax = p.getFitness_max()  + 0.1f;
 		double totalFitnessMinimizado = 0;
 
 		// se calcula la suma total de los fitness Maximizados
@@ -51,34 +50,13 @@ public class UniversalEstocastica implements Seleccion{
 		}	
 	}
 
-	/* Crea un array con los valores de la porción maximizada de 
-	 * cada individuo */
-	private void proporcion_Maximizada(Poblacion p, boolean maximiza) {
-		Double tramo = (double) 0;
-		_porciones = new ArrayList<Double>();
-		List<Individuo> _individuos = p.get_individuos();
-		double fitMin = p.getFitness_min(maximiza) - 0.1f;
-		double totalFitnessMaximizado = 0;
-
-		// se calcula la suma total de los fitness Maximizados
-		for(Individuo i : _individuos) {			
-			totalFitnessMaximizado += i.getFitness() - fitMin;			
-		}
-
-		// calcula la proporción de cada uno y la añade al array
-		for(Individuo i : _individuos) {
-			tramo += ((i.getFitness() - fitMin)/totalFitnessMaximizado);
-			_porciones.add(tramo);
-		}	
-
-	}
 
 	/* Le llega un valor y devuelve el individuo al que
 	 * corresponde */
 	private int elegido(Double puntoSeleccion, boolean maximiza, int size) {
 		int num_Ind = 0;
 
-		while((maximiza ? puntoSeleccion > _porciones.get(num_Ind) : puntoSeleccion <= _porciones.get(num_Ind)) && num_Ind < size - 1) {
+		while((puntoSeleccion <= _porciones.get(num_Ind)) && num_Ind < size - 1) {
 			num_Ind++;		
 		}
 

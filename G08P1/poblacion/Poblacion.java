@@ -8,17 +8,20 @@ import java.util.Random;
 import cruces.Cruce;
 import fitness.Fitness;
 import individuo.Individuo;
+import mutacion.Mutacion;
 import seleccion.Seleccion;
 
 public class Poblacion {
-	protected List<Individuo> _individuos;
-	protected int _size;
-	protected float _tolerance;
-	protected float _cruceProbability = 0.6f;
+	private List<Individuo> _individuos;
+	private int _size;
+	private float _tolerance;
+	private float _cruceProbability = 0.6f;
 	private float _mutationProbability = 0.05f;
-	protected Fitness _fitness;
+	private Fitness _fitness;
 	private Seleccion _seleccion;
-	protected Cruce _cruce;
+	private Cruce _cruce;
+	private Mutacion _mutacion;
+	
 	private float _elitePercent = 0.02f;
 	
 	//Estos son para, cuando se quede estancada la poblacion, se resetee un porcentaje de la misma.
@@ -29,10 +32,11 @@ public class Poblacion {
 	private float _reseteoPercent = 0.5f;
 	protected Individuo _bestIndividuo;
 	
-	public Poblacion(int size, Fitness fitness){
+	public Poblacion(int size, Fitness fitness, Mutacion mutacion){
 		_individuos = new ArrayList<Individuo>();
 		_size = size;
 		_fitness = fitness;
+		_mutacion = mutacion;
 	}
 	
 	public String toString()
@@ -41,15 +45,7 @@ public class Poblacion {
 		int j = 0;
 		for (Individuo i : _individuos)
 		{
-			retValue += j + " | " + i + ": ";
-			boolean first = true;
-			for (float f : i.getFenotipo())
-			{
-				if (!first)
-					retValue += ", ";
-				first = false;
-				retValue += f;
-			}
+			retValue += j + " | " + i;
 			retValue += " (Fitness: " + i.getFitness();
 			retValue += ")\n";
 			j++;
@@ -63,7 +59,7 @@ public class Poblacion {
 	{
 		for (int i = 0; i < _size; i++)
 		{			
-			_individuos.set(i, _individuos.get(i).mutacion(_mutationProbability)); 
+			_individuos.set(i, _individuos.get(i).mutacion()); 
 		}
 	}
 	
@@ -98,27 +94,19 @@ public class Poblacion {
 	}
 
 	/**
-	 * Si la funcion maximiza el mejor fitness es el de
-	 * la ultima posicion al estar ordenado de manera creciente
-	 * En caso contrario el mejor es el primero
+	 * Devuelve el fitness del mejor individuo
 	 */
-	public double getFitness_max(boolean maximiza) {		
-		if(maximiza)
-			return _individuos.get(_size-1).getFitness();
-		else 
-			return _individuos.get(0).getFitness();
+	public double getFitness_max() {		
+		return _individuos.get(0).getFitness();
 	}
 	
 	//Obtiene el mejor individuo actual
-	public Individuo getBest_individuo(boolean maximiza) {		
-		if(maximiza)
-			return _individuos.get(_size-1).clone();
-		else 
-			return _individuos.get(0).clone();
+	public Individuo getBest_individuo() {		
+		return _individuos.get(0).clone();
 	}
 	
 	//Obtiene el mejor individuo historico
-	public Individuo getBest_individuo_absoluto(boolean maximiza) {		
+	public Individuo getBest_individuo_absoluto() {		
 		return _bestIndividuo;
 	}
 
@@ -127,27 +115,24 @@ public class Poblacion {
 	 * la primera posicion al estar ordenado de manera creciente
 	 * En caso contrario el peor es el ultimo
 	 */
-	public double getFitness_min(boolean maximiza) {		
-		if(maximiza)
-			return _individuos.get(0).getFitness();
-		else 
-			return _individuos.get(_size-1).getFitness();
+	public double getFitness_min() {		
+		return _individuos.get(_size-1).getFitness();
 	}
 	
-	// Obtiene el mejor individuo, aunque no sea de esta generacion
-	public double getBest_overall(boolean maximiza) {		
+	// Obtiene el mejor fitness, aunque no sea de esta generacion
+	public double getBest_fitness_absoluto() {		
 		return _bestFitness;
 	}
 		
 	//Obtiene un porcentaje de individuos como elite
-	public List<Individuo> getElite(boolean maximiza)
+	public List<Individuo> getElite()
 	{
 		List<Individuo> elite = new ArrayList<Individuo>();
 
 		int numElite = (int) (this._elitePercent * this._size);
 		for (int i = 0; i < numElite; i++)
 		{
-			int index = maximiza ? _size - 1 - i : i ;
+			int index = i;
 			elite.add(_individuos.get(index).clone());
 		}
 		
@@ -157,9 +142,9 @@ public class Poblacion {
 	//realiza una generacion con todos sus pasos
 	public void nextGen()
 	{
-		boolean maximiza = _fitness.maximiza();
+		boolean maximiza = false;
 		//Extrae la elite
-		List<Individuo> elite = this.getElite(maximiza);
+		List<Individuo> elite = this.getElite();
 		
 
 		//Seleccionamos X individuos y reemplazamos la población
@@ -195,10 +180,10 @@ public class Poblacion {
 		this.sort();
 		
 		//Vemos si algun nuevo individuo ha mejorado el absoluto
-		if (this.betterFitness(getFitness_max(maximiza), _bestFitness) > 0) 
+		if (this.betterFitness(getFitness_max(), _bestFitness) > 0) 
 		{
-			_bestFitness = getFitness_max(maximiza);
-			_bestIndividuo = this.getBest_individuo(_fitness.maximiza());
+			_bestFitness = getFitness_max();
+			_bestIndividuo = this.getBest_individuo();
 			this._numGenEstancado = 0;
 			
 		}
@@ -209,13 +194,13 @@ public class Poblacion {
 				_numGenEstancado++;
 				if (_numGenEstancado >= _numGenEstancadoThreshold)
 				{			
-					this.reseteaPoblacion(_reseteoPercent, _fitness.maximiza());
+					this.reseteaPoblacion(_reseteoPercent);
 					this._numGenEstancado = 0;		
 					this.sort();
-					if (this.betterFitness(getFitness_max(maximiza), _bestFitness) > 0) 
+					if (this.betterFitness(getFitness_max(), _bestFitness) > 0) 
 					{
-						_bestFitness = getFitness_max(maximiza);
-						_bestIndividuo = this.getBest_individuo(_fitness.maximiza());
+						_bestFitness = getFitness_max();
+						_bestIndividuo = this.getBest_individuo();
 					}
 				}
 			}
@@ -228,17 +213,9 @@ public class Poblacion {
 	//Devuelve 1 si es mejor fit 1 y -1 si es mejor fit2. 0 si son iguales
 	private int betterFitness(Double fit1, Double fit2)
 	{
-		if (_fitness.maximiza())
-		{
-			if (fit1 <= fit2)
-				return -1;
-			else return 1;
-		}
-		else {
-			if (fit1 >= fit2)
-				return -1;
-			else return 1;
-		}
+		if (fit1 >= fit2)
+			return -1;
+		else return 1;
 	}
 	
 	//Getters y setters
@@ -256,6 +233,16 @@ public class Poblacion {
 
 	public void set_mutationProbability(float mutationProbability) {
 		this._mutationProbability = mutationProbability;
+	}
+	
+	public void set_mutation(Mutacion m) {
+		_mutacion = m;
+		//TODO Cambiar la mutacion a la poblacion, supongo
+	}
+	
+	public Mutacion get_mutacion(Mutacion m)
+	{
+		return _mutacion;
 	}
 	
 	public void set_cruceProbability(float cruceProbability) {
@@ -343,12 +330,12 @@ public class Poblacion {
 	}
 
 	//Reinicia el reseteoPercent de la poblacion
-	public void reseteaPoblacion(float reseteoPercent, boolean maximiza) {
+	public void reseteaPoblacion(float reseteoPercent) {
 		int numReset = (int) (reseteoPercent * this._size);
 		for (int i = 0; i < numReset; i++)
 		{
-			int index = maximiza ? i :  _size - 1 - i ; 
-			_individuos.set(index, new Individuo(this._fitness));
+			int index = _size - 1 - i ; 
+			_individuos.set(index, new Individuo(this._fitness, this._mutacion));
 		}
 
 		this.sort();

@@ -125,7 +125,7 @@ public class GraficPanel extends JPanel{
 
 
 	public void actualizar_mejor(Points points) {	
-		float[] fenotipo = points.mejor.getFenotipo();
+		/*float[] fenotipo = points.mejor.getFenotipo(); TODO Solo un text area con todos los enteros
 		int size = fenotipo.length;
 
 		this.fit_Area.setText(Double.toString(points.mejor.getFitness()));
@@ -142,7 +142,7 @@ public class GraficPanel extends JPanel{
 				this.arregloPanel[i].setVisible(false);
 			}
 
-		}
+		}*/
 
 	}
 

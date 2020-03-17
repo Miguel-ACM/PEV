@@ -23,8 +23,7 @@ public class Restos implements Seleccion {
 		k = num * 1.05f; //Con esto coge un 80% de la poblacion aproximadamente
 						 //Se podria jugar con este valor como parametro
 		
-		if(maximiza) proporcion_Maximizada(p, maximiza);
-		else proporcion_Minimizada(p, maximiza);
+		proporcion_Minimizada(p, maximiza);
 		int aniadidos = 0;
 		int i = 0;
 		while (i < num && aniadidos < num) { //Mientras que no se haya pasado por todos y no hayamos añadido los suficientes
@@ -53,7 +52,7 @@ public class Restos implements Seleccion {
 		Double tramo = (double) 0;
 		_porciones = new ArrayList<Double>();
 		List<Individuo> _individuos = p.get_individuos();
-		double fitMax = p.getFitness_min(maximiza) + 0.1f;
+		double fitMax = p.getFitness_min() + 0.1f;
 		double totalFitnessMinimizado = 0;
 		
 		// se calcula la suma total de los fitness Maximizados
@@ -66,29 +65,6 @@ public class Restos implements Seleccion {
 			tramo = ((fitMax -i.getFitness())/totalFitnessMinimizado);
 			_porciones.add(tramo);
 		}	
-	}
-	
-	/* Crea un array con los valores de la porción maximizada de 
-	 * cada individuo */
-	private void proporcion_Maximizada(Poblacion p, boolean maximiza) {
-		Double tramo = (double) 0;
-		_porciones = new ArrayList<Double>();
-		List<Individuo> _individuos = p.get_individuos();
-		double fitMin = p.getFitness_min(maximiza) - 0.1f;
-		double totalFitnessMaximizado = 0;
-		
-		// se calcula la suma total de los fitness Maximizados
-		for(Individuo i : _individuos) {			
-			totalFitnessMaximizado += i.getFitness() - fitMin;	
-		}
-				
-		// calcula la proporción de cada uno y la añade al array
-		for(Individuo i : _individuos) {
-			tramo = ((i.getFitness() - fitMin)/totalFitnessMaximizado);
-			_porciones.add(tramo);
-		}	
-
-		
 	}
 	
 
