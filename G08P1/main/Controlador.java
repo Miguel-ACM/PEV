@@ -7,6 +7,7 @@ import cruces.Cruce;
 import fitness.Fitness;
 import fitness.FitnessHospital;
 import individuo.Individuo;
+import mutacion.Inversion;
 import mutacion.Mutacion;
 import poblacion.Poblacion;
 import seleccion.Restos;
@@ -67,7 +68,7 @@ public class Controlador {
 		_fitness = new FitnessHospital("ajuste.txt");
 		_seleccion = new Ruleta();
 		_cruce = null;//new Cruce(); TODO
-		_mutacion = null; //TODO
+		_mutacion = new Inversion(); //TODO
 		reestart();
 	}
 	

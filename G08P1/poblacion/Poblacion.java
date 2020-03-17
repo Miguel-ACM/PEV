@@ -59,7 +59,7 @@ public class Poblacion {
 	{
 		for (int i = 0; i < _size; i++)
 		{			
-			_individuos.set(i, _individuos.get(i).mutacion()); 
+			_individuos.set(i, _individuos.get(i).mutacion(_mutationProbability)); 
 		}
 	}
 	

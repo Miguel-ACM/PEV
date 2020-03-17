@@ -4,7 +4,6 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -24,7 +23,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 import main.Controlador;
@@ -379,21 +377,23 @@ public class RightPanel extends JPanel {
 		param = new JSpinner(new SpinnerNumberModel(1, 1, 12, 1));
 		param.setEnabled(false);
 		funcionSel = new JComboBox<String>();
-		funcionSel.addItem("Función 1");
-		funcionSel.addItem("Holder Table");
-		funcionSel.addItem("Schubert");
-		funcionSel.addItem("Michalewicz");
+		funcionSel.addItem("ajustes.txt");
+		funcionSel.addItem("datos12.txt");
+		funcionSel.addItem("datos15.txt");
+		funcionSel.addItem("datos30.txt");
+		funcionSel.addItem("tai100a.txt");
+		funcionSel.addItem("tai256.c");
 
 		funcionSel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				_c.set_fitness(funcionSel.getSelectedItem().toString());
 
-				if (funcionSel.getSelectedItem().equals("Michalewicz")) {
+				/*if (funcionSel.getSelectedItem().equals("Michalewicz")) {
 					param.setEnabled(true);
 				}					
 				else {
 					param.setEnabled(false);
-				}
+				}*/
 
 			}
 		});

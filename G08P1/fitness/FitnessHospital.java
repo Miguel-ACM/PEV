@@ -17,7 +17,7 @@ public class FitnessHospital implements Fitness{
 		
 		for (int i = 0; i < size; i++)
 		{
-			String[] numbers = sc.nextLine().split(" ");
+			String[] numbers = sc.nextLine().trim().split("\\s+");
 			for (int j = 0; j < numbers.length; j++)
 			{
 				res[i][j] = Integer.parseInt(numbers[j]); //No lo he mirado, a lo mejor este es distancias
@@ -28,11 +28,11 @@ public class FitnessHospital implements Fitness{
 	
 	public FitnessHospital(String filepath)
 	{
-		File file = new File("archivos" + filepath); 
+		File file = new File("archivos/" + filepath); 
 	    Scanner sc;
 		try {
 			sc = new Scanner(file);
-			size = Integer.parseInt(sc.nextLine());
+			size = Integer.parseInt(sc.nextLine().trim().split("\\s+")[0]);
 			sc.nextLine(); //Linea en blanco
 			flujos = readMatrix(sc);
 			sc.nextLine(); //Linea en blanco

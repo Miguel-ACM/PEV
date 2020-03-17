@@ -3,7 +3,6 @@ package individuo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import fitness.Fitness;
 import mutacion.Mutacion;
@@ -31,7 +30,7 @@ public class Individuo implements Comparable<Individuo> {
 		System.out.println(_genotipo);
 	}
 
-	public Individuo mutacion() {
+	public Individuo mutacion(float proabilidad) {
 		_genotipo = _mutacion.muta(this);
 		return this;
 	}
