@@ -37,6 +37,14 @@ public class Poblacion {
 		_size = size;
 		_fitness = fitness;
 		_mutacion = mutacion;
+		while (size > 0)
+		{
+			Individuo i = new Individuo(_fitness, _mutacion);
+			_individuos.add(i);
+			size--;
+		}
+		_bestIndividuo = this.getBest_individuo();
+		_bestFitness = this.getFitness_max();
 	}
 	
 	public String toString()
@@ -123,7 +131,7 @@ public class Poblacion {
 	public double getBest_fitness_absoluto() {		
 		return _bestFitness;
 	}
-		
+
 	//Obtiene un porcentaje de individuos como elite
 	public List<Individuo> getElite()
 	{

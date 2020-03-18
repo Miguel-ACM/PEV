@@ -18,20 +18,22 @@ public class Individuo implements Comparable<Individuo> {
 		_fitness = fitness;
 		_size = fitness.getSize();
 		_mutacion = mutacion;
-		this.initialize(fitness.getSize());
+		this.initialize();
 	}
 	
-	private void initialize(int size)
+	private void initialize()
 	{
-		List<Integer> _genotipo = new ArrayList<Integer>();
+		_genotipo = new ArrayList<Integer>();
 		for (int i = 0; i < _size; i++)
-			_genotipo.add(i + 1);
+			_genotipo.add(i);
 		Collections.shuffle(_genotipo);
-		System.out.println(_genotipo);
 	}
 
-	public Individuo mutacion(float proabilidad) {
-		_genotipo = _mutacion.muta(this);
+	public Individuo mutacion(float probabilidad) {
+		if (Math.random() < probabilidad)
+		{
+			_genotipo = _mutacion.muta(this);
+		}
 		return this;
 	}
 	
@@ -49,13 +51,7 @@ public class Individuo implements Comparable<Individuo> {
 	}
 	
 	public String toString() {
-		String retValue = "";
-
-		for (int i = 0; i < _size; i++) {
-			retValue += _genotipo.get(i);
-			retValue += " ";
-		}
-		return retValue;
+		return _genotipo.toString();
 	}
 	
 	public Individuo clone()

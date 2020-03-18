@@ -21,6 +21,6 @@ public class Inversion implements Mutacion{
 			firstCut++;
 			secondCut--;
 		}
-		return i.getGenotipo(); //TODO Implement
+		return i.getGenotipo();
 	}
 }

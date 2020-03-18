@@ -248,8 +248,7 @@ public class RightPanel extends JPanel {
 		tipoCruce = new JLabel("Tipo");
 		crucePnl.add(tipoCruce);
 		cruceSel = new JComboBox<String>();
-		cruceSel.addItem("Monopunto");
-		cruceSel.addItem("Uniforme");
+		cruceSel.addItem("PMX");
 
 		cruceSel.setPreferredSize(new Dimension(150, 20));
 		crucePnl.add(cruceSel);
@@ -377,7 +376,7 @@ public class RightPanel extends JPanel {
 		param = new JSpinner(new SpinnerNumberModel(1, 1, 12, 1));
 		param.setEnabled(false);
 		funcionSel = new JComboBox<String>();
-		funcionSel.addItem("ajustes.txt");
+		funcionSel.addItem("ajuste.txt");
 		funcionSel.addItem("datos12.txt");
 		funcionSel.addItem("datos15.txt");
 		funcionSel.addItem("datos30.txt");

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cruces.Cruce;
+import cruces.PMX;
 import fitness.Fitness;
 import fitness.FitnessHospital;
 import individuo.Individuo;
@@ -67,7 +68,7 @@ public class Controlador {
 	{
 		_fitness = new FitnessHospital("ajuste.txt");
 		_seleccion = new Ruleta();
-		_cruce = null;//new Cruce(); TODO
+		_cruce = new PMX();//new Cruce(); TODO
 		_mutacion = new Inversion(); //TODO
 		reestart();
 	}
