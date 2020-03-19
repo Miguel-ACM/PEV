@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cruces.Cruce;
+import cruces.OX;
 import cruces.PMX;
 import fitness.Fitness;
 import fitness.FitnessHospital;
@@ -153,16 +154,12 @@ public class Controlador {
 	//Establece el tipo de cruce
 	public void set_cruce(String newCruce, float alpha)
 	{
-		/*if (newCruce.equals("Monopunto"))
-			_cruce = new CruceMonopunto();
-		else if (newCruce.equals("Uniforme"))
-			_cruce = new CruceUniforme();
-		else if (newCruce.equals("Aritmético"))
-			_cruce = new CruceAritmetico(alpha);
-		else if (newCruce.equals("BLX"))
-			_cruce = new CruceBLX(alpha);
+		if (newCruce.equals("PMX"))
+			_cruce = new PMX();
+		else if (newCruce.equals("OX"))
+			_cruce = new OX();
 		else
-			System.out.println("ERROR SELECCIONANDO EL CRUCE");*/
+			System.out.println("ERROR SELECCIONANDO EL CRUCE");
 		_poblacion.set_cruce(_cruce);
 	}
 	
