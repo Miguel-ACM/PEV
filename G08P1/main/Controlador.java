@@ -9,6 +9,7 @@ import cruces.PMX;
 import fitness.Fitness;
 import fitness.FitnessHospital;
 import individuo.Individuo;
+import mutacion.Intercambio;
 import mutacion.Inversion;
 import mutacion.Mutacion;
 import poblacion.Poblacion;
@@ -69,8 +70,8 @@ public class Controlador {
 	{
 		_fitness = new FitnessHospital("ajuste.txt");
 		_seleccion = new Ruleta();
-		_cruce = new PMX();//new Cruce(); TODO
-		_mutacion = new Inversion(); //TODO
+		_cruce = new PMX();
+		_mutacion = new Intercambio();
 		reestart();
 	}
 	
