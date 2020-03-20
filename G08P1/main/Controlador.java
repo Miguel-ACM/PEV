@@ -21,6 +21,7 @@ import seleccion.Seleccion;
 import seleccion.TorneoDeterministico;
 import seleccion.TorneoProbabilistico;
 import seleccion.UniversalEstocastica;
+import vista.RightPanel;
 
 public class Controlador {	
 	private Poblacion _poblacion;
@@ -29,7 +30,6 @@ public class Controlador {
 	private Seleccion _seleccion;
 	private Cruce _cruce;
 	private Mutacion _mutacion;
-	private float _tolerance = 0.001f;
 	private float _mutationProb = 0.05f;
 	private float _cruceProb = 0.6f;
 	private float _elitismoPer = 0.3f;
@@ -39,7 +39,8 @@ public class Controlador {
 	private boolean _estancamientoActivado = true;
 	private float _porcentaje_reinicio = 0.5f;
 	private int _num_gens_reinicio = 20;
-
+	
+	private RightPanel rightPanel;
 	//Esta clase es la encargada de guardar toda la informacion historica del algoritmo
 	//La cual se utilizara para la representacion grafica u otras visualizaciones
 	public class Points
@@ -73,7 +74,7 @@ public class Controlador {
 		_fitness = new FitnessHospital("ajuste.txt");
 		_seleccion = new Ruleta();
 		_cruce = new PMX();
-		_mutacion = new Desplazamiento();
+		_mutacion = new Inversion();
 		reestart();
 	}
 	
@@ -117,10 +118,15 @@ public class Controlador {
 	//Antes de empezar, agrega la generacion inicial como punto
 	public void executeSteps(int numSteps)
 	{
+		int total = numSteps;
 		_addPoints();
+		if (this.rightPanel != null)
+			rightPanel.resetProgress(numSteps);
 		while (numSteps > 0) {
 			this.nextStep();
 			numSteps--;
+			if (this.rightPanel != null)
+				rightPanel.setProgress(total - numSteps);
 		}
 		System.out.println("Población final:\n" + _poblacion);
 	}
@@ -136,14 +142,6 @@ public class Controlador {
 	//Establece el tamaño de la poblacion
 	public void set_size(int size) {
 		_size = size;
-		this.reestart();
-	}
-	
-	//Establece la tolerancia para los decimales
-	//Solo funciona para la representacion binaria
-	public void set_tolerance(float tol)
-	{
-		this._tolerance = tol;
 		this.reestart();
 	}
 	
@@ -164,6 +162,22 @@ public class Controlador {
 		else
 			System.out.println("ERROR SELECCIONANDO EL CRUCE");
 		_poblacion.set_cruce(_cruce);
+	}
+	
+	//Establece el tipo de mutacion
+	public void set_mutacion(String newMutacion)
+	{
+		if (newMutacion.equals("Inversion"))
+			_mutacion = new Inversion();
+		else if (newMutacion.equals("Intercambio"))
+			_mutacion = new Intercambio();
+		else if (newMutacion.equals("Insercion"))
+			_mutacion = new Insercion();
+		else if (newMutacion.equals("Desplazamiento"))
+			_mutacion = new Desplazamiento();
+		else
+			System.out.println("ERROR SELECCIONANDO LA MUTACION");
+		_poblacion.set_mutation(_mutacion);
 	}
 	
 	public float get_alpha() {
@@ -226,5 +240,10 @@ public class Controlador {
 		_porcentaje_reinicio = porcentaje_reinicio;
 		_num_gens_reinicio = num_gens;
 		_poblacion.set_estancamiento(activado, porcentaje_reinicio, num_gens);
+	}
+	
+	public void set_rightPanel(RightPanel rp)
+	{
+		this.rightPanel = rp;
 	}
 }

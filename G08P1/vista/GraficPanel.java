@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -25,25 +26,26 @@ import main.Controlador.Points;
 import org.jfree.chart.axis.NumberAxis;
 
 public class GraficPanel extends JPanel{
+	private static final long serialVersionUID = 2140596969237757959L;
 	private JFrame ventana;
 	private ChartPanel panel;
 	private JFreeChart chart;
-	private JPanel mejorPnl, f4Pnl;
+	private JPanel mejorPnl;
 	private JTextArea fit_Area;
-	private JLabel[] arregloPanel ;
-	private JTextArea[] arregloText;
+	private JTextArea individuo;
+	private JPanel consolePnl;
+	private JTextArea console;
 
 	public  GraficPanel(PanelPrincipal pp, Controlador c) {
 		crearMejorPnl();
-		crearMichalewiczPnl();
 
-		this.mejorPnl.setPreferredSize(new Dimension(900, 50));
+		this.mejorPnl.setPreferredSize(new Dimension(450, 100));
 		this.mejorPnl.setBorder(BorderFactory.createTitledBorder("Mejor fitness"));
 
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
 
-		constraints.gridx = 0;
+		constraints.gridx = 1;
 		constraints.gridy = 0;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 1;
@@ -51,19 +53,19 @@ public class GraficPanel extends JPanel{
 		//constraints.fill = GridBagConstraints.VERTICAL;
 
 		this.add(mejorPnl, constraints);
-
-		this.f4Pnl.setPreferredSize(new Dimension(900, 60));
-		this.f4Pnl.setBorder(BorderFactory.createTitledBorder("Mejor Fenotipo"));
-
+		
 		constraints.gridx = 0;
-		constraints.gridy = 1;
-		constraints.gridheight = 1;
+		constraints.gridy = 0;
+		constraints.gridheight = 2;
 		constraints.gridwidth = 1;
-		//constraints.anchor = GridBagConstraints.NORTH;
-		//constraints.fill = GridBagConstraints.VERTICAL;
-		this.add(f4Pnl, constraints);
-
-
+		consolePnl = new JPanel();
+		consolePnl.setBorder(BorderFactory.createTitledBorder("Mejor fitness"));
+		this.consolePnl.setPreferredSize(new Dimension(450,100));
+		console = new JTextArea();
+		console.setEditable(false);
+		consolePnl.add(console);
+		this.add(consolePnl, constraints);
+		
 		DefaultXYDataset datasetMulti = new DefaultXYDataset();	
 		chart = ChartFactory.createXYLineChart("EVOLUCIÓN", "Generaciones", "Fitness", datasetMulti);
 		//chart.setBorderPaint(Color.MAGENTA);
@@ -71,14 +73,14 @@ public class GraficPanel extends JPanel{
 		chart.getXYPlot().setBackgroundPaint(Color.black);
 
 		panel = new ChartPanel(chart);
-		panel.setPreferredSize(new Dimension(900, 550));
+		panel.setPreferredSize(new Dimension(450, 550));
 		ventana = new JFrame();
 		ventana.getContentPane().add(panel);
 
 		constraints.gridx = 0;
 		constraints.gridy = 2;
 		constraints.gridheight = 1;
-		constraints.gridwidth = 1;
+		constraints.gridwidth = 2;
 		constraints.anchor = GridBagConstraints.SOUTH;
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		this.add(panel, constraints);
@@ -89,7 +91,7 @@ public class GraficPanel extends JPanel{
 
 	private void crearMejorPnl() {	
 		this.mejorPnl = new JPanel();
-		this.mejorPnl.setBackground(Color.lightGray);
+		// this.mejorPnl.setBackground(Color.lightGray);
 		//	this.mejorPnl.setPreferredSize(new Dimension(1000, 20));
 		//	this.mejorPnl.setBorder(BorderFactory.createTitledBorder("Mejor individuo"));
 
@@ -99,51 +101,20 @@ public class GraficPanel extends JPanel{
 
 		this.mejorPnl.add(fit);
 		this.mejorPnl.add(fit_Area);
+		
+		JLabel mejorIndividuo = new JLabel("Mejor individuo");
+		this.individuo = new JTextArea(1,6);
+		this.individuo.setEditable(false);
+		
+		this.mejorPnl.add(mejorIndividuo);
+		this.mejorPnl.add(individuo);
 
 	}
-
-	private void crearMichalewiczPnl() {
-		this.f4Pnl = new JPanel();
-		this.f4Pnl.setBackground(Color.lightGray);
-
-		/**/
-		arregloPanel = new JLabel[12];
-		arregloText = new JTextArea[12];
-
-
-		for(int i = 0; i < 12 ;i++) {
-			arregloPanel[i] = new JLabel(" x"+( i+1) + "=");
-			arregloPanel[i].setVisible(false);
-			arregloText[i]=  new JTextArea(1, 3);
-			arregloText[i].setEditable(false);
-			arregloText[i].setVisible(false);
-			this.f4Pnl.add(arregloPanel[i]);
-			this.f4Pnl.add(arregloText[i]);			
-		}			
-
-	}
-
 
 	public void actualizar_mejor(Points points) {	
-		/*float[] fenotipo = points.mejor.getFenotipo(); TODO Solo un text area con todos los enteros
-		int size = fenotipo.length;
-
-		this.fit_Area.setText(Double.toString(points.mejor.getFitness()));
-		for (int i = 0; i < 12; i++)
-		{
-			if (i < size)
-			{
-				this.arregloText[i].setVisible(true);
-				this.arregloText[i].setText(Double.toString(points.mejor.getFenotipo()[i]));
-				this.arregloPanel[i].setVisible(true);
-			} else {
-				this.arregloText[i].setVisible(false);
-				this.arregloText[i].setText("");
-				this.arregloPanel[i].setVisible(false);
-			}
-
-		}*/
-
+		List<Integer> fenotipo = points.mejor.getFenotipo(); //TODO Solo un text area con todos los enteros
+		this.fit_Area.setText(Integer.toString(points.mejor.getFitness()));
+		this.individuo.setText(fenotipo.toString());
 	}
 
 	public void multiGrafico(Points points) {
