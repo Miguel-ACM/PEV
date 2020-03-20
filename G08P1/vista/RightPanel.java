@@ -250,6 +250,7 @@ public class RightPanel extends JPanel {
 		cruceSel = new JComboBox<String>();
 		cruceSel.addItem("PMX");
 		cruceSel.addItem("OX");
+		cruceSel.addItem("CX");
 
 		cruceSel.setPreferredSize(new Dimension(150, 20));
 		crucePnl.add(cruceSel);

@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
+import cruces.CX;
 import cruces.Cruce;
 import cruces.OX;
 import cruces.PMX;
@@ -161,6 +162,8 @@ public class Controlador {
 			_cruce = new PMX();
 		else if (newCruce.equals("OX"))
 			_cruce = new OX();
+		else if (newCruce.equals("CX"))
+			_cruce = new CX();
 		else
 			System.out.println("ERROR SELECCIONANDO EL CRUCE");
 		_poblacion.set_cruce(_cruce);
