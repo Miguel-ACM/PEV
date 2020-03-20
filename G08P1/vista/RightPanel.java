@@ -22,6 +22,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
@@ -29,25 +30,26 @@ import main.Controlador;
 import main.Controlador.Points;
 
 public class RightPanel extends JPanel {
-	private JPanel representacionPnl,estancamientoPnl, genotipoPnl, crucePnl, funcionPnl,  poblacionPnl, seleccionPnl, mutacionPnl, elitePnl, toleranciaPnl;
+	private static final long serialVersionUID = 7722523962189028691L;
+	private JPanel representacionPnl,estancamientoPnl, crucePnl, funcionPnl,  poblacionPnl, seleccionPnl, mutacionPnl, elitePnl, progressPnl;
 	private JButton iniciarBtn, finBtn;
 	private ImageIcon iniciarIcon, finIcon;
-	private JComboBox<String> funcionSel, genotipoSel, selecSel, cruceSel;
+	private JComboBox<String> funcionSel, selecSel, cruceSel, mutacionSel;
 	private JCheckBox eliteSel, estancamientoSel;
-	private JSpinner pc, pe, pm, num_p, num_g, param, tol, p_arit, porc_estancamiento, limit_estancamiento;
-	private JLabel alpha, tipoCruce, porcentCruce, porcentMutacion, porcentElite, selElite, indiL, geneL, paramL, porcenttolerancia;
+	private JSpinner pc, pe, pm, num_p, num_g, param, p_arit, porc_estancamiento, limit_estancamiento;
+	private JLabel alpha, tipoCruce, porcentCruce, tipoMutacion, porcentMutacion, porcentElite, selElite, indiL, geneL, paramL;
 	private Controlador _c;
 	private GraficPanel _gp;
+	private JProgressBar _progressBar; 
 
 	public RightPanel(PanelPrincipal pp, Controlador c, GraficPanel gp) {
 		this._gp = gp;
 		this._c = c;
 		crea_representacionPnl();
+		crea_progressBarPnl();
 		crea_funcionPnl();
 		crea_poblacionPnl();
 		crea_crucePnl();
-		crea_toleranciaPnl();
-		crea_genotipoPnl();
 		crea_seleccionPnl();
 		crea_mutacionPnl();
 		crea_elitePnl();
@@ -59,31 +61,7 @@ public class RightPanel extends JPanel {
 		GridBagConstraints constraints = new GridBagConstraints();
 
 		constraints.gridx = 0;
-		constraints.gridy = 10;
-		constraints.gridheight = 1;
-		constraints.gridwidth = 2;
-
-		constraints.anchor = GridBagConstraints.EAST;
-		this.add(representacionPnl, constraints);
-
-		constraints.gridx = 0;
 		constraints.gridy = 1;
-		constraints.gridheight = 1;
-		constraints.gridwidth = 2;
-		constraints.anchor = GridBagConstraints.WEST;
-
-		this.add(genotipoPnl, constraints);
-
-		constraints.gridx = 0;
-		constraints.gridy = 2;
-		constraints.gridheight = 1;
-		constraints.gridwidth = 2;
-		constraints.anchor = GridBagConstraints.WEST;
-
-		this.add(toleranciaPnl, constraints);
-
-		constraints.gridx = 0;
-		constraints.gridy = 3;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		//constraints.weightx = 1;
@@ -93,7 +71,7 @@ public class RightPanel extends JPanel {
 		this.add(funcionPnl, constraints);
 
 		constraints.gridx = 0;
-		constraints.gridy = 4;
+		constraints.gridy = 2;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		//constraints.weightx = 1;
@@ -102,7 +80,7 @@ public class RightPanel extends JPanel {
 		this.add(seleccionPnl, constraints);
 
 		constraints.gridx = 0;
-		constraints.gridy = 5;
+		constraints.gridy = 3;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		//constraints.weightx = 1;
@@ -111,7 +89,7 @@ public class RightPanel extends JPanel {
 		this.add(crucePnl, constraints);
 
 		constraints.gridx = 0;
-		constraints.gridy = 6;
+		constraints.gridy = 4;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		//constraints.weightx = 1;
@@ -120,7 +98,7 @@ public class RightPanel extends JPanel {
 		this.add(mutacionPnl, constraints);
 
 		constraints.gridx = 0;
-		constraints.gridy = 7;
+		constraints.gridy = 5;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		//constraints.weightx = 1;
@@ -129,7 +107,7 @@ public class RightPanel extends JPanel {
 		this.add(elitePnl, constraints);
 
 		constraints.gridx = 0;
-		constraints.gridy = 8;
+		constraints.gridy = 6;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		//constraints.weightx = 1;
@@ -138,13 +116,31 @@ public class RightPanel extends JPanel {
 		this.add(estancamientoPnl, constraints);
 
 		constraints.gridx = 0;
-		constraints.gridy = 9;
+		constraints.gridy = 7;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		//constraints.weightx = 1;
 		// constraints.fill = GridBagConstraints.EAST;
 		constraints.anchor = GridBagConstraints.WEST;
 		this.add(poblacionPnl, constraints);
+		
+		constraints.gridx = 0;
+		constraints.gridy = 8;
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+
+		constraints.anchor = GridBagConstraints.EAST;
+		this.add(representacionPnl, constraints);
+		
+		constraints.gridx = 0;
+		constraints.gridy = 9;
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+
+		constraints.anchor = GridBagConstraints.EAST;
+		this.add(progressPnl, constraints);
+		
+		_c.set_rightPanel(this);
 
 	}
 
@@ -190,19 +186,34 @@ public class RightPanel extends JPanel {
 
 	private void crea_mutacionPnl() {
 		mutacionPnl = new JPanel();
-		mutacionPnl.setPreferredSize(new Dimension(200, 42));
-		mutacionPnl.setLayout(new GridLayout(1, 2));
+		//mutacionPnl.setPreferredSize();
+		mutacionPnl.setLayout(new GridLayout(2, 2));
 		GridBagConstraints constraints = new GridBagConstraints();
-
 		porcentMutacion = new JLabel("%");
-		mutacionPnl.add(porcentMutacion);
+
 		pm = new JSpinner(new SpinnerNumberModel(0.05f, 0f, 1f, 0.01f));
 		pm.setMinimumSize(new Dimension(100, 1));
 		pm.setPreferredSize(new Dimension(100, 25));
-
-
+		mutacionSel = new JComboBox<String>();
+		mutacionSel.addItem("Intercambio");
+		mutacionSel.addItem("Inversion");
+		mutacionSel.addItem("Insercion");
+		mutacionSel.addItem("Desplazamiento");
+		
+		mutacionSel.setPreferredSize(new Dimension(150, 20));
+		tipoMutacion = new JLabel("Tipo");
+		mutacionPnl.add(tipoMutacion);
+		mutacionPnl.add(mutacionSel);
+		mutacionPnl.add(porcentMutacion);
 		mutacionPnl.add(pm);
 
+
+		mutacionSel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				_c.set_mutacion(mutacionSel.getSelectedItem().toString());
+			}
+		});
+		
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.gridheight = 1;
@@ -212,30 +223,6 @@ public class RightPanel extends JPanel {
 		mutacionPnl.setBorder(BorderFactory.createTitledBorder("Mutación"));
 	}
 
-	private void crea_toleranciaPnl() {
-		toleranciaPnl = new JPanel();
-		toleranciaPnl.setPreferredSize(new Dimension(200, 42));
-		toleranciaPnl.setLayout(new GridLayout(1, 2));
-		GridBagConstraints constraints = new GridBagConstraints();
-
-		porcenttolerancia = new JLabel("Nº decimales");
-		toleranciaPnl.add(porcenttolerancia);
-		tol = new JSpinner(new SpinnerNumberModel(3, 1, 8, 1)); 
-		tol.setMinimumSize(new Dimension(100, 1));
-		tol.setPreferredSize(new Dimension(100, 25));
-
-		toleranciaPnl.add(tol);
-
-		constraints.gridx = 0;
-		constraints.gridy = 1;
-		constraints.gridheight = 1;
-		constraints.gridwidth = 2;
-		//constraints.weightx = 1;
-		//constraints.weighty = 1; //
-		constraints.anchor = GridBagConstraints.NORTH;
-
-		toleranciaPnl.setBorder(BorderFactory.createTitledBorder("Tolerancia"));
-	}
 
 	/////////////////   SECCIÓN CRUCE   ////////////////////
 	private void crea_crucePnl() {
@@ -306,7 +293,7 @@ public class RightPanel extends JPanel {
 		});
 		//	selecSel.setPreferredSize(new Dimension(150, 20));
 		seleccionPnl.add(selecSel);
-		seleccionPnl.setBorder(BorderFactory.createTitledBorder("Tipo de selección"));
+		seleccionPnl.setBorder(BorderFactory.createTitledBorder("Selección"));
 
 	}
 
@@ -335,41 +322,11 @@ public class RightPanel extends JPanel {
 		poblacionPnl.setBorder(BorderFactory.createTitledBorder("Población y generaciones"));
 
 	}
-
-	private void crea_genotipoPnl() {
-		genotipoPnl = new JPanel();
-		genotipoPnl.setPreferredSize(new Dimension(200, 50));
-		genotipoSel = new JComboBox<String>();
-
-
-		genotipoSel.addItem("Bits");
-		genotipoSel.addItem("Real");
-		genotipoSel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (genotipoSel.getSelectedItem().toString().equals("Bits"))
-				{
-					if (cruceSel.getItemAt(cruceSel.getItemCount() - 1).toString().equals("Aritmético"))
-					{
-						cruceSel.removeItemAt(cruceSel.getItemCount() - 1);
-						//cruceSel.removeItemAt(cruceSel.getItemCount() - 1);
-					}
-					toleranciaPnl.setVisible(true);
-				}
-				else
-				{
-					if (!cruceSel.getItemAt(cruceSel.getItemCount() - 1).toString().equals("Aritmético"))
-					{
-						//cruceSel.addItem("BLX");
-						cruceSel.addItem("Aritmético");
-					}
-					toleranciaPnl.setVisible(false);
-				}
-				//_c.set_representacion(genotipoSel.getSelectedItem().toString());
-			}
-		});
-		genotipoSel.setPreferredSize(new Dimension(150, 20));
-		genotipoPnl.add(genotipoSel);
-		genotipoPnl.setBorder(BorderFactory.createTitledBorder("Genotipo"));
+	
+	private void crea_progressBarPnl() {
+		progressPnl = new JPanel();
+		_progressBar = new JProgressBar();
+		progressPnl.add(_progressBar);
 	}
 
 	private void crea_funcionPnl() {
@@ -413,7 +370,7 @@ public class RightPanel extends JPanel {
 		estancamientoPnl.setLayout(new GridLayout(3, 2));
 
 		JLabel limite_Lbl = new JLabel("Generaciones");
-		limit_estancamiento = new JSpinner(new SpinnerNumberModel(20, 1, 100, 1));
+		limit_estancamiento = new JSpinner(new SpinnerNumberModel(20, 1, 10000, 1));
 
 		JLabel porc_Lbl = new JLabel("%");
 		porc_estancamiento = new JSpinner(new SpinnerNumberModel(0.5f, 0f, 1f, 0.01f));
@@ -461,10 +418,9 @@ public class RightPanel extends JPanel {
 		iniciarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				double porcenMutacion = (double) pm.getValue();
+				_c.set_mutacion((String) mutacionSel.getSelectedItem());
+				
 				_c.set_mutationProbability((float) porcenMutacion);
-
-				double tolerancia = Math.pow(10, -(int) tol.getValue());
-				_c.set_tolerance((float) tolerancia);
 
 				double porcenCruce =  (double) pc.getValue();
 				_c.set_cruceProbability((float)porcenCruce);
@@ -491,10 +447,15 @@ public class RightPanel extends JPanel {
 				_c.set_seleccion(seleccion);
 
 				_c.set_estancamiento(estancamientoSel.isSelected(), (float) (double) porc_estancamiento.getValue(), (int) limit_estancamiento.getValue());
-
-				_c.executeSteps((int) num_g.getValue());
-				Points p = _c.getPoints();
-				_gp.multiGrafico(p);
+				
+				new Thread(new Runnable() {
+		            public void run() {
+						_c.executeSteps((int) num_g.getValue());
+						Points p = _c.getPoints();
+						_gp.multiGrafico(p);
+		                 }
+		             }).start();
+				
 				//_c.executeSteps(Integer.parseInt(num_g.getText())); // TODO NECESITO EL PARAMETRO
 			}
 		});
@@ -532,6 +493,19 @@ public class RightPanel extends JPanel {
 			image = new ImageIcon(url);
 		}
 		return image;
+	}
+	
+	public void resetProgress(int maximum)
+	{
+		_progressBar.setMinimum(0);
+		_progressBar.setMaximum(maximum);
+		_progressBar.setValue(0);
+	}
+	
+	public void setProgress(int progress)
+	{		
+		this._progressBar.setValue(progress);
+		this._progressBar.repaint();
 	}
 
 }

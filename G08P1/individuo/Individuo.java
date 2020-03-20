@@ -41,7 +41,7 @@ public class Individuo implements Comparable<Individuo> {
 		return _genotipo;
 	}
 
-	public double getFitness() {
+	public int getFitness() {
 		return _fitness.fitness(this);
 	}
 

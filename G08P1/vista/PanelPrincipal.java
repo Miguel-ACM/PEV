@@ -10,6 +10,7 @@ import main.Controlador;
 import javax.swing.JFrame;
 
 public class PanelPrincipal extends JFrame{
+	private static final long serialVersionUID = 6358139561165557839L;
 	private RightPanel rp;
 	private GraficPanel gp;
 
