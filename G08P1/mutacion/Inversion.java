@@ -7,10 +7,10 @@ import individuo.Individuo;
 
 public class Inversion implements Mutacion{
 	
-	public List<Integer> muta(Individuo i){
+	public List<Integer> muta(Individuo in){
 		Random rand = new Random();
 		//System.out.print(i);
-		List<Integer> newGenotipo = i.getGenotipo();
+		List<Integer> newGenotipo = in.getGenotipo();
 		int size = newGenotipo.size();
 		int firstCut = rand.nextInt(size - 1);
 		int secondCut = rand.nextInt(size - firstCut - 1) + firstCut + 1;

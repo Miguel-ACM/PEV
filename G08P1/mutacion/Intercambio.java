@@ -7,9 +7,9 @@ import individuo.Individuo;
 
 public class Intercambio implements Mutacion{
 	
-	public List<Integer> muta(Individuo i){
+	public List<Integer> muta(Individuo in){
 		Random rand = new Random();
-		List<Integer> newGenotipo = i.getGenotipo();
+		List<Integer> newGenotipo = in.getGenotipo();
 		// System.out.print(i.getGenotipo());
 		int size = newGenotipo.size();
 		int first = rand.nextInt(size);
@@ -18,8 +18,8 @@ public class Intercambio implements Mutacion{
 			while (first == second)
 				second = rand.nextInt(size);
 		
-		int aux = i.getGenotipo().get(first);
-		newGenotipo.set(first, i.getGenotipo().get(second));
+		int aux = in.getGenotipo().get(first);
+		newGenotipo.set(first, in.getGenotipo().get(second));
 		newGenotipo.set(second, aux);
 		
 		// System.out.println(": " + newGenotipo);
