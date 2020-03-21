@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
+import cruces.CO;
 import cruces.CX;
 import cruces.Cruce;
 import cruces.OX;
@@ -129,7 +130,7 @@ public class Controlador {
 			if (this.rightPanel != null)
 				rightPanel.setProgress(total - numSteps);
 		}
-		System.out.println("Población final:\n" + _poblacion);
+		System.out.println("Poblacion final:\n" + _poblacion);
 	}
 	
 	//Establece la funcion de fitness
@@ -162,6 +163,8 @@ public class Controlador {
 			_cruce = new OX();
 		else if (newCruce.equals("CX"))
 			_cruce = new CX();
+		else if (newCruce.equals("CO"))
+			_cruce = new CO();
 		else
 			System.out.println("ERROR SELECCIONANDO EL CRUCE");
 		_poblacion.set_cruce(_cruce);

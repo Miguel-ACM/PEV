@@ -238,6 +238,7 @@ public class RightPanel extends JPanel {
 		cruceSel.addItem("PMX");
 		cruceSel.addItem("OX");
 		cruceSel.addItem("CX");
+		cruceSel.addItem("CO");
 
 		cruceSel.setPreferredSize(new Dimension(150, 20));
 		crucePnl.add(cruceSel);
@@ -450,6 +451,7 @@ public class RightPanel extends JPanel {
 				
 				new Thread(new Runnable() {
 		            public void run() {
+		            	_gp.clearConsole();
 						_c.executeSteps((int) num_g.getValue());
 						Points p = _c.getPoints();
 						_gp.multiGrafico(p);
