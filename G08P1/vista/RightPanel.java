@@ -196,9 +196,11 @@ public class RightPanel extends JPanel {
 		pm.setPreferredSize(new Dimension(100, 25));
 		mutacionSel = new JComboBox<String>();
 		mutacionSel.addItem("Intercambio");
+		mutacionSel.addItem("Intercambio múltiple");
 		mutacionSel.addItem("Inversion");
 		mutacionSel.addItem("Insercion");
 		mutacionSel.addItem("Desplazamiento");
+
 		
 		mutacionSel.setPreferredSize(new Dimension(150, 20));
 		tipoMutacion = new JLabel("Tipo");
@@ -451,10 +453,12 @@ public class RightPanel extends JPanel {
 				
 				new Thread(new Runnable() {
 		            public void run() {
+		            	enableMajorActions(false);
 		            	_gp.clearConsole();
 						_c.executeSteps((int) num_g.getValue());
 						Points p = _c.getPoints();
 						_gp.multiGrafico(p);
+						enableMajorActions(true);
 		                 }
 		             }).start();
 				
@@ -508,6 +512,12 @@ public class RightPanel extends JPanel {
 	{		
 		this._progressBar.setValue(progress);
 		this._progressBar.repaint();
+	}
+	
+	private void enableMajorActions(boolean enabled)
+	{
+		this.iniciarBtn.setEnabled(enabled);
+		this.funcionSel.setEnabled(enabled);
 	}
 
 }

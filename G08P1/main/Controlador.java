@@ -14,6 +14,7 @@ import individuo.Individuo;
 import mutacion.Desplazamiento;
 import mutacion.Insercion;
 import mutacion.Intercambio;
+import mutacion.IntercambioMultiple;
 import mutacion.Inversion;
 import mutacion.Mutacion;
 import poblacion.Poblacion;
@@ -177,11 +178,13 @@ public class Controlador {
 			_mutacion = new Inversion();
 		else if (newMutacion.equals("Intercambio"))
 			_mutacion = new Intercambio();
+		else if (newMutacion.equals("Intercambio múltiple"))
+			_mutacion = new IntercambioMultiple();
 		else if (newMutacion.equals("Insercion"))
 			_mutacion = new Insercion();
 		else if (newMutacion.equals("Desplazamiento"))
 			_mutacion = new Desplazamiento();
-		else
+				else
 			System.out.println("ERROR SELECCIONANDO LA MUTACION");
 		_poblacion.set_mutation(_mutacion);
 	}

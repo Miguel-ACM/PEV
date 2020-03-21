@@ -54,8 +54,8 @@ public class OX implements Cruce{
 				genotipoSon2.add(-1);
 			}
 		}
-		System.out.println("------------------");
-		System.out.println("Cuts: " + firstCut + "|" + secondCut);
+//		System.out.println("------------------");
+//		System.out.println("Cuts: " + firstCut + "|" + secondCut);
 		int k = (secondCut + 1) % size;
 		int i = 0;
 		while (k != firstCut)
@@ -92,8 +92,8 @@ public class OX implements Cruce{
 			k = (k + 1) % size;
 		}
 		
-		System.out.println(genotipo1 + "\t" + genotipoSon1);
-		System.out.println(genotipo2 + "\t" + genotipoSon2);
+//		System.out.println(genotipo1 + "\t" + genotipoSon1);
+//		System.out.println(genotipo2 + "\t" + genotipoSon2);
 		Individuo newIndividuos[] = new Individuo[2];
 		in1.setGenotipo(genotipoSon1);
 		in2.setGenotipo(genotipoSon2);
