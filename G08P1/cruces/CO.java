@@ -59,14 +59,14 @@ public class CO implements Cruce{
 		{
 			if (j <= random) {
 				genotipoSon1.add(linkedListFinal1.get(linkedValues1.get(j)));
-				linkedListFinal1.remove(linkedValues1.get(j));
+				linkedListFinal1.remove((int) linkedValues1.get(j));
 				genotipoSon2.add(linkedListFinal2.get(linkedValues2.get(j)));
-				linkedListFinal2.remove(linkedValues2.get(j));
+				linkedListFinal2.remove((int) linkedValues2.get(j));
 			} else {
-				genotipoSon1.add(linkedListFinal2.get(linkedValues2.get(j)));
-				linkedListFinal2.remove(linkedValues2.get(j));
-				genotipoSon2.add(linkedListFinal1.get(linkedValues1.get(j)));
-				linkedListFinal1.remove(linkedValues1.get(j));
+				genotipoSon1.add(linkedListFinal1.get(linkedValues2.get(j)));
+				linkedListFinal1.remove((int) linkedValues2.get(j));
+				genotipoSon2.add(linkedListFinal2.get(linkedValues1.get(j)));
+				linkedListFinal2.remove((int) linkedValues1.get(j));
 			}
 		}
 		
