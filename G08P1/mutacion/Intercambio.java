@@ -9,7 +9,7 @@ public class Intercambio implements Mutacion{
 	
 	public List<Integer> muta(Individuo in){
 		Random rand = new Random();
-		List<Integer> newGenotipo = in.getGenotipo();
+		List<Integer> newGenotipo = in.getGenotipo(); //!Se modifica el array del individuo directamente
 		// System.out.print(i.getGenotipo());
 		int size = newGenotipo.size();
 		int first = rand.nextInt(size);

@@ -10,7 +10,7 @@ public class Inversion implements Mutacion{
 	public List<Integer> muta(Individuo in){
 		Random rand = new Random();
 		//System.out.print(i);
-		List<Integer> newGenotipo = in.getGenotipo();
+		List<Integer> newGenotipo = in.getGenotipo(); //!Se modifica el array del individuo directamente
 		int size = newGenotipo.size();
 		int firstCut = rand.nextInt(size - 1);
 		int secondCut = rand.nextInt(size - firstCut - 1) + firstCut + 1;

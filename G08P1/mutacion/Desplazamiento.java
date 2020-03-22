@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import individuo.Individuo;
 
+//Varias inserciones
 public class Desplazamiento implements Mutacion{
 	
 	public List<Integer> muta(Individuo in){

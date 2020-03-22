@@ -200,6 +200,7 @@ public class RightPanel extends JPanel {
 		mutacionSel.addItem("Inversion");
 		mutacionSel.addItem("Insercion");
 		mutacionSel.addItem("Desplazamiento");
+		mutacionSel.addItem("Corte");
 
 		
 		mutacionSel.setPreferredSize(new Dimension(150, 20));

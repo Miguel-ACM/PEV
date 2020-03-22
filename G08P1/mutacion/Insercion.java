@@ -9,7 +9,7 @@ public class Insercion implements Mutacion{
 	
 	public List<Integer> muta(Individuo in){
 		Random rand = new Random();
-		List<Integer> newGenotipo = in.getGenotipo();
+		List<Integer> newGenotipo = in.getGenotipo(); //!Se modifica el array del individuo directamente
 		int size = newGenotipo.size();
 		int extract = rand.nextInt(size);
 		int insert = rand.nextInt(size);

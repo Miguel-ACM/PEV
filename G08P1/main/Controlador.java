@@ -11,6 +11,7 @@ import cruces.PMX;
 import fitness.Fitness;
 import fitness.FitnessHospital;
 import individuo.Individuo;
+import mutacion.Corte;
 import mutacion.Desplazamiento;
 import mutacion.Insercion;
 import mutacion.Intercambio;
@@ -184,7 +185,9 @@ public class Controlador {
 			_mutacion = new Insercion();
 		else if (newMutacion.equals("Desplazamiento"))
 			_mutacion = new Desplazamiento();
-				else
+		else if (newMutacion.equals("Corte"))
+			_mutacion = new Corte();
+		else
 			System.out.println("ERROR SELECCIONANDO LA MUTACION");
 		_poblacion.set_mutation(_mutacion);
 	}
