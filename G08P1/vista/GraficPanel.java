@@ -26,12 +26,13 @@ import main.Controlador;
 import main.Controlador.Points;
 
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.PlotOrientation;
 
 public class GraficPanel extends JPanel{
 	private static final long serialVersionUID = 2140596969237757959L;
 	private JFrame ventana;
-	private ChartPanel panel;
-	private JFreeChart chart;
+	private ChartPanel panel, presionChartPnl;
+	private JFreeChart chart, presionChart;
 	private JPanel mejorPnl;
 	private JTextArea individuo;
 	private JPanel consolePnl;
@@ -47,17 +48,17 @@ public class GraficPanel extends JPanel{
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
 
-		constraints.gridx = 1;
+		constraints.gridx = 0;
 		constraints.gridy = 0;
-		constraints.gridheight = 2;
+		constraints.gridheight = 1;
 		constraints.gridwidth = 1;
 		//constraints.anchor = GridBagConstraints.NORTH;
 		//constraints.fill = GridBagConstraints.VERTICAL;
 		this.add(mejorPnl, constraints);
 		
 		constraints.gridx = 0;
-		constraints.gridy = 0;
-		constraints.gridheight = 2;
+		constraints.gridy = 1;
+		constraints.gridheight = 1;
 		constraints.gridwidth = 1;
 		consolePnl = new JPanel();
 		consolePnl.setBorder(BorderFactory.createTitledBorder("Salida de consola"));
@@ -74,6 +75,23 @@ public class GraficPanel extends JPanel{
 		//consoleScrollPnl.setBounds(50, 30, 300, 50);//consoleScrollPnl.add(console);
 		consolePnl.add(consoleScrollPnl);
 		this.add(consolePnl, constraints);
+		
+		constraints.gridx = 1;
+		constraints.gridy = 0;
+		constraints.gridheight = 2;
+		constraints.gridwidth = 1;
+
+		DefaultXYDataset datasetPresion = new DefaultXYDataset();	
+		presionChart = ChartFactory.createXYLineChart(null, "Generaciones", "Presión selectiva", datasetPresion, PlotOrientation.VERTICAL,
+													  false, false, false);
+		//chart.setBorderPaint(Color.MAGENTA);
+		presionChart.setBackgroundPaint(Color.YELLOW);
+		presionChart.getXYPlot().setBackgroundPaint(Color.black);
+
+		presionChartPnl = new ChartPanel(presionChart);
+		presionChartPnl.setPreferredSize(new Dimension(450, 200));
+				
+		this.add(presionChartPnl, constraints);
 		
 		DefaultXYDataset datasetMulti = new DefaultXYDataset();	
 		chart = ChartFactory.createXYLineChart("EVOLUCIÓN", "Generaciones", "Fitness", datasetMulti);
@@ -132,10 +150,18 @@ public class GraficPanel extends JPanel{
 		datasetMulti.addSeries("Mejor absoluto", new double[][] {gener,points.toArray(points.best_overall_fitness)});
 		datasetMulti.addSeries("Media", new double[][] {gener,points.toArray(points.mean_fitness)});
 		//datasetMulti.addSeries("Peor", new double[][] {gener,points.toArray(points.worst_fitness)});
-
+		
 		chart.getXYPlot().setDataset(datasetMulti);
 
 		((NumberAxis)chart.getXYPlot().getRangeAxis()).setAutoRangeIncludesZero(false);
+		
+		DefaultXYDataset datasetPresion = new DefaultXYDataset();	
+		datasetPresion.addSeries("Presion", new double[][] {gener, points.toArray(points.presion_selectiva)});
+		
+		presionChart.getXYPlot().setDataset(datasetPresion);
+		//((NumberAxis)presionChart.getXYPlot().getRangeAxis()).setAutoRangeIncludesZero(false);
+		((NumberAxis)presionChart.getXYPlot().getRangeAxis()).setRange(0.9, 2.1);
+		
 		actualizar_mejor(points);
 	}
 	

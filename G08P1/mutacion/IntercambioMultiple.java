@@ -15,7 +15,7 @@ public class IntercambioMultiple implements Mutacion{
 		//System.out.println("Desplazamiento--------------------------");
 		for (int i = 0; i <= num; i++)
 		{
-			in.setGenotipo(intercambio.muta(in));
+			in.setGenotipo(intercambio.muta(in)); 
 		}
 		return in.getGenotipo();
 	}

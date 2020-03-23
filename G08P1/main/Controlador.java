@@ -53,10 +53,12 @@ public class Controlador {
 	    public List<Double> worst_fitness;  
 	    public List<Double> mean_fitness;
 	    public List<Double> best_overall_fitness;
+	    public List<Double> presion_selectiva;
 	    public Individuo mejor;
 	    
 	    public Points()
 	    {
+	    	presion_selectiva = new ArrayList<Double>();
 	    	best_fitness = new ArrayList<Double>();
 	    	worst_fitness = new ArrayList<Double>();
 	    	mean_fitness = new ArrayList<Double>();
@@ -98,16 +100,24 @@ public class Controlador {
 	//Agrega los puntos obtenidos de una generacion
 	private void _addPoints()
 	{
+		double min = _poblacion.getFitness_min();
+		double presion;
 		_points.best_fitness.add(_poblacion.getFitness_max());
-		_points.worst_fitness.add(_poblacion.getFitness_min());
+		_points.worst_fitness.add(min);
 		_points.best_overall_fitness.add(_poblacion.getBest_fitness_absoluto());
 		double[] allFitness = _poblacion.getFitness();
 		double sumFitness = 0d;
 		for (double i : allFitness){
 			sumFitness += i;
-		}
-		_points.mean_fitness.add(sumFitness / allFitness.length);
+		}		
+		double mean = sumFitness / allFitness.length;
+		_points.mean_fitness.add(mean);
 		_points.mejor = _poblacion.getBest_individuo_absoluto();
+		if (mean - min == 0)
+			_points.presion_selectiva.add(1d);
+		else
+			_points.presion_selectiva.add(((_poblacion.getFitness_max() - min)/ (mean - min)));
+
 	}
 	
 	//Avanza una generacion

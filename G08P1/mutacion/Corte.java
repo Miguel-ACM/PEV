@@ -9,6 +9,7 @@ import individuo.Individuo;
 //Intercambia dos segmentos del array. Es una mutacion muy agresiva
 // Ej: 0, 2, 4, 1, 3; cortamos por 0, 2, 4 | 1, 3
 // El resultado de la mutación es: 1, 3, 0, 2, 4
+
 public class Corte implements Mutacion{
 	
 	public List<Integer> muta(Individuo in){
