@@ -1,6 +1,7 @@
 package cruces;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -27,7 +28,7 @@ public class OXPP implements Cruce{
 		List<Integer> genotipo2 = in2.getGenotipo();
 		int size = genotipo1.size();
 		//Decidimos cuantos miembros se intercambian
-		int num = rand.nextInt(size / 2) + 1;
+		int num = 2;//rand.nextInt(size / 2) + 1;
 		
 		List<Integer> posicionesIntercambiadas = new ArrayList<Integer>(num);
 		List<Integer> son1Exchanged = new ArrayList<Integer>(num);
@@ -52,6 +53,7 @@ public class OXPP implements Cruce{
 			posicionesIntercambiadas.add(chosen);
 			i++;
 		}
+		//posicionesIntercambiadas = new ArrayList<Integer>(Arrays.asList(1, 4));//LEL
 		//Ordenamos las listas para poder hacerlo de izquierda a derecha
 		Collections.sort(posicionesIntercambiadas);
 		for (Integer pos : posicionesIntercambiadas)
@@ -73,11 +75,19 @@ public class OXPP implements Cruce{
 	    i = k;
 	    int j = 0;
 	    int aux;
+//	    System.out.println(posicionesIntercambiadas);
+//	    System.out.println("----------------------");
+//	    System.out.println(genotipo1);
+//	    System.out.println(genotipo2);
+//	    System.out.println("----------------------");
+	    
 		while (k != lastIndex)
 		{
 			if ((aux = contains(posicionesIntercambiadas, k)) != -1)
 			{
 				genotipoSon1.set(k, son1Exchanged.get(aux));
+				if (i == k)
+					i = (i + 1) % size;
 				k = (k + 1) % size;
 			}
 			else if (i != lastIndex)
@@ -86,23 +96,18 @@ public class OXPP implements Cruce{
 				{
 					do {
 					i = (i + 1) % size;
-					} while (contains(posicionesIntercambiadas, i) != -1 && i != lastIndex);
+					} while ((contains(posicionesIntercambiadas, i) != -1) && (i != lastIndex));
 				} else {
 					genotipoSon1.set(k, genotipo1.get(i));
 					k = (k + 1) % size;
 					do {
 						i = (i + 1) % size;
-					} while (contains(posicionesIntercambiadas, i) != -1 && i != lastIndex);
+					} while ((contains(posicionesIntercambiadas, i) != -1) && (i != lastIndex));
 				}
 			} else {
-				System.out.println(posicionesIntercambiadas);
-				System.out.println(genotipo1 + " - " + genotipoSon1);
-				System.out.println(genotipo2 + " - " + genotipoSon2);
-				System.out.println(j + " " + k + " " + lastIndex);
-				while (contains(son1Exchanged, son2Exchanged.get(j)) != -1)
-				{	
+				while ((aux = contains(son1Exchanged, son2Exchanged.get(j))) != -1)
+				{
 					j++;
-					
 				}
 				genotipoSon1.set(k, son2Exchanged.get(j));
 				k = (k + 1) % size;
@@ -116,47 +121,14 @@ public class OXPP implements Cruce{
 	    j=0;
 	    while (k != lastIndex)
 		{
-			if ((aux = contains(posicionesIntercambiadas, k)) != -1)
-			{
-				genotipoSon2.set(k, son2Exchanged.get(aux));
-				k = (k + 1) % size;
-			}
-			else if (i != lastIndex)
-			{
-				if (contains(son2Exchanged, genotipo2.get(i)) != -1)
-				{
-					do {
-					i = (i + 1) % size;
-					} while (contains(posicionesIntercambiadas, i) != -1 && i != lastIndex);
-				} else {
-					genotipoSon2.set(k, genotipo2.get(i));
-					k = (k + 1) % size;
-					do {
-						i = (i + 1) % size;
-					} while (contains(posicionesIntercambiadas, i) != -1 && i != lastIndex);
-				}
-			} else {
-				System.out.println(posicionesIntercambiadas);
-				System.out.println(genotipo1 + " - " + genotipoSon1);
-				System.out.println(genotipo2 + " - " + genotipoSon2);
-				System.out.println(j + " " + k + " " + lastIndex);
-				while (contains(son2Exchanged, son1Exchanged.get(j)) != -1)
-				{	
-					j++;
-				}
-				genotipoSon2.set(k, son1Exchanged.get(j));
-				k = (k + 1) % size;
-				j++;
-			}
+	    	k = (k + 1) % size;
 		}
-		System.out.println("test1");
-		genotipoSon2.set(lastIndex, son2Exchanged.get(contains(posicionesIntercambiadas, lastIndex)));
-		System.out.println("test2");
+
 //		System.out.println(genotipo1 + "\t" + genotipoSon1);
 //		System.out.println(genotipo2 + "\t" + genotipoSon2);
 		Individuo newIndividuos[] = new Individuo[2];
 		in1.setGenotipo(genotipoSon1);
-		in2.setGenotipo(genotipoSon2);
+		in2.setGenotipo(genotipo2); //genotipoSon2
 		newIndividuos[0] = in1;
 		newIndividuos[1] = in2;
 		return newIndividuos;
