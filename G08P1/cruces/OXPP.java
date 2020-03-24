@@ -118,17 +118,47 @@ public class OXPP implements Cruce{
 
 		k = (lastIndex + 1) % size;
 	    i = k;
-	    j=0;
+	    j = 0;
 	    while (k != lastIndex)
 		{
-	    	k = (k + 1) % size;
+	    	if ((aux = contains(posicionesIntercambiadas, k)) != -1)
+			{
+				genotipoSon2.set(k, son2Exchanged.get(aux));
+				if (i == k)
+					i = (i + 1) % size;
+				k = (k + 1) % size;
+			}
+			else if (i != lastIndex)
+			{
+				if (contains(son2Exchanged, genotipo2.get(i)) != -1)
+				{
+					do {
+					i = (i + 1) % size;
+					} while ((contains(posicionesIntercambiadas, i) != -1) && (i != lastIndex));
+				} else {
+					genotipoSon2.set(k, genotipo2.get(i));
+					k = (k + 1) % size;
+					do {
+						i = (i + 1) % size;
+					} while ((contains(posicionesIntercambiadas, i) != -1) && (i != lastIndex));
+				}
+			} else {
+				while ((aux = contains(son2Exchanged, son1Exchanged.get(j))) != -1)
+				{
+					j++;
+				}
+				genotipoSon2.set(k, son1Exchanged.get(j));
+				k = (k + 1) % size;
+				j++;
+			}
 		}
+		genotipoSon2.set(lastIndex, son2Exchanged.get(contains(posicionesIntercambiadas, lastIndex)));
 
 //		System.out.println(genotipo1 + "\t" + genotipoSon1);
 //		System.out.println(genotipo2 + "\t" + genotipoSon2);
 		Individuo newIndividuos[] = new Individuo[2];
 		in1.setGenotipo(genotipoSon1);
-		in2.setGenotipo(genotipo2); //genotipoSon2
+		in2.setGenotipo(genotipoSon2);
 		newIndividuos[0] = in1;
 		newIndividuos[1] = in2;
 		return newIndividuos;
