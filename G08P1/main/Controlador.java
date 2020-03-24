@@ -7,6 +7,7 @@ import cruces.CO;
 import cruces.CX;
 import cruces.Cruce;
 import cruces.OX;
+import cruces.OXPP;
 import cruces.PMX;
 import fitness.Fitness;
 import fitness.FitnessHospital;
@@ -173,6 +174,8 @@ public class Controlador {
 			_cruce = new PMX();
 		else if (newCruce.equals("OX"))
 			_cruce = new OX();
+		else if (newCruce.equals("OX-PP"))
+			_cruce = new OXPP();
 		else if (newCruce.equals("CX"))
 			_cruce = new CX();
 		else if (newCruce.equals("CO"))
@@ -197,6 +200,8 @@ public class Controlador {
 			_mutacion = new Desplazamiento();
 		else if (newMutacion.equals("Corte"))
 			_mutacion = new Corte();
+		else if (newMutacion.equals("Heurística"))
+			_mutacion = new Desplazamiento();
 		else
 			System.out.println("ERROR SELECCIONANDO LA MUTACION");
 		_poblacion.set_mutation(_mutacion);

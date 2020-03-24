@@ -160,7 +160,7 @@ public class GraficPanel extends JPanel{
 		
 		presionChart.getXYPlot().setDataset(datasetPresion);
 		//((NumberAxis)presionChart.getXYPlot().getRangeAxis()).setAutoRangeIncludesZero(false);
-		((NumberAxis)presionChart.getXYPlot().getRangeAxis()).setRange(0.9, 2.1);
+		((NumberAxis)presionChart.getXYPlot().getRangeAxis()).setRange(1, 2.4);
 		
 		actualizar_mejor(points);
 	}

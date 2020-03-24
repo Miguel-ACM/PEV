@@ -57,39 +57,55 @@ public class OX implements Cruce{
 //		System.out.println("------------------");
 //		System.out.println("Cuts: " + firstCut + "|" + secondCut);
 		int k = (secondCut + 1) % size;
-		int i = 0;
+		int i = k;
 		while (k != firstCut)
 		{
-			if (contains(son1Exchanged, genotipo1.get(k)))
+			if (i != firstCut)
 			{
-				while (contains(son1Exchanged, son2Exchanged[i])) 
+				if (contains(son1Exchanged, genotipo1.get(i)))
 				{
-					i++;
+					i = (i + 1) % size;
+				} else {
+					genotipoSon1.set(k, genotipo1.get(i));
+					k = (k + 1) % size;
+					i = (i + 1) % size;
 				}
-				genotipoSon1.set(k, son2Exchanged[i]);
-				i++;
 			} else {
-				genotipoSon1.set(k, genotipo1.get(k));
+				for (int j = 0; j < sizeCut; j++)
+				{
+					if (!contains(son1Exchanged, son2Exchanged[j]))
+					{
+						genotipoSon1.set(k, son2Exchanged[j]);
+						k = (k + 1) % size;
+					}
+				}
 			}
-			k = (k + 1) % size;
 		}
 		
 		k = (secondCut + 1) % size;
-		i = 0;
+		i = k;
 		while (k != firstCut)
 		{
-			if (contains(son2Exchanged, genotipo2.get(k)))
+			if (i != firstCut)
 			{
-				while (contains(son2Exchanged, son1Exchanged[i])) 
+				if (contains(son2Exchanged, genotipo2.get(i)))
 				{
-					i++;
+					i = (i + 1) % size;
+				} else {
+					genotipoSon2.set(k, genotipo2.get(i));
+					k = (k + 1) % size;
+					i = (i + 1) % size;
 				}
-				genotipoSon2.set(k, son1Exchanged[i]);
-				i++;
 			} else {
-				genotipoSon2.set(k, genotipo2.get(k));
+				for (int j = 0; j < sizeCut; j++)
+				{
+					if (!contains(son2Exchanged, son1Exchanged[j]))
+					{
+						genotipoSon2.set(k, son1Exchanged[j]);
+						k = (k + 1) % size;
+					}
+				}
 			}
-			k = (k + 1) % size;
 		}
 		
 //		System.out.println(genotipo1 + "\t" + genotipoSon1);
