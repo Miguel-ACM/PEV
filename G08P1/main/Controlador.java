@@ -184,6 +184,8 @@ public class Controlador {
 			_mutacion = new Insercion();
 		else if (newMutacion.equals("Desplazamiento"))
 			_mutacion = new Desplazamiento();
+		else if (newMutacion.equals("Heurística"))
+			_mutacion = new Desplazamiento();
 				else
 			System.out.println("ERROR SELECCIONANDO LA MUTACION");
 		_poblacion.set_mutation(_mutacion);
