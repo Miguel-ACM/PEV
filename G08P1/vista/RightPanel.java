@@ -290,6 +290,7 @@ public class RightPanel extends JPanel {
 		selecSel.addItem("Torneo probabilístico");
 		selecSel.addItem("Universal estocástica");
 		selecSel.addItem("Restos");
+		selecSel.addItem("Ranking");		
 		selecSel.addItem("Sin selección");
 
 		selecSel.addActionListener(new ActionListener() {
@@ -346,7 +347,7 @@ public class RightPanel extends JPanel {
 		funcionSel.addItem("datos15.txt");
 		funcionSel.addItem("datos30.txt");
 		funcionSel.addItem("tai100a.txt");
-		funcionSel.addItem("tai256.c");
+		funcionSel.addItem("tai256c.txt");
 
 		funcionSel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

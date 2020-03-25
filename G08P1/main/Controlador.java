@@ -20,6 +20,7 @@ import mutacion.IntercambioMultiple;
 import mutacion.Inversion;
 import mutacion.Mutacion;
 import poblacion.Poblacion;
+import seleccion.Ranking;
 import seleccion.Restos;
 import seleccion.Ruleta;
 import seleccion.Seleccion;
@@ -102,7 +103,6 @@ public class Controlador {
 	private void _addPoints()
 	{
 		double min = _poblacion.getFitness_min();
-		double presion;
 		_points.best_fitness.add(_poblacion.getFitness_max());
 		_points.worst_fitness.add(min);
 		_points.best_overall_fitness.add(_poblacion.getBest_fitness_absoluto());
@@ -242,6 +242,8 @@ public class Controlador {
 			_seleccion = new TorneoProbabilistico();
 		else if (seleccion.equals("Restos"))
 			_seleccion = new Restos();
+		else if (seleccion.equals("Ranking"))
+			_seleccion = new Ranking();
 		else if (seleccion.equals("Sin selección"))
 			_seleccion = null;
 		else
