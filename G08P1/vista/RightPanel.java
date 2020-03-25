@@ -244,6 +244,7 @@ public class RightPanel extends JPanel {
 		cruceSel.addItem("OX-PP");
 		cruceSel.addItem("CX");
 		cruceSel.addItem("CO");
+		cruceSel.addItem("ERX");
 
 		cruceSel.setPreferredSize(new Dimension(150, 20));
 		crucePnl.add(cruceSel);
