@@ -43,6 +43,7 @@ public class Poblacion {
 			_individuos.add(i);
 			size--;
 		}
+		this.sort();
 		_bestIndividuo = this.getBest_individuo();
 		_bestFitness = this.getFitness_max();
 	}
@@ -153,7 +154,7 @@ public class Poblacion {
 		boolean maximiza = false;
 		//Extrae la elite
 		List<Individuo> elite = this.getElite();
-		
+		//System.out.println(elite);
 
 		//Seleccionamos X individuos y reemplazamos la población
 		
@@ -173,15 +174,13 @@ public class Poblacion {
 		//Mutacion
 		this.mutacion();
 		this.sort(); //Ordenamos segun el fitness de nuevo
-
 		
-		
-
 		//Elite
 		int k = 0;
 		for (Individuo i: elite)
 		{
-			int index = maximiza ? k :  _size - 1 - k; 
+			int index = _size - 1 - k;
+			// System.out.println(_individuos.get(index).getFitness() + " " + i.getFitness());
 			_individuos.set(index, i);
 			k++;
 		}

@@ -30,7 +30,7 @@ public class Individuo implements Comparable<Individuo> {
 	}
 
 	public Individuo mutacion(float probabilidad) {
-		if (Math.random() < probabilidad)
+		if (Math.random() <= probabilidad)
 		{
 			_genotipo = _mutacion.muta(this);
 		}
