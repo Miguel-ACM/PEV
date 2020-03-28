@@ -9,6 +9,7 @@ import cruces.Corners;
 import cruces.Cruce;
 import cruces.ERX;
 import cruces.OX;
+import cruces.OXOP;
 import cruces.OXPP;
 import cruces.PMX;
 import fitness.Fitness;
@@ -181,6 +182,8 @@ public class Controlador {
 			_cruce = new OX();
 		else if (newCruce.equals("OX-PP"))
 			_cruce = new OXPP();
+		else if (newCruce.equals("OX-OP"))
+			_cruce = new OXOP();
 		else if (newCruce.equals("CX"))
 			_cruce = new CX();
 		else if (newCruce.equals("CO"))

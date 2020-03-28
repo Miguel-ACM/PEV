@@ -6,7 +6,6 @@ package seleccion;
 import java.util.ArrayList;
 import java.util.List;
 
-import individuo.Individuo;
 import poblacion.Poblacion;
 
 public class UniversalEstocastica implements Seleccion{

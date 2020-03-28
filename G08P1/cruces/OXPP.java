@@ -1,7 +1,6 @@
 package cruces;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -28,7 +27,7 @@ public class OXPP implements Cruce{
 		List<Integer> genotipo2 = in2.getGenotipo();
 		int size = genotipo1.size();
 		//Decidimos cuantos miembros se intercambian
-		int num = 2;//rand.nextInt(size / 2) + 1;
+		int num = rand.nextInt(size / 2) + 1;
 		
 		List<Integer> posicionesIntercambiadas = new ArrayList<Integer>(num);
 		List<Integer> son1Exchanged = new ArrayList<Integer>(num);

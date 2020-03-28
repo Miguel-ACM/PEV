@@ -3,7 +3,6 @@ package seleccion;
 import java.util.ArrayList;
 import java.util.List;
 
-import individuo.Individuo;
 import poblacion.Poblacion;
 
 /**
@@ -21,8 +20,6 @@ public class Ruleta implements Seleccion {
 	public ArrayList<Integer> selecciona(int num, Poblacion p, boolean maximiza) {
 		ArrayList<Integer> seleccionados = new ArrayList<Integer>();
 		
-		List<Individuo> _individuos = p.get_individuos();
-
 		_porciones = EscaladoLineal.escaladoLinealTramos(p);
 		
 		//System.out.println(_porciones);
