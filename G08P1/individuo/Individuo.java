@@ -30,7 +30,10 @@ public class Individuo implements Comparable<Individuo> {
 	}
 
 	public Individuo mutacion(float probabilidad) {
+		//System.out.println(_genotipo);
 		_genotipo = _mutacion.muta(this);
+		//System.out.println(_genotipo);
+		//System.out.println("-------------------");
 		return this;
 	}
 	

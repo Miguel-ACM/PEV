@@ -172,18 +172,15 @@ public class Poblacion {
 		{
 			List<Individuo> nuevosIndividuos = new ArrayList<Individuo>();
 			List<Integer> seleccion = _seleccion.selecciona(this._size, this, maximiza);
+			//System.out.println(seleccion);
 			for (Integer i : seleccion)
 			{
 				nuevosIndividuos.add(_individuos.get(i).clone());
 			}
 			this._individuos = nuevosIndividuos;
 		}
-//		System.out.println(this);
 		//Cruce
 		_numCruces += this.cruza();
-//		System.out.println("----------------------");
-//		System.out.println(this);
-//		System.out.println("**********************");
 
 		//Mutacion
 		this.mutacion();
@@ -194,7 +191,6 @@ public class Poblacion {
 		for (Individuo i: elite)
 		{
 			int index = _size - 1 - k;
-			// System.out.println(_individuos.get(index).getFitness() + " " + i.getFitness());
 			_individuos.set(index, i);
 			k++;
 		}

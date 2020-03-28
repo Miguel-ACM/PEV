@@ -15,6 +15,7 @@ import fitness.FitnessHospital;
 import individuo.Individuo;
 import mutacion.Corte;
 import mutacion.Desplazamiento;
+import mutacion.Heuristica;
 import mutacion.Insercion;
 import mutacion.Intercambio;
 import mutacion.IntercambioMultiple;
@@ -206,7 +207,7 @@ public class Controlador {
 		else if (newMutacion.equals("Corte"))
 			_mutacion = new Corte();
 		else if (newMutacion.equals("Heurística"))
-			_mutacion = new Desplazamiento();
+			_mutacion = new Heuristica();
 		else
 			System.out.println("ERROR SELECCIONANDO LA MUTACION");
 		_poblacion.set_mutation(_mutacion);

@@ -54,8 +54,8 @@ public class OX implements Cruce{
 				genotipoSon2.add(-1);
 			}
 		}
-//		System.out.println("------------------");
-//		System.out.println("Cuts: " + firstCut + "|" + secondCut);
+		//System.out.println("------------------");
+		//System.out.println("Cuts: " + firstCut + "|" + secondCut);
 		int k = (secondCut + 1) % size;
 		int i = k;
 		while (k != firstCut)
