@@ -202,6 +202,8 @@ public class RightPanel extends JPanel {
 		mutacionSel.addItem("Desplazamiento");
 		mutacionSel.addItem("Corte");
 		mutacionSel.addItem("Heurística");
+		mutacionSel.addItem("Heurística/Inserción");
+		mutacionSel.addItem("Heurística/Desplazamiento");
 
 		
 		mutacionSel.setPreferredSize(new Dimension(150, 20));

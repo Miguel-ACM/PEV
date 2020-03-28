@@ -5,7 +5,7 @@ import java.util.List;
 
 import cruces.CO;
 import cruces.CX;
-import cruces.Corners;
+//import cruces.Corners;
 import cruces.Cruce;
 import cruces.ERX;
 import cruces.OX;
@@ -18,6 +18,8 @@ import individuo.Individuo;
 import mutacion.Corte;
 import mutacion.Desplazamiento;
 import mutacion.Heuristica;
+import mutacion.HeuristicaDesplazamiento;
+import mutacion.HeuristicaInsercion;
 import mutacion.Insercion;
 import mutacion.Intercambio;
 import mutacion.IntercambioMultiple;
@@ -190,8 +192,8 @@ public class Controlador {
 			_cruce = new CO();
 		else if (newCruce.equals("ERX"))
 			_cruce = new ERX();
-		else if (newCruce.equals("Corners"))
-			_cruce = new Corners();
+		//else if (newCruce.equals("Corners"))
+		//	_cruce = new Corners();
 		else
 			System.out.println("ERROR SELECCIONANDO EL CRUCE");
 		_poblacion.set_cruce(_cruce);
@@ -214,6 +216,10 @@ public class Controlador {
 			_mutacion = new Corte();
 		else if (newMutacion.equals("Heurística"))
 			_mutacion = new Heuristica();
+		else if (newMutacion.equals("Heurística/Inserción"))
+			_mutacion = new HeuristicaInsercion();
+		else if (newMutacion.equals("Heurística/Desplazamiento"))
+			_mutacion = new HeuristicaDesplazamiento();
 		else
 			System.out.println("ERROR SELECCIONANDO LA MUTACIóN");
 		_poblacion.set_mutation(_mutacion);

@@ -58,7 +58,7 @@ public class OXOP implements Cruce{
 		
 		for (Integer pos : posicionesSeleccionadas)
 		{
-			System.out.print(pos + " ");
+			//System.out.print(pos + " ");
 			valoresHijo1.add(genotipo1.get(pos));
 			valoresHijo2.add(genotipo2.get(pos));
 		}
