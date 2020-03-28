@@ -15,7 +15,7 @@ import poblacion.Poblacion;
  */
 public class TorneoProbabilistico implements Seleccion{
 
-	float _probabilidadMejor = 0.7f; //En esta clase se podria ajustar la probabilidad de que coja el mejor y 
+	float _probabilidadMejor = 0.6f; //En esta clase se podria ajustar la probabilidad de que coja el mejor y 
 	//el numero de contendientes en el torneo, que ahora mismo son 0.7 y 3 respectivamente
 
 	public ArrayList<Integer> selecciona(int num, Poblacion p, boolean maximiza) {

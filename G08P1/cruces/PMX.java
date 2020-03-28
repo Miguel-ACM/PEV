@@ -39,10 +39,8 @@ public class PMX implements Cruce{
 			secondCut = aux;
 		}
 		
-//		System.out.println("-----------\nCuts: " + firstCut + " | " + secondCut);
-//		System.out.println(in1);
-//		System.out.println(in2);
-		
+		//System.out.println("-----------\nCuts: " + firstCut + " | " + secondCut);
+
 		/*List<Integer> son1exchanged = new ArrayList<>(secondCut - firstCut + 1);
 		List<Integer> son2exchanged = new ArrayList<>(secondCut - firstCut + 1);*/
 		int sizeCut = secondCut - firstCut + 1;
@@ -69,13 +67,11 @@ public class PMX implements Cruce{
 				boolean exchangedSon2 = false;
 				for (int j = 0; j < sizeCut; j++) //Si coincide con los intercambiados...
 				{
-//					System.out.println(genotipoSon1.get(i) + "|" + son1Exchanged[j] + "|" + son2Exchanged[j]);
 					if (!exchangedSon1 && genotipoSon1.get(i) == son1Exchanged[j]) //...Se coloca la pareja del coincidente
 					{
 						exchangedSon1 = true;
 						genotipoSon1.set(i, getExchange(genotipoSon1.get(i), son1Exchanged, son2Exchanged));
 					}
-//					System.out.println(genotipoSon2.get(i) + "|" + son2Exchanged[j] + "|" + son1Exchanged[j]);
 					if (!exchangedSon2 && genotipoSon2.get(i) == son2Exchanged[j])
 					{
 						exchangedSon2 = true;

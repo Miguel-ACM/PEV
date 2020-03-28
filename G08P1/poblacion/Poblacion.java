@@ -21,6 +21,8 @@ public class Poblacion {
 	private Seleccion _seleccion;
 	private Cruce _cruce;
 	private Mutacion _mutacion;
+	private int _numCruces;
+	private int _numMutaciones;
 	
 	private float _elitePercent = 0.02f;
 	
@@ -37,6 +39,8 @@ public class Poblacion {
 		_size = size;
 		_fitness = fitness;
 		_mutacion = mutacion;
+		_numCruces = 0;
+		_numMutaciones = 0;
 		while (size > 0)
 		{
 			Individuo i = new Individuo(_fitness, _mutacion);
@@ -50,7 +54,8 @@ public class Poblacion {
 	
 	public String toString()
 	{
-		String retValue = "";
+		String retValue = "Numero de cruces: " + _numCruces + "\n";
+		retValue += "Numero de mutaciones: " + _numMutaciones + "\n";
 		int j = 0;
 		for (Individuo i : _individuos)
 		{
@@ -67,8 +72,12 @@ public class Poblacion {
 	public void mutacion() 
 	{
 		for (int i = 0; i < _size; i++)
-		{			
-			_individuos.set(i, _individuos.get(i).mutacion(_mutationProbability)); 
+		{		
+			if (Math.random() <= _mutationProbability)
+			{
+				_individuos.set(i, _individuos.get(i).mutacion(_mutationProbability));
+				_numMutaciones++;
+			}
 		}
 	}
 	
@@ -169,8 +178,13 @@ public class Poblacion {
 			}
 			this._individuos = nuevosIndividuos;
 		}
+//		System.out.println(this);
 		//Cruce
-		this.cruza();
+		_numCruces += this.cruza();
+//		System.out.println("----------------------");
+//		System.out.println(this);
+//		System.out.println("**********************");
+
 		//Mutacion
 		this.mutacion();
 		this.sort(); //Ordenamos segun el fitness de nuevo
@@ -282,26 +296,10 @@ public class Poblacion {
 		_numGenEstancadoThreshold = num_gens;
 		_reseteoPercent = porcentaje_reinicio;
 	}
-	
-	
-	/*public PoblacionBits(int size, Fitness fitness, float tolerance) 
-	{
-		super(size, fitness);
-		_tolerance = tolerance;
-		while (size > 0)
-		{
-			_individuos.add(new IndividuoBits(_fitness, _tolerance));
-			size--;
-		}
 
-		// ordena la poblacion
-		this.sort();
-		_bestIndividuo = this.getBest_individuo(fitness.maximiza());
-		_bestFitness = this.getFitness_max(fitness.maximiza());
-	}*/
-
-	public void cruza()
+	public int cruza()
 	{
+		int numCruces = 0;
 		List<Individuo> padres = new ArrayList<Individuo>();
 		List<Integer> padresIndex = new ArrayList<Integer>();
 		int j = 0;
@@ -320,20 +318,27 @@ public class Poblacion {
 			int padre1Index = Math.abs(rand.nextInt() % padres.size());
 			Individuo padre1 = padres.get(padre1Index);
 			int padre1IndividuoIndex = padresIndex.get(padre1Index);
+			// System.out.print(padre1IndividuoIndex + " con ");
 			padresIndex.remove(padre1Index);
 			padres.remove(padre1Index);
 
 			int padre2Index = Math.abs(rand.nextInt() % padres.size());
 			Individuo padre2 = padres.get(padre2Index);
 			int padre2IndividuoIndex = padresIndex.get(padre2Index);
+			// System.out.println(padre2IndividuoIndex);
 			padresIndex.remove(padre2Index);
 			padres.remove(padre2Index);
+			numCruces++;
 
 			//Politica de reemplazamiento: Hijos sustituyen a los padres
+			//System.out.println(padre1 + "\n" + padre2);
 			Individuo[] hijos = _cruce.cruza(padre1.clone(), padre2.clone());
+			//System.out.println("-\n" + hijos[0] + "\n" + hijos[1] + "\n-------------------");
+
 			_individuos.set(padre1IndividuoIndex, hijos[0]);
 			_individuos.set(padre2IndividuoIndex, hijos[1]);
 		}
+		return numCruces;
 	}
 
 	//Reinicia el reseteoPercent de la poblacion

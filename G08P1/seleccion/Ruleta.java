@@ -21,12 +21,11 @@ public class Ruleta implements Seleccion {
 	public ArrayList<Integer> selecciona(int num, Poblacion p, boolean maximiza) {
 		ArrayList<Integer> seleccionados = new ArrayList<Integer>();
 		
-		Double tramo = (double) 0;
-		double totalFitness = 0;
 		List<Individuo> _individuos = p.get_individuos();
 
-		_porciones = EscaladoLineal.escaladoLineal(p);
+		_porciones = EscaladoLineal.escaladoLinealTramos(p);
 		
+		//System.out.println(_porciones);
 		for (int i = 0; i < num; i++) {
 			int elegido = elegido();
 			//System.out.print(", " + elegido);

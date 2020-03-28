@@ -104,6 +104,8 @@ public class Controlador {
 	private void _addPoints()
 	{
 		double min = _poblacion.getFitness_min();
+		double max = _poblacion.getFitness_max();
+
 		_points.best_fitness.add(_poblacion.getFitness_max());
 		_points.worst_fitness.add(min);
 		_points.best_overall_fitness.add(_poblacion.getBest_fitness_absoluto());
@@ -115,10 +117,10 @@ public class Controlador {
 		double mean = sumFitness / allFitness.length;
 		_points.mean_fitness.add(mean);
 		_points.mejor = _poblacion.getBest_individuo_absoluto();
-		if (mean - min == 0)
+		if (max == min)
 			_points.presion_selectiva.add(1d);
 		else
-			_points.presion_selectiva.add(((_poblacion.getFitness_max() - min)/ (mean - min)));
+			_points.presion_selectiva.add(((mean - max) / (min - max)) + 1);
 
 	}
 	

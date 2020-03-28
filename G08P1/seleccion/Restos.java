@@ -28,6 +28,9 @@ public class Restos implements Seleccion {
 		int i = 0;
 		while (i < num && aniadidos < num) { //Mientras que no se haya pasado por todos y no hayamos añadido los suficientes
 			Double numInds = k * _porciones.get(i);
+			if (numInds < 1)
+				break;
+			//System.out.println(numInds);
 			while (numInds >= 1)
 			{
 				aniadidos++;
@@ -36,10 +39,11 @@ public class Restos implements Seleccion {
 			}
 			i++;
 		}
+		//System.out.println("------------");
 		
 		//los que falten se seleccionan mediante Torneo probabilistico
 		if (aniadidos < num) {
-			ArrayList<Integer> otroMetodo = new TorneoProbabilistico().selecciona(num - aniadidos, p, maximiza);
+			ArrayList<Integer> otroMetodo = new Ruleta().selecciona(num - aniadidos, p, maximiza);
 			for (Integer k : otroMetodo)
 				seleccionados.add(k);
 		}

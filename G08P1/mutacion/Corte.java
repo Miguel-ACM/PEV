@@ -29,8 +29,6 @@ public class Corte implements Mutacion{
 			newGenotipo.add(genotipo.get(i));
 		}
 		
-		System.out.print(genotipo);
-		System.out.println(": " + newGenotipo);
 		return newGenotipo;
 	}
 }
