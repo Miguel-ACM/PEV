@@ -197,8 +197,8 @@ public class RightPanel extends JPanel {
 		mutacionSel = new JComboBox<String>();
 		mutacionSel.addItem("Intercambio");
 		mutacionSel.addItem("Intercambio múltiple");
-		mutacionSel.addItem("Inversion");
-		mutacionSel.addItem("Insercion");
+		mutacionSel.addItem("Inversión");
+		mutacionSel.addItem("Inserción");
 		mutacionSel.addItem("Desplazamiento");
 		mutacionSel.addItem("Corte");
 		mutacionSel.addItem("Heurística");
@@ -245,6 +245,7 @@ public class RightPanel extends JPanel {
 		cruceSel.addItem("CX");
 		cruceSel.addItem("CO");
 		cruceSel.addItem("ERX");
+		cruceSel.addItem("Corners");
 
 		cruceSel.setPreferredSize(new Dimension(150, 20));
 		crucePnl.add(cruceSel);
