@@ -5,7 +5,7 @@ import java.util.List;
 
 import cruces.CO;
 import cruces.CX;
-//import cruces.Corners;
+import cruces.Corners;
 import cruces.Cruce;
 import cruces.ERX;
 import cruces.OX;
@@ -45,7 +45,6 @@ public class Controlador {
 	private float _mutationProb = 0.05f;
 	private float _cruceProb = 0.6f;
 	private float _elitismoPer = 0.3f;
-	private float _alpha = 0.4f;
 
 	private Points _points;
 	private boolean _estancamientoActivado = true;
@@ -176,7 +175,7 @@ public class Controlador {
 	}
 	
 	//Establece el tipo de cruce
-	public void set_cruce(String newCruce, float alpha)
+	public void set_cruce(String newCruce)
 	{
 		if (newCruce.equals("PMX"))
 			_cruce = new PMX();
@@ -192,8 +191,8 @@ public class Controlador {
 			_cruce = new CO();
 		else if (newCruce.equals("ERX"))
 			_cruce = new ERX();
-		//else if (newCruce.equals("Corners"))
-		//	_cruce = new Corners();
+		else if (newCruce.equals("Corners"))
+			_cruce = new Corners();
 		else
 			System.out.println("ERROR SELECCIONANDO EL CRUCE");
 		_poblacion.set_cruce(_cruce);
@@ -225,13 +224,6 @@ public class Controlador {
 		_poblacion.set_mutation(_mutacion);
 	}
 	
-	public float get_alpha() {
-		return _alpha;
-	}
-
-	public void set_alpha(float _alpha) {
-		this._alpha = _alpha;
-	}
 
 	//EStablece la probabilidad de cruce
 	public void set_cruceProbability(float cruceProbability)

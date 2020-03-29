@@ -36,8 +36,8 @@ public class RightPanel extends JPanel {
 	private ImageIcon iniciarIcon, finIcon;
 	private JComboBox<String> funcionSel, selecSel, cruceSel, mutacionSel;
 	private JCheckBox eliteSel, estancamientoSel;
-	private JSpinner pc, pe, pm, num_p, num_g, param, p_arit, porc_estancamiento, limit_estancamiento;
-	private JLabel alpha, tipoCruce, porcentCruce, tipoMutacion, porcentMutacion, porcentElite, selElite, indiL, geneL, paramL;
+	private JSpinner pc, pe, pm, num_p, num_g, p_arit, porc_estancamiento, limit_estancamiento;
+	private JLabel tipoCruce, porcentCruce, tipoMutacion, porcentMutacion, porcentElite, selElite, indiL, geneL;
 	private Controlador _c;
 	private GraficPanel _gp;
 	private JProgressBar _progressBar; 
@@ -235,7 +235,7 @@ public class RightPanel extends JPanel {
 		crucePnl = new JPanel();
 		p_arit = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
 		p_arit.setEnabled(false);
-		crucePnl.setLayout(new GridLayout(3, 2));
+		crucePnl.setLayout(new GridLayout(2, 2));
 		GridBagConstraints constraints = new GridBagConstraints();
 
 		tipoCruce = new JLabel("Tipo");
@@ -258,19 +258,9 @@ public class RightPanel extends JPanel {
 		pc = new JSpinner(new SpinnerNumberModel(0.6f, 0f, 1f, 0.01f));
 		crucePnl.add(pc);
 
-		alpha = new JLabel("Alpha");
-		crucePnl.add(alpha);
-		p_arit= new JSpinner(new SpinnerNumberModel(0.4f, 0f, 1f, 0.01f));
-		p_arit.setEnabled(false);
-		crucePnl.add(p_arit);
-
 		cruceSel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				_c.set_cruce(cruceSel.getSelectedItem().toString(), (float)(double)p_arit.getValue());
-				if(cruceSel.getSelectedItem().equals("Aritmético") /*|| cruceSel.getSelectedItem().equals("BLX")*/) 
-					p_arit.setEnabled(true);					
-				else
-					p_arit.setEnabled(false);	
+				_c.set_cruce(cruceSel.getSelectedItem().toString());
 			}
 		});
 
@@ -343,9 +333,6 @@ public class RightPanel extends JPanel {
 
 	private void crea_funcionPnl() {
 		funcionPnl = new JPanel();
-		paramL = new JLabel("Parámetro: ");
-		param = new JSpinner(new SpinnerNumberModel(1, 1, 12, 1));
-		param.setEnabled(false);
 		funcionSel = new JComboBox<String>();
 		funcionSel.addItem("ajuste.txt");
 		funcionSel.addItem("datos12.txt");
@@ -357,20 +344,10 @@ public class RightPanel extends JPanel {
 		funcionSel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				_c.set_fitness(funcionSel.getSelectedItem().toString());
-
-				/*if (funcionSel.getSelectedItem().equals("Michalewicz")) {
-					param.setEnabled(true);
-				}					
-				else {
-					param.setEnabled(false);
-				}*/
-
 			}
 		});
 		funcionSel.setPreferredSize(new Dimension(150, 20));
 		funcionPnl.add(funcionSel);
-		funcionPnl.add(paramL);
-		funcionPnl.add(param);
 		funcionPnl.setBorder(BorderFactory.createTitledBorder("Función"));
 	}
 
@@ -448,11 +425,8 @@ public class RightPanel extends JPanel {
 
 				// Cruce seleccionado
 				String cruce = (String)cruceSel.getSelectedItem();
-				_c.set_cruce(cruce, (float)(double)p_arit.getValue());
+				_c.set_cruce(cruce);
 
-				// alpha , solo para cruce aritmético
-				double p_alpha = (double)p_arit.getValue();
-				_c.set_alpha((float)p_alpha);
 
 				// Tipo de selección
 				String seleccion = (String)selecSel.getSelectedItem();

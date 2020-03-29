@@ -42,7 +42,7 @@ public class GraficPanel extends JPanel{
 	public  GraficPanel(PanelPrincipal pp, Controlador c) {
 		crearMejorPnl();
 
-		this.mejorPnl.setPreferredSize(new Dimension(450, 75));
+		this.mejorPnl.setPreferredSize(new Dimension(400, 75));
 		this.mejorPnl.setBorder(BorderFactory.createTitledBorder("Mejor individuo"));
 
 		this.setLayout(new GridBagLayout());
@@ -62,7 +62,7 @@ public class GraficPanel extends JPanel{
 		constraints.gridwidth = 1;
 		consolePnl = new JPanel();
 		consolePnl.setBorder(BorderFactory.createTitledBorder("Salida de consola"));
-		consolePnl.setPreferredSize(new Dimension(450,105));
+		consolePnl.setPreferredSize(new Dimension(400,105));
 		consolePnl.setLayout(new BorderLayout());
 		console = new JTextArea("");
 		console.setEditable(false);
@@ -85,11 +85,11 @@ public class GraficPanel extends JPanel{
 		presionChart = ChartFactory.createXYLineChart(null, "Generaciones", "Presión selectiva", datasetPresion, PlotOrientation.VERTICAL,
 													  false, false, false);
 		//chart.setBorderPaint(Color.MAGENTA);
-		presionChart.setBackgroundPaint(Color.YELLOW);
+		presionChart.setBackgroundPaint(Color.orange);
 		presionChart.getXYPlot().setBackgroundPaint(Color.black);
 
 		presionChartPnl = new ChartPanel(presionChart);
-		presionChartPnl.setPreferredSize(new Dimension(450, 180));
+		presionChartPnl.setPreferredSize(new Dimension(400, 180));
 				
 		this.add(presionChartPnl, constraints);
 		
@@ -100,7 +100,7 @@ public class GraficPanel extends JPanel{
 		chart.getXYPlot().setBackgroundPaint(Color.black);
 
 		panel = new ChartPanel(chart);
-		panel.setPreferredSize(new Dimension(450, 550));
+		panel.setPreferredSize(new Dimension(400, 500));
 		ventana = new JFrame();
 		ventana.getContentPane().add(panel);
 
