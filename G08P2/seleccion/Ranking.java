@@ -29,10 +29,10 @@ public class Ranking implements Seleccion {
 			double probOfIth = (double)i/size;
 			probOfIth = ((double) (size - i) / (double) size) * multiplier + minProb;
 			tramo += probOfIth;
-			System.out.println(probOfIth);
+			//System.out.println(probOfIth);
 			_porciones.add(tramo);
 		}
-		System.out.println(tramo);
+		//System.out.println(tramo);
 		
 		//int sum = 0;
 		
