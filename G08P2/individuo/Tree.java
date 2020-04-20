@@ -1,9 +1,9 @@
 package individuo;
 
-public class Tree<T> {
-	private Node<T> root;
+public class Tree {
+	private Node<NodeValue> root;
 	
-	public Tree(Node<T> root)
+	public Tree(Node<NodeValue> root)
 	{
 		this.root = root;
 	}
