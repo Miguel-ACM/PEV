@@ -3,27 +3,12 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
-import cruces.CO;
-import cruces.CX;
-import cruces.Corners;
 import cruces.Cruce;
-import cruces.ERX;
-import cruces.OX;
-import cruces.OXOP;
-import cruces.OXPP;
 import cruces.PMX;
 import fitness.Fitness;
 import fitness.FitnessHospital;
 import individuo.Individuo;
-import mutacion.Corte;
-import mutacion.Desplazamiento;
-import mutacion.Heuristica;
-import mutacion.HeuristicaDesplazamiento;
-import mutacion.HeuristicaInsercion;
 import mutacion.Insercion;
-import mutacion.Intercambio;
-import mutacion.IntercambioMultiple;
-import mutacion.Inversion;
 import mutacion.Mutacion;
 import poblacion.Poblacion;
 import seleccion.Ranking;
@@ -87,7 +72,7 @@ public class Controlador {
 		_fitness = new FitnessHospital("ajuste.txt");
 		_seleccion = new Ruleta();
 		_cruce = new PMX();
-		_mutacion = new Inversion();
+		_mutacion = new Insercion();
 		reestart();
 	}
 	
@@ -179,20 +164,6 @@ public class Controlador {
 	{
 		if (newCruce.equals("PMX"))
 			_cruce = new PMX();
-		else if (newCruce.equals("OX"))
-			_cruce = new OX();
-		else if (newCruce.equals("OX-PP"))
-			_cruce = new OXPP();
-		else if (newCruce.equals("OX-OP"))
-			_cruce = new OXOP();
-		else if (newCruce.equals("CX"))
-			_cruce = new CX();
-		else if (newCruce.equals("CO"))
-			_cruce = new CO();
-		else if (newCruce.equals("ERX"))
-			_cruce = new ERX();
-		else if (newCruce.equals("Corners"))
-			_cruce = new Corners();
 		else
 			System.out.println("ERROR SELECCIONANDO EL CRUCE");
 		_poblacion.set_cruce(_cruce);
@@ -201,24 +172,8 @@ public class Controlador {
 	//Establece el tipo de mutacion
 	public void set_mutacion(String newMutacion)
 	{
-		if (newMutacion.equals("Inversión"))
-			_mutacion = new Inversion();
-		else if (newMutacion.equals("Intercambio"))
-			_mutacion = new Intercambio();
-		else if (newMutacion.equals("Intercambio múltiple"))
-			_mutacion = new IntercambioMultiple();
-		else if (newMutacion.equals("Inserción"))
+		if (newMutacion.equals("Inserción"))
 			_mutacion = new Insercion();
-		else if (newMutacion.equals("Desplazamiento"))
-			_mutacion = new Desplazamiento();
-		else if (newMutacion.equals("Corte"))
-			_mutacion = new Corte();
-		else if (newMutacion.equals("Heurística"))
-			_mutacion = new Heuristica();
-		else if (newMutacion.equals("Heurística/Inserción"))
-			_mutacion = new HeuristicaInsercion();
-		else if (newMutacion.equals("Heurística/Desplazamiento"))
-			_mutacion = new HeuristicaDesplazamiento();
 		else
 			System.out.println("ERROR SELECCIONANDO LA MUTACIóN");
 		_poblacion.set_mutation(_mutacion);
