@@ -87,4 +87,21 @@ public class NodeValue {
 			return new NodeValue(type.NOT);
 		return new NodeValue(type.IF);
 	}
+	
+	public String toString()
+	{
+		switch (value)
+		{
+			case AND: return "AND";
+			case OR: return "OR";
+			case NOT: return "NOT";
+			case IF: return "IF";
+			case A0: return "A0";
+			case A1: return "A1";
+			case D0: return "D0";
+			case D1: return "D1";
+			case D2: return "D2";
+			default: return "D3";
+		}
+	}
 }

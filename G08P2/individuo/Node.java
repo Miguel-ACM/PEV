@@ -20,7 +20,7 @@ public class Node<T> {
     	return value;
     }
 
-    public void addChildren(Node<T> newChild){
+    public void addChild(Node<T> newChild){
     	if (newChild.getParent() != null)
     	{
     		System.out.println("ERROR: Children already has a parent. Could not be added to node.");
@@ -30,13 +30,13 @@ public class Node<T> {
     	children.add(newChild);
     }
     
-    public void removeChildren(int i)
+    public void removeChild(int i)
     {
     	if (i > 0 && i < children.size())
     		children.remove(i);
     }
     
-    public void removeAllChildren()
+    public void removeChildren()
     {
     	while(children.size() > 0)
     	{
@@ -51,7 +51,7 @@ public class Node<T> {
     
     public Node<T> getChild(int i)
     {
-    	if (i > 0 && i < children.size())
+    	if (i >= 0 && i < children.size())
     	{
     		return children.get(i);
     	}
@@ -87,6 +87,31 @@ public class Node<T> {
     	}
     }
     
+    public void unlink()
+    {
+		Node<T> parent = this.getParent();
+    	if (parent != null)
+    	{
+    		int numChild = parent.getNumChildren();
+    		for (int i = 0; i < numChild; i++)
+    		{
+    			if (parent.getChild(i) == this)
+    			{
+    				parent.removeChild(i);
+    				break;
+    			}
+    		}
+    		this.parent = null;
+    	}
+    }
+    
+    public void remove()
+    {
+		this.unlink();
+		//TODO: Borrar todos los objetos que cuelguen de este nodo
+    }
+    
+    
     public boolean hasBrothers()
     {
     	if (parent != null)
@@ -96,7 +121,7 @@ public class Node<T> {
     	return false;
     }
     
-    class InOrderIterator implements Iterator<Node<T>> {        
+    class InOrderIterator implements Iterator<Node<T>> {         // DFS
         // constructor 
         List<Integer> parentIndex;
         Node<T> currentNode;
@@ -113,38 +138,101 @@ public class Node<T> {
           
         // Checks if the next element exists 
         public boolean hasNext() {
-        	return (currentNode == Node.this && parentIndex.size() == 0);
+        	return currentNode != null;
         } 
           
         // moves the cursor/iterator to next element 
         public Node<T> next() {
         	Node<T> node = currentNode;
         	currentNode = node.getParent();
-        	/*while (currentNode.getNumChildren() == parentIndex.get(parentIndex.size() - 1))
-        	{
-        		currentNode = currentNode.getParent();
-        		parentIndex.remove(parentIndex.size() - 1);
-        	}*/
+        	if (currentNode == null)
+        		return node;
         	
-        	if (currentNode.getNumChildren() > 0)
+        	if (currentNode.getNumChildren() - 1 > parentIndex.get(parentIndex.size() - 1))
         	{
-        		parentIndex.set(parentIndex.size() - 1, parentIndex.get(parentIndex.size() - 1) + 1);
-        		currentNode = currentNode.getChild(parentIndex.get(parentIndex.size() - 1));
+        		int newNum = parentIndex.get(parentIndex.size() - 1) + 1;
+        		parentIndex.set(parentIndex.size() - 1, newNum);
+        		currentNode = currentNode.getChild(newNum);
         		while (currentNode.getNumChildren() > 0)
         		{
         			parentIndex.add(0);
         			currentNode = currentNode.getChild(0);
         		}
-        		
         	}
-        	
+        	else {
+        		parentIndex.remove(parentIndex.size() - 1);
+        		return node;
+        	}
         	return node;
-        	
         } 
           
         // Used to remove an element. Implement only if needed 
         //public void remove() { 
             // Default throws UnsupportedOperationException. 
         //} 
-    }  
+    }
+    
+    class LevelOrderIterator implements Iterator<Node<T>> {        // Mixto
+        // constructor 
+        List<Integer> parentIndex;
+        Node<T> currentNode;
+        
+    	public LevelOrderIterator() { 
+    		parentIndex = new ArrayList<>();
+    		currentNode = Node.this;
+    		parentIndex.add(0);
+        }
+          
+        // Checks if the next element exists 
+        public boolean hasNext() {
+        	return currentNode != Node.this || currentNode.getNumChildren() - 1 >= parentIndex.get(parentIndex.size() - 1);
+        } 
+          
+        // moves the cursor/iterator to next element 
+        public Node<T> next() {
+        	Node<T> node = currentNode;
+        	//currentNode = node.getParent();
+        	if (currentNode.getNumChildren() - 1 >= parentIndex.get(parentIndex.size() - 1))
+        	{
+        		int num = parentIndex.get(parentIndex.size() - 1);
+        		currentNode = currentNode.getChild(parentIndex.get(parentIndex.size() - 1));
+        		parentIndex.set(parentIndex.size() - 1, num + 1);
+        		parentIndex.add(0);
+        		
+        	}
+        	else {
+        		while ((currentNode.getNumChildren() - 1 < parentIndex.get(parentIndex.size() - 1))  && (currentNode.getParent() != null))
+        		{
+        			parentIndex.remove(parentIndex.get(parentIndex.size() - 1));
+        			currentNode = currentNode.getParent();
+        		}
+        		if (currentNode.getNumChildren() - 1 >= parentIndex.get(parentIndex.size() - 1))
+            	{
+        			int num = parentIndex.get(parentIndex.size() - 1);
+            		currentNode = currentNode.getChild(parentIndex.get(parentIndex.size() - 1));
+            		parentIndex.set(parentIndex.size() - 1, num + 1);
+            		parentIndex.add(0);
+            	}
+        	}
+        	return node;
+        } 
+          
+        // Used to remove an element. Implement only if needed 
+        //public void remove() { 
+            // Default throws UnsupportedOperationException. 
+        //} 
+    }
+
+	public Iterator<Node<T>> iteratorInOrder() {
+		return new InOrderIterator();
+	}  
+	
+	public Iterator<Node<T>> iteratorLevelOrder() {
+		return new LevelOrderIterator();
+	} 
+
+	public String toString()
+	{
+		return this.value.toString();
+	}
 }
