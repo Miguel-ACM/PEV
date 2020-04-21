@@ -33,6 +33,18 @@ public class NodeValue {
 		return false;
 	}
 	
+	public int getNumOperators()
+	{
+		if (!isFunction()) //Devuelve -1 si se llama sobre un terminal
+			return -1;
+		switch (value)
+		{
+			case AND: return 2;
+			case OR: return 2;
+			case NOT: return 1;
+			default: return 3; // IF
+		}
+	}
 	public static NodeValue getRandomFunction()
 	{
 		Random rand = new Random();
