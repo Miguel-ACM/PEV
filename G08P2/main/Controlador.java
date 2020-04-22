@@ -6,7 +6,7 @@ import java.util.List;
 import cruces.Cruce;
 import cruces.PMX;
 import fitness.Fitness;
-import fitness.FitnessHospital;
+import fitness.Multiplexer;
 import individuo.Individuo;
 import mutacion.Insercion;
 import mutacion.Mutacion;
@@ -69,7 +69,7 @@ public class Controlador {
 	
 	public Controlador()
 	{
-		_fitness = new FitnessHospital("ajuste.txt");
+		_fitness = new Multiplexer();
 		_seleccion = new Ruleta();
 		_cruce = new PMX();
 		_mutacion = new Insercion();
@@ -142,7 +142,7 @@ public class Controlador {
 	//n solo sirve para la funcion 4
 	public void set_fitness(String newFitnessFilePath)
 	{
-		_fitness = new FitnessHospital(newFitnessFilePath);
+		_fitness = new Multiplexer();
 		this.reestart();
 	}
 	

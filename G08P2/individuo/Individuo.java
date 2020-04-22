@@ -16,7 +16,7 @@ public class Individuo implements Comparable<Individuo> {
 
 	public Individuo(Fitness fitness, Mutacion mutacion) {
 		_fitness = fitness;
-		_size = fitness.getSize();
+		//_size = fitness.getSize();
 		_mutacion = mutacion;
 		this.initialize();
 	}
@@ -42,7 +42,8 @@ public class Individuo implements Comparable<Individuo> {
 	}
 
 	public int getFitness() {
-		return _fitness.fitness(this);
+		//return _fitness.fitness(this);
+		return 0; //TODO OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 	}
 
 	//Obtiene el genotipo

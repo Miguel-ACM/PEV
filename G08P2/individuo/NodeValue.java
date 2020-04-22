@@ -3,7 +3,7 @@ package individuo;
 import java.util.Random;
 
 public class NodeValue {
-	enum type {
+	public enum type {
 		AND,
 		OR,
 		NOT,
