@@ -3,6 +3,7 @@ package individuo;
 import java.util.Iterator;
 
 import fitness.Multiplexer;
+import generacion.Completa;
 
 public class TreeMain {
 
@@ -75,6 +76,7 @@ public class TreeMain {
 		System.out.println("-------------------");
 		
 		//childI2.unlink(); //Pruebo a borrar el OR del primer arbol
+		tree = new Completa().generate(4); //Genero un arbol de profundidad 4
 		it = tree.iteratorInOrder();
 		while (it.hasNext())
 		{
