@@ -5,34 +5,28 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class NodeValue {
-	public enum type {
-		AND,
-		OR,
-		NOT,
-		IF,
-		A0,
-		A1,
-		D0,
-		D1,
-		D2,
-		D3
+public abstract class NodeValue {
+	public String[] functions = { "AND", "OR", "NOT", "IF" };
+	public String[] terminals = { "A0", "A1", "D0", "D1", "D2", "D3" };
+	
+	public String value;
+	
+	//Tengo buena fe de que esto venga bien dado
+	public NodeValue(String value) {
+		if (value == "random")
+			this.value = getRandom();
+		else if (value == "randomFunction")
+			this.value = getRandomFunction();
+		else if (value == "randomTerminal")
+			this.value = getRandomTerminal();
+		else
+			this.value = value;
 	}
-	
-	public type value;
-	
-	public NodeValue(type value)
-	{
-		this.value = value;
-	}
-	
 	public boolean isFunction()
 	{
-		if (value == type.AND ||
-			value == type.OR  ||
-			value == type.NOT  ||
-			value == type.IF)
-			return true;
+		for (int i = 0; i < functions.length; i++)
+			if (functions[i] == value)
+				return true;
 		return false;
 	}
 	
@@ -42,71 +36,39 @@ public class NodeValue {
 			return -1;
 		switch (value)
 		{
-			case AND: return 2;
-			case OR: return 2;
-			case NOT: return 1;
+			case "AND": return 2;
+			case "OR": return 2;
+			case "NOT": return 1;
 			default: return 3; // IF
 		}
 	}
-	public static NodeValue getRandomFunction()
+	public String getRandomFunction()
 	{
 		Random rand = new Random();
-		int val = rand.nextInt(4);
-		if (val == 0)
-			return new NodeValue(type.AND);
-		if (val == 1)
-			return new NodeValue(type.OR);
-		if (val == 2)
-			return new NodeValue(type.NOT);
-		return new NodeValue(type.IF);
+		int val = rand.nextInt(functions.length);
+		return functions[val];
 	}
 	
-	public static NodeValue getRandomTerminal()
+	public String getRandomTerminal()
 	{
 		Random rand = new Random();
-		int val = rand.nextInt(6);
-		if (val == 0)
-			return new NodeValue(type.A0);
-		if (val == 1)
-			return new NodeValue(type.A1);
-		if (val == 3)
-			return new NodeValue(type.D0);
-		if (val == 4)
-			return new NodeValue(type.D1);
-		if (val == 5)
-			return new NodeValue(type.D2);
-		return new NodeValue(type.D3);
+		int val = rand.nextInt(terminals.length);
+		return terminals[val];
 	}
 	
-	public static NodeValue getRandom()
+	public String getRandom()
 	{
-		Random rand = new Random();
-		int val = rand.nextInt(10);
-		if (val == 0)
-			return new NodeValue(type.A0);
-		if (val == 1)
-			return new NodeValue(type.A1);
-		if (val == 3)
-			return new NodeValue(type.D0);
-		if (val == 4)
-			return new NodeValue(type.D1);
-		if (val == 5)
-			return new NodeValue(type.D2);
-		if (val == 6)
-			return new NodeValue(type.D3);
-		if (val == 7)
-			return new NodeValue(type.AND);
-		if (val == 8)
-			return new NodeValue(type.OR);
-		if (val == 9)
-			return new NodeValue(type.NOT);
-		return new NodeValue(type.IF);
+		if (Math.random() >= 0.5)
+		{
+			return getRandomFunction();
+		} else {
+			return getRandomTerminal();
+		}
 	}
 	
 	public static String treeString(Node<NodeValue> tree)
 	{
 		String ret = "";
-		int curDepth = tree.getDepth();
 		Iterator<Node<NodeValue>> it = tree.iteratorLevelOrder();
         List<Integer> index = new ArrayList<Integer>();
 		while (it.hasNext())
@@ -120,16 +82,26 @@ public class NodeValue {
 					index.set(index.size() - 1, index.get(index.size() - 1) - 1);
 				}
 				index.add(nodeValue.getNumOperators());
-				ret += nodeValue.toString() + " ( ";
+				ret += nodeValue.toString() + "(";
 			}
 			else {
-				ret += nodeValue.toString() + " ";
+				ret += nodeValue.toString();
 				index.set(index.size() - 1, index.get(index.size() - 1) - 1);
-				while (index.size() > 0 && index.get(index.size() - 1) == 0)
+				if (index.get(index.size() - 1) > 0)
 				{
-					ret += ") ";
-					index.remove(index.size() - 1);
+					ret += ", ";
+				} else {
+					while (index.size() > 0 && index.get(index.size() - 1) == 0)
+					{
+						ret += ")";
+						index.remove(index.size() - 1);
+					}
+					if (index.size() > 0)
+					{
+						ret += ", ";
+					}
 				}
+				
 			}
 		}
 		System.out.println(index);
@@ -138,18 +110,6 @@ public class NodeValue {
 	
 	public String toString()
 	{
-		switch (value)
-		{
-			case AND: return "AND";
-			case OR: return "OR";
-			case NOT: return "NOT";
-			case IF: return "IF";
-			case A0: return "A0";
-			case A1: return "A1";
-			case D0: return "D0";
-			case D1: return "D1";
-			case D2: return "D2";
-			default: return "D3";
-		}
+		return value;
 	}
 }

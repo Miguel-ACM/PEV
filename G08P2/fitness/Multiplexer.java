@@ -37,9 +37,9 @@ public class Multiplexer implements Fitness{
 						operands[i] = stackedValues.pop();
 					switch (currentNode.getValue().value)
 					{
-					case IF: stackedValues.add(executeIF(operands[0], operands[1], operands[2])); break;
-					case AND: stackedValues.add(executeAND(operands[0], operands[1])); break;
-					case OR: stackedValues.add(executeOR(operands[0], operands[1])); break;
+					case "IF": stackedValues.add(executeIF(operands[0], operands[1], operands[2])); break;
+					case "AND": stackedValues.add(executeAND(operands[0], operands[1])); break;
+					case "OR": stackedValues.add(executeOR(operands[0], operands[1])); break;
 					default: stackedValues.add(executeNOT(operands[0])); break; //case NOT 
 					}
 				} else {
@@ -84,12 +84,12 @@ public class Multiplexer implements Fitness{
 	{
 		switch (nodeValue.value)
 		{
-		case A1: return entries[0];
-		case A0: return entries[1];
-		case D3: return entries[2];
-		case D2: return entries[3];
-		case D1: return entries[4];
-		case D0: return entries[5];
+		case "A1": return entries[0];
+		case "A0": return entries[1];
+		case "D3": return entries[2];
+		case "D2": return entries[3];
+		case "D1": return entries[4];
+		case "D0": return entries[5];
 		default: return false; //De hacerse bien no debería pasar
 		}
 	};
