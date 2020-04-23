@@ -13,8 +13,8 @@ public class Multiplexer implements Fitness{
 	Stack<Boolean> stackedValues;
 	
 	@Override
-	public int fitness(Node<NodeValue> node) {
-		//Node<NodeValue> node = individuo.getGenotipo();
+	public int fitness(Individuo individuo) {
+		Node<NodeValue> node = individuo.getGenotipo();
 		//inicializacion
 		for (int i = 0; i < entries.length; i++)
 		{

@@ -7,6 +7,8 @@ import java.util.Random;
 
 import cruces.Cruce;
 import fitness.Fitness;
+import generacion.Completa;
+import generacion.Generacion;
 import individuo.Individuo;
 import mutacion.Mutacion;
 import seleccion.Seleccion;
@@ -21,6 +23,7 @@ public class Poblacion {
 	private Seleccion _seleccion;
 	private Cruce _cruce;
 	private Mutacion _mutacion;
+	private Generacion _generacion = new Completa(4); //TODO replace placeholder
 	private int _numCruces;
 	private int _numMutaciones;
 	
@@ -43,7 +46,7 @@ public class Poblacion {
 		_numMutaciones = 0;
 		while (size > 0)
 		{
-			Individuo i = new Individuo(_fitness, _mutacion);
+			Individuo i = new Individuo(_fitness, _mutacion, _generacion);
 			_individuos.add(i);
 			size--;
 		}
@@ -343,7 +346,7 @@ public class Poblacion {
 		for (int i = 0; i < numReset; i++)
 		{
 			int index = _size - 1 - i ; 
-			_individuos.set(index, new Individuo(this._fitness, this._mutacion));
+			_individuos.set(index, new Individuo(this._fitness, this._mutacion, this._generacion));
 		}
 
 		this.sort();

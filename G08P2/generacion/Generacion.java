@@ -5,5 +5,5 @@ import individuo.NodeValue;
 
 public interface Generacion {
 	
-	public Node<NodeValue> generate(int depth);
+	public Node<NodeValue> generate();
 }

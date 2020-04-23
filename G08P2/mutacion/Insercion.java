@@ -8,7 +8,7 @@ import individuo.Individuo;
 public class Insercion implements Mutacion{
 	
 	public List<Integer> muta(Individuo in){
-		Random rand = new Random();
+		/*Random rand = new Random();
 		List<Integer> newGenotipo = in.getGenotipo(); //!Se modifica el array del individuo directamente
 		int size = newGenotipo.size();
 		int extract = rand.nextInt(size);
@@ -32,8 +32,8 @@ public class Insercion implements Mutacion{
 				newGenotipo.set(i, newGenotipo.get(i-1));
 			}
 			newGenotipo.set(insert, aux);
-		}
+		}*/
 		//System.out.println(in.getGenotipo());
-		return newGenotipo;
+		return null;
 	}
 }

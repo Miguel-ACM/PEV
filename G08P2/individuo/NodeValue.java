@@ -1,5 +1,8 @@
 package individuo;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 public class NodeValue {
@@ -98,6 +101,39 @@ public class NodeValue {
 		if (val == 9)
 			return new NodeValue(type.NOT);
 		return new NodeValue(type.IF);
+	}
+	
+	public static String treeString(Node<NodeValue> tree)
+	{
+		String ret = "";
+		int curDepth = tree.getDepth();
+		Iterator<Node<NodeValue>> it = tree.iteratorLevelOrder();
+        List<Integer> index = new ArrayList<Integer>();
+		while (it.hasNext())
+		{
+			Node<NodeValue> node = it.next();
+			NodeValue nodeValue = node.getValue();
+			if (nodeValue.isFunction())
+			{
+				if (index.size() > 0)
+				{
+					index.set(index.size() - 1, index.get(index.size() - 1) - 1);
+				}
+				index.add(nodeValue.getNumOperators());
+				ret += nodeValue.toString() + " ( ";
+			}
+			else {
+				ret += nodeValue.toString() + " ";
+				index.set(index.size() - 1, index.get(index.size() - 1) - 1);
+				while (index.size() > 0 && index.get(index.size() - 1) == 0)
+				{
+					ret += ") ";
+					index.remove(index.size() - 1);
+				}
+			}
+		}
+		System.out.println(index);
+		return ret;
 	}
 	
 	public String toString()

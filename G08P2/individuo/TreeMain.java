@@ -9,7 +9,7 @@ public class TreeMain {
 
 	public static void main(String[] args) {
 		//Creamos el arbol
-		Node<NodeValue> tree = new Node<>(new NodeValue(NodeValue.type.AND));
+		/*Node<NodeValue> tree = new Node<>(new NodeValue(NodeValue.type.AND));
 		Node<NodeValue> childI = new Node<>(new NodeValue(NodeValue.type.IF));
 		Node<NodeValue> childD = new Node<>(new NodeValue(NodeValue.type.D3));
 		Node<NodeValue> childI1 = new Node<>(new NodeValue(NodeValue.type.A0));
@@ -23,7 +23,7 @@ public class TreeMain {
 		childI.addChild(childI2);
 		childI.addChild(childI3);
 		childI2.addChild(childI21);
-		childI2.addChild(childI22);
+		childI2.addChild(childI22);*/
 		/*
 		EL ARBOL DE PRUEBA ES:
 		
@@ -36,7 +36,7 @@ public class TreeMain {
 				D2      D1
 				 
 		*/
-		/*Node<NodeValue> tree = new Node<>(new NodeValue(NodeValue.type.IF));
+		Node<NodeValue> tree = new Node<>(new NodeValue(NodeValue.type.IF));
 		Node<NodeValue> child1 = new Node<>(new NodeValue(NodeValue.type.A1));
 		Node<NodeValue> child2 = new Node<>(new NodeValue(NodeValue.type.IF));
 		Node<NodeValue> child3 = new Node<>(new NodeValue(NodeValue.type.IF));
@@ -54,7 +54,7 @@ public class TreeMain {
 		child2.addChild(child23);
 		child3.addChild(child31);
 		child3.addChild(child32);
-		child3.addChild(child33);*/
+		child3.addChild(child33);
 		/*
 		 * ESTE ES UN ARBOL SOLUCIÓN
 		 * 
@@ -73,19 +73,22 @@ public class TreeMain {
 			System.out.println(node.getValue());	
 		}
 		
+		System.out.println(NodeValue.treeString(tree));
+		
 		System.out.println("-------------------");
 		
 		//childI2.unlink(); //Pruebo a borrar el OR del primer arbol
-		tree = new Completa().generate(4); //Genero un arbol de profundidad 4
+		tree = new Completa(4).generate(); //Genero un arbol de profundidad 4
 		it = tree.iteratorInOrder();
 		while (it.hasNext())
 		{
 			Node<NodeValue> node = it.next();
 			System.out.println(node.getValue());	
 		}
-		
+		System.out.println(NodeValue.treeString(tree));
+
 		Multiplexer m = new Multiplexer();
-		System.out.println(m.fitness(tree));
+		//System.out.println(m.fitness(tree));
 
 
 		

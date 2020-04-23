@@ -5,49 +5,44 @@ import java.util.Collections;
 import java.util.List;
 
 import fitness.Fitness;
+import generacion.Generacion;
 import mutacion.Mutacion;
 
 
 public class Individuo implements Comparable<Individuo> {
-	private List<Integer> _genotipo;
-	private int _size;
+	private Node<NodeValue> _genotipo;
 	private Fitness _fitness;
 	private Mutacion _mutacion;
+	private Generacion _generacion;
 
-	public Individuo(Fitness fitness, Mutacion mutacion) {
+	public Individuo(Fitness fitness, Mutacion mutacion, Generacion generacion) {
 		_fitness = fitness;
 		//_size = fitness.getSize();
 		_mutacion = mutacion;
+		_generacion = generacion;
 		this.initialize();
 	}
 	
 	private void initialize()
 	{
-		_genotipo = new ArrayList<Integer>();
-		for (int i = 0; i < _size; i++)
-			_genotipo.add(i);
-		Collections.shuffle(_genotipo);
+		_genotipo = _generacion.generate();
 	}
 
 	public Individuo mutacion(float probabilidad) {
-		//System.out.println(_genotipo);
-		_genotipo = _mutacion.muta(this);
-		//System.out.println(_genotipo);
-		//System.out.println("-------------------");
+		//_genotipo = _mutacion.muta(this); TODO OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 		return this;
 	}
 	
-	public List<Integer> getFenotipo() {
-		return _genotipo;
+	public String getFenotipo() { //Esto no sera así al final
+		return "WIP";
 	}
 
 	public int getFitness() {
-		//return _fitness.fitness(this);
-		return 0; //TODO OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+		return _fitness.fitness(this);
 	}
 
 	//Obtiene el genotipo
-	public List<Integer> getGenotipo() {
+	public Node<NodeValue> getGenotipo() {
 		return _genotipo;
 	}
 	
@@ -57,15 +52,16 @@ public class Individuo implements Comparable<Individuo> {
 	
 	public Individuo clone()
 	{
-		Individuo in = new Individuo(this._fitness, this._mutacion);
+		Individuo in = new Individuo(this._fitness, this._mutacion, this._generacion);
 		in.setGenotipo(this._genotipo);
 		return in;
 		
 	}
 
 	//Establece el genotipo a uno dado
-	public void setGenotipo(List<Integer> nuevoGenotipo) {
-		Collections.copy(this._genotipo, nuevoGenotipo);
+	public void setGenotipo(Node<NodeValue> nuevoGenotipo) {
+		_genotipo = nuevoGenotipo; //Esto probablemente cause problemas;
+		//Collections.copy(this._genotipo, nuevoGenotipo); //TODO OOOOOOOOOOOOOOOOOOOOOOOO
 	}
 	
 	//Compara este individuo con otro

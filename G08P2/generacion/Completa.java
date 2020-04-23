@@ -7,8 +7,15 @@ import individuo.NodeValue;
 
 public class Completa implements Generacion {
 
+	private int depth;
+	
+	public Completa(int depth)
+	{
+		this.depth = depth;
+	}
+	
 	@Override
-	public Node<NodeValue> generate(int depth) { //depth > 1
+	public Node<NodeValue> generate() { //depth > 1
 		Stack<Node<NodeValue>> currentGen;
 		Stack<Node<NodeValue>> nextGen = new Stack<>();
 		Node<NodeValue> root = new Node<NodeValue>(NodeValue.getRandomFunction());
@@ -41,7 +48,6 @@ public class Completa implements Generacion {
 				node.addChild(child);
 			}
 		}
-		
 		return root;
 	}
 	
