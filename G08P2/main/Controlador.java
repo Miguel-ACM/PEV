@@ -8,8 +8,8 @@ import cruces.PMX;
 import fitness.Fitness;
 import fitness.Multiplexer;
 import individuo.Individuo;
-import mutacion.Insercion;
 import mutacion.Mutacion;
+import mutacion.TerminalSimple;
 import poblacion.Poblacion;
 import seleccion.Ranking;
 import seleccion.Restos;
@@ -72,7 +72,7 @@ public class Controlador {
 		_fitness = new Multiplexer();
 		_seleccion = new Ruleta();
 		_cruce = new PMX();
-		_mutacion = new Insercion();
+		_mutacion = new TerminalSimple();
 		reestart();
 	}
 	
@@ -172,8 +172,8 @@ public class Controlador {
 	//Establece el tipo de mutacion
 	public void set_mutacion(String newMutacion)
 	{
-		if (newMutacion.equals("Inserción"))
-			_mutacion = new Insercion();
+		if (newMutacion.equals("Terminal Simple"))
+			_mutacion = new TerminalSimple();
 		else
 			System.out.println("ERROR SELECCIONANDO LA MUTACIóN");
 		_poblacion.set_mutation(_mutacion);

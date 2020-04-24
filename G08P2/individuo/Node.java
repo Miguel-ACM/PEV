@@ -19,6 +19,11 @@ public class Node<T> {
     {
     	return value;
     }
+    
+    public void setValue(T newValue)
+    {
+    	value = newValue;
+    }
 
     public void addChild(Node<T> newChild){
     	if (newChild.getParent() != null)
