@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cruces.Cruce;
-import cruces.PMX;
 import fitness.Fitness;
 import fitness.Multiplexer;
 import individuo.Individuo;
@@ -71,7 +70,7 @@ public class Controlador {
 	{
 		_fitness = new Multiplexer();
 		_seleccion = new Ruleta();
-		_cruce = new PMX();
+		_cruce = null; //new PMX();
 		_mutacion = new TerminalSimple();
 		reestart();
 	}
@@ -163,7 +162,7 @@ public class Controlador {
 	public void set_cruce(String newCruce)
 	{
 		if (newCruce.equals("PMX"))
-			_cruce = new PMX();
+			_cruce = null; //new PMX();
 		else
 			System.out.println("ERROR SELECCIONANDO EL CRUCE");
 		_poblacion.set_cruce(_cruce);

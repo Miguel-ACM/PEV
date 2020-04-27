@@ -5,14 +5,26 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public abstract class NodeValue {
+public class NodeValue {
 	public String[] functions = { "AND", "OR", "NOT", "IF" };
-	public String[] terminals = { "A0", "A1", "D0", "D1", "D2", "D3" };
+	public String[] terminals;
+	private int multiplexerSize;
 	
 	public String value;
 	
 	//Tengo buena fe de que esto venga bien dado
-	public NodeValue(String value) {
+	public NodeValue(String value, int multiplexerSize) {
+		if (multiplexerSize == 11)
+		{
+			terminals = new String[]{ "A2", "A1", "A0", "D0", "D1", "D2", "D3", "D4", "D5", "D6", "D7" };
+			this.multiplexerSize = 11;
+		}
+		else
+		{
+			terminals = new String[]{ "A0", "A1", "D0", "D1", "D2", "D3" };
+			this.multiplexerSize = 6;
+		}
+		
 		if (value == "random")
 			this.value = getRandom();
 		else if (value == "randomFunction")
@@ -21,6 +33,11 @@ public abstract class NodeValue {
 			this.value = getRandomTerminal();
 		else
 			this.value = value;
+	}
+	
+	public int getMultiplexerSize()
+	{
+		return this.multiplexerSize;
 	}
 	public boolean isFunction()
 	{

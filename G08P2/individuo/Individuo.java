@@ -29,12 +29,12 @@ public class Individuo implements Comparable<Individuo> {
 	}
 
 	public Individuo mutacion(float probabilidad) {
-		//_genotipo = _mutacion.muta(this); TODO OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+		_mutacion.muta(this); 
 		return this;
 	}
 	
-	public String getFenotipo() { //Esto no sera así al final
-		return "WIP";
+	public String getFenotipo() { 
+		return NodeValue.treeString(_genotipo);
 	}
 
 	public int getFitness() {
@@ -47,7 +47,7 @@ public class Individuo implements Comparable<Individuo> {
 	}
 	
 	public String toString() {
-		return _genotipo.toString();
+		return NodeValue.treeString(_genotipo);
 	}
 	
 	public Individuo clone()

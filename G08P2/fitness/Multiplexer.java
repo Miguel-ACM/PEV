@@ -52,11 +52,11 @@ public class Multiplexer implements Fitness{
 			{
 				totalHits++;
 			}
-			for (int i = 0; i < 6; i++)
+			/*for (int i = 0; i < 6; i++)
 			{
 				System.out.print(entries[i] ? 1 : 0);
 			}
-			System.out.println(" = " + getRealValue() + "\t( Obtuvo: " + result + ")");
+			System.out.println(" = " + getRealValue() + "\t( Obtuvo: " + result + ")");*/
 			notEnded = increase();
 		}		
 		return totalHits;

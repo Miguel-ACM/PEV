@@ -23,7 +23,7 @@ public class Poblacion {
 	private Seleccion _seleccion;
 	private Cruce _cruce;
 	private Mutacion _mutacion;
-	private Generacion _generacion = new Completa(4); //TODO replace placeholder
+	private Generacion _generacion = new Completa(4, 6); //TODO replace placeholder
 	private int _numCruces;
 	private int _numMutaciones;
 	

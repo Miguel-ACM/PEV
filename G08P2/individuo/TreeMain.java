@@ -9,14 +9,14 @@ public class TreeMain {
 
 	public static void main(String[] args) {
 		//Creamos el arbol
-		/*Node<NodeValue> tree = new Node<>(new Multiplexer6("AND"));
-		Node<NodeValue> childI = new Node<>(new Multiplexer6("IF"));
-		Node<NodeValue> childD = new Node<>(new Multiplexer6("D3"));
-		Node<NodeValue> childI1 = new Node<>(new Multiplexer6("A0"));
-		Node<NodeValue> childI2 = new Node<>(new Multiplexer6("OR"));
-		Node<NodeValue> childI3 = new Node<>(new Multiplexer6("A1"));
-		Node<NodeValue> childI21 = new Node<>(new Multiplexer6("D2"));
-		Node<NodeValue> childI22 = new Node<>(new Multiplexer6("D1"));
+		/*Node<NodeValue> tree = new Node<>(new NodeValue("AND", 6));
+		Node<NodeValue> childI = new Node<>(new NodeValue("IF", 6));
+		Node<NodeValue> childD = new Node<>(new NodeValue("D3", 6));
+		Node<NodeValue> childI1 = new Node<>(new NodeValue("A0", 6));
+		Node<NodeValue> childI2 = new Node<>(new NodeValue("OR", 6));
+		Node<NodeValue> childI3 = new Node<>(new NodeValue("A1", 6));
+		Node<NodeValue> childI21 = new Node<>(new NodeValue("D2", 6));
+		Node<NodeValue> childI22 = new Node<>(new NodeValue("D1", 6));
 		tree.addChild(childI);
 		tree.addChild(childD);
 		childI.addChild(childI1);
@@ -36,16 +36,16 @@ public class TreeMain {
 				D2      D1
 				 
 		*/
-		Node<NodeValue> tree = new Node<>(new Multiplexer6("IF"));
-		Node<NodeValue> child1 = new Node<>(new Multiplexer6("A1"));
-		Node<NodeValue> child2 = new Node<>(new Multiplexer6("IF"));
-		Node<NodeValue> child3 = new Node<>(new Multiplexer6("IF"));
-		Node<NodeValue> child21 = new Node<>(new Multiplexer6("A0"));
-		Node<NodeValue> child22 = new Node<>(new Multiplexer6("D3"));
-		Node<NodeValue> child23 = new Node<>(new Multiplexer6("D2"));
-		Node<NodeValue> child31 = new Node<>(new Multiplexer6("A0"));
-		Node<NodeValue> child32 = new Node<>(new Multiplexer6("D1"));
-		Node<NodeValue> child33 = new Node<>(new Multiplexer6("D0"));
+		Node<NodeValue> tree = new Node<>(new NodeValue("IF", 6));
+		Node<NodeValue> child1 = new Node<>(new NodeValue("A1", 6));
+		Node<NodeValue> child2 = new Node<>(new NodeValue("IF", 6));
+		Node<NodeValue> child3 = new Node<>(new NodeValue("IF", 6));
+		Node<NodeValue> child21 = new Node<>(new NodeValue("A0", 6));
+		Node<NodeValue> child22 = new Node<>(new NodeValue("D3", 6));
+		Node<NodeValue> child23 = new Node<>(new NodeValue("D2", 6));
+		Node<NodeValue> child31 = new Node<>(new NodeValue("A0", 6));
+		Node<NodeValue> child32 = new Node<>(new NodeValue("D1", 6));
+		Node<NodeValue> child33 = new Node<>(new NodeValue("D0", 6));
 		tree.addChild(child1);
 		tree.addChild(child2);
 		tree.addChild(child3);
@@ -78,7 +78,7 @@ public class TreeMain {
 		System.out.println("-------------------");
 		
 		//childI2.unlink(); //Pruebo a borrar el OR del primer arbol
-		tree = new Completa(4).generate(); //Genero un arbol de profundidad 4
+		tree = new Completa(4, 6).generate(); //Genero un arbol de profundidad 4
 		it = tree.iteratorInOrder();
 		while (it.hasNext())
 		{

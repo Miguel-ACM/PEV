@@ -6,5 +6,5 @@ import individuo.NodeValue;
 
 public interface Fitness {
 	//Obtiene el fitness del individuo
-	public int fitness(Individuo individuo); // acabará siendo individuo
+	public int fitness(Individuo individuo);
 }
