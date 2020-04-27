@@ -118,12 +118,12 @@ public class Poblacion {
 	 * Devuelve el fitness del mejor individuo
 	 */
 	public double getFitness_max() {		
-		return _individuos.get(0).getFitness();
+		return _individuos.get(_size-1).getFitness();
 	}
 	
 	//Obtiene el mejor individuo actual
 	public Individuo getBest_individuo() {		
-		return _individuos.get(0).clone();
+		return _individuos.get(_size-1).clone();
 	}
 	
 	//Obtiene el mejor individuo historico
@@ -137,7 +137,7 @@ public class Poblacion {
 	 * En caso contrario el peor es el ultimo
 	 */
 	public double getFitness_min() {		
-		return _individuos.get(_size-1).getFitness();
+		return _individuos.get(0).getFitness();
 	}
 	
 	// Obtiene el mejor fitness, aunque no sea de esta generacion
@@ -163,7 +163,7 @@ public class Poblacion {
 	//realiza una generacion con todos sus pasos
 	public void nextGen()
 	{
-		boolean maximiza = false;
+		boolean maximiza = true;
 		//Extrae la elite
 		List<Individuo> elite = this.getElite();
 		//System.out.println(elite);
@@ -193,8 +193,7 @@ public class Poblacion {
 		int k = 0;
 		for (Individuo i: elite)
 		{
-			int index = _size - 1 - k;
-			_individuos.set(index, i);
+			_individuos.set(k, i);
 			k++;
 		}
 		this.sort();
@@ -233,9 +232,9 @@ public class Poblacion {
 	//Devuelve 1 si es mejor fit 1 y -1 si es mejor fit2. 0 si son iguales
 	private int betterFitness(Double fit1, Double fit2)
 	{
-		if (fit1 >= fit2)
-			return -1;
-		else return 1;
+		if (fit1 > fit2)
+			return 1;
+		else return -1;
 	}
 	
 	//Getters y setters
@@ -345,8 +344,7 @@ public class Poblacion {
 		int numReset = (int) (reseteoPercent * this._size);
 		for (int i = 0; i < numReset; i++)
 		{
-			int index = _size - 1 - i ; 
-			_individuos.set(index, new Individuo(this._fitness, this._mutacion, this._generacion));
+			_individuos.set(i, new Individuo(this._fitness, this._mutacion, this._generacion));
 		}
 
 		this.sort();
