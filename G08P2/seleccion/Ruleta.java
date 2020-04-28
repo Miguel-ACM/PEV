@@ -25,11 +25,10 @@ public class Ruleta implements Seleccion {
 		//System.out.println(_porciones);
 		for (int i = 0; i < num; i++) {
 			int elegido = elegido();
-			//System.out.print(", " + elegido);
 			
-			seleccionados.add(elegido);	
+			seleccionados.add(elegido);
 		}
-		//System.out.println("\n-------------------");
+		
 		return seleccionados;
 	}
 	

@@ -29,11 +29,7 @@ public class TorneoDeterministico implements Seleccion{
 
 			for(int j = 0; j < 3; j++) { // el mejor de 3
 				int x = (int)(Math.random()*_individuos.size());// se toma uno cualquiera
-				if(maximiza && _individuos.get(x).getFitness() > best) {				
-					best = _individuos.get(x).getFitness();
-					selec = x;
-				}else if (!maximiza && _individuos.get(x).getFitness() < best)	
-				{
+				if(_individuos.get(x).getFitness() > best) {				
 					best = _individuos.get(x).getFitness();
 					selec = x;
 				}

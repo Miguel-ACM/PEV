@@ -26,22 +26,18 @@ public class Ranking implements Seleccion {
 		double multiplier = maxProb - minProb;
 		for (int i=0; i< size; i++)
 		{
-			double probOfIth = (double)i/size;
-			probOfIth = ((double) (size - i) / (double) size) * multiplier + minProb;
+			double probOfIth = ((double) (i + 1) / (double) size) * multiplier + minProb;
 			tramo += probOfIth;
 			//System.out.println(probOfIth);
 			_porciones.add(tramo);
 		}
 		//System.out.println(tramo);
 		
-		//int sum = 0;
 		
 		for (int i = 0; i < num; i++) {
 			seleccionados.add(elegido(_porciones, tramo));	
-			//sum += elegido(_porciones);
 		}
-		//System.out.println(_individuos.get(0).getFitness() + " " + _individuos.get(_individuos.size() - 1).getFitness());
-		//System.out.println(sum / size);
+
 		return seleccionados;
 		
 	}

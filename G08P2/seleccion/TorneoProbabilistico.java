@@ -34,20 +34,12 @@ public class TorneoProbabilistico implements Seleccion{
 
 				if (mejor)//Selecciona el mejor
 				{
-					if(maximiza && _individuos.get(x).getFitness() >= best) {				
-						best = _individuos.get(x).getFitness();
-						selec = x;
-					}else if (!maximiza && _individuos.get(x).getFitness() <= best)	
-					{
+					if(_individuos.get(x).getFitness() >= best) {				
 						best = _individuos.get(x).getFitness();
 						selec = x;
 					}
 				} else { //Selecciona el peor
-					if(maximiza && _individuos.get(x).getFitness() <= worst) {	
-						worst = _individuos.get(x).getFitness();
-						selec = x;
-					}else if (!maximiza && _individuos.get(x).getFitness() >= worst)	
-					{
+					if(_individuos.get(x).getFitness() <= worst) {	
 						worst = _individuos.get(x).getFitness();
 						selec = x;
 					}
