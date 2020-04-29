@@ -24,6 +24,8 @@ public class Node<T> {
     {
     	value = newValue;
     }
+    
+  
 
     public void addChild(Node<T> newChild){
     	if (newChild.getParent() != null)
@@ -33,6 +35,17 @@ public class Node<T> {
     	}
     	newChild.setParent(this);
     	children.add(newChild);
+    }
+    
+    //Agrega un hijo en la posicion indicada
+    public void addChild(Node<T> newChild, int index){
+    	if (newChild.getParent() != null)
+    	{
+    		System.out.println("ERROR: Children already has a parent. Could not be added to node.");
+    		return;
+    	}
+    	newChild.setParent(this);
+    	children.add(index, newChild);
     }
     
     public void removeChild(int i)
@@ -63,6 +76,18 @@ public class Node<T> {
     	return null;
     }
     
+    //Devuelve el indice con la posicion del hijo (comparando punteros)
+    //Si no lo encuentra, devuelve -1
+    public int getChildPosition(Node<T> toSearch)
+    {
+    	for (int i = 0; i < children.size(); i++)
+    	{
+    		if (children.get(i) == toSearch)
+    			return i;
+    	}
+    	return -1;
+    }
+    
     public Node<T> getParent()
     {
     	return parent;
@@ -73,6 +98,7 @@ public class Node<T> {
     	this.parent = parent;
     }
     
+    //Obtiene la profundidad del nodo, es decir, cuantos hijos de hijos tiene.
     public int getDepth()
     {
     	int numChild = this.getNumChildren();
@@ -90,6 +116,15 @@ public class Node<T> {
     		}
     		return max + 1;
     	}
+    }
+    
+    //Obtiene la profundidad inversa, es decir, mirando hacia cuantos padres hay hasta la raiz.
+    public int getDepthFromRoot()
+    {
+    	if (this.parent == null)
+    		return 1;
+    	else
+    		return this.parent.getDepthFromRoot() + 1;
     }
     
     public void unlink()
@@ -206,9 +241,9 @@ public class Node<T> {
         		
         	}
         	else {
-        		while ((currentNode.getNumChildren() - 1 < parentIndex.get(parentIndex.size() - 1))  && (currentNode.getParent() != null))
+        		while ((currentNode.getNumChildren() - 1 < parentIndex.get(parentIndex.size() - 1)) && (currentNode.getParent() != null))
         		{
-        			parentIndex.remove(parentIndex.get(parentIndex.size() - 1));
+        			parentIndex.remove((parentIndex.size() - 1));
         			currentNode = currentNode.getParent();
         		}
         		if (currentNode.getNumChildren() - 1 >= parentIndex.get(parentIndex.size() - 1))

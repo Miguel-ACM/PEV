@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cruces.Cruce;
+import cruces.CruceSimple;
 import fitness.Fitness;
 import fitness.Multiplexer;
 import individuo.Individuo;
@@ -70,7 +71,7 @@ public class Controlador {
 	{
 		_fitness = new Multiplexer();
 		_seleccion = new Ruleta();
-		_cruce = null; //new PMX();
+		_cruce = new CruceSimple(4); 
 		_mutacion = new TerminalSimple();
 		reestart();
 	}
@@ -161,8 +162,8 @@ public class Controlador {
 	//Establece el tipo de cruce
 	public void set_cruce(String newCruce)
 	{
-		if (newCruce.equals("PMX"))
-			_cruce = null; //new PMX();
+		if (newCruce.equals("Cruce Simple"))
+			_cruce = new CruceSimple(4); //TODO Poner depth de verdad
 		else
 			System.out.println("ERROR SELECCIONANDO EL CRUCE");
 		_poblacion.set_cruce(_cruce);

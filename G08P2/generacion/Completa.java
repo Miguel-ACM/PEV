@@ -17,7 +17,7 @@ public class Completa implements Generacion {
 	}
 	
 	@Override
-	public Node<NodeValue> generate() { //depth > 1
+	public Node<NodeValue> generate() { 
 		Stack<Node<NodeValue>> currentGen;
 		Stack<Node<NodeValue>> nextGen = new Stack<>();
 		Node<NodeValue> root = new Node<NodeValue>(new NodeValue("randomFunction", multiplexerSize));

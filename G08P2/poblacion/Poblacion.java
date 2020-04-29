@@ -62,9 +62,9 @@ public class Poblacion {
 		int j = 0;
 		for (Individuo i : _individuos)
 		{
-			retValue += j + " | " + i;
+			retValue += j + " | " + System.identityHashCode(i.getGenotipo()) + " " + i;
 			retValue += " (Fitness: " + i.getFitness();
-			retValue += ")\n";
+			retValue += ")" + "\n";
 			j++;
 		}
 		
@@ -166,7 +166,8 @@ public class Poblacion {
 		boolean maximiza = true;
 		//Extrae la elite
 		List<Individuo> elite = this.getElite();
-		//System.out.println(elite);
+		System.out.println("POBLACION");
+		System.out.println(this.toString());
 
 		//Seleccionamos X individuos y reemplazamos la población
 		
@@ -330,11 +331,12 @@ public class Poblacion {
 
 			//Politica de reemplazamiento: Hijos sustituyen a los padres
 			//System.out.println(padre1 + "\n" + padre2);
-			Individuo[] hijos = _cruce.cruza(padre1.clone(), padre2.clone());
-			//System.out.println("-\n" + hijos[0] + "\n" + hijos[1] + "\n-------------------");
+			Individuo padre1clone = padre1.clone();
+			Individuo padre2clone = padre2.clone();
 
-			_individuos.set(padre1IndividuoIndex, hijos[0]);
-			_individuos.set(padre2IndividuoIndex, hijos[1]);
+			System.out.println("ei" + System.identityHashCode(padre1clone.getGenotipo()) + " " + System.identityHashCode(padre2clone.getGenotipo()));
+			_cruce.cruza(padre1.clone(), padre2.clone());
+			//System.out.println("-\n" + hijos[0] + "\n" + hijos[1] + "\n-------------------");
 		}
 		return numCruces;
 	}

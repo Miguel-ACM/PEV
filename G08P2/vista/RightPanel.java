@@ -195,15 +195,7 @@ public class RightPanel extends JPanel {
 		pm.setMinimumSize(new Dimension(100, 1));
 		pm.setPreferredSize(new Dimension(100, 25));
 		mutacionSel = new JComboBox<String>();
-		mutacionSel.addItem("Intercambio");
-		mutacionSel.addItem("Intercambio múltiple");
-		mutacionSel.addItem("Inversión");
-		mutacionSel.addItem("Inserción");
-		mutacionSel.addItem("Desplazamiento");
-		mutacionSel.addItem("Corte");
-		mutacionSel.addItem("Heurística");
-		mutacionSel.addItem("Heurística/Inserción");
-		mutacionSel.addItem("Heurística/Desplazamiento");
+		mutacionSel.addItem("Terminal Simple");
 
 		
 		mutacionSel.setPreferredSize(new Dimension(150, 20));
@@ -241,14 +233,7 @@ public class RightPanel extends JPanel {
 		tipoCruce = new JLabel("Tipo");
 		crucePnl.add(tipoCruce);
 		cruceSel = new JComboBox<String>();
-		cruceSel.addItem("PMX");
-		cruceSel.addItem("OX");
-		cruceSel.addItem("OX-PP");
-		cruceSel.addItem("OX-OP");
-		cruceSel.addItem("CX");
-		cruceSel.addItem("CO");
-		cruceSel.addItem("ERX");
-		cruceSel.addItem("Corners");
+		cruceSel.addItem("Cruce Simple");
 
 		cruceSel.setPreferredSize(new Dimension(150, 20));
 		crucePnl.add(cruceSel);
@@ -334,12 +319,8 @@ public class RightPanel extends JPanel {
 	private void crea_funcionPnl() {
 		funcionPnl = new JPanel();
 		funcionSel = new JComboBox<String>();
-		funcionSel.addItem("ajuste.txt");
-		funcionSel.addItem("datos12.txt");
-		funcionSel.addItem("datos15.txt");
-		funcionSel.addItem("datos30.txt");
-		funcionSel.addItem("tai100a.txt");
-		funcionSel.addItem("tai256c.txt");
+		funcionSel.addItem("Multiplexor 6");
+		funcionSel.addItem("Multiplexor 11");
 
 		funcionSel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

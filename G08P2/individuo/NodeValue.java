@@ -121,7 +121,6 @@ public class NodeValue {
 				
 			}
 		}
-		System.out.println(index);
 		return ret;
 	}
 	
