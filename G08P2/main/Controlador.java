@@ -8,6 +8,7 @@ import cruces.CruceSimple;
 import fitness.Fitness;
 import fitness.Multiplexer;
 import individuo.Individuo;
+import mutacion.FuncionalSimple;
 import mutacion.Mutacion;
 import mutacion.TerminalSimple;
 import poblacion.Poblacion;
@@ -172,10 +173,14 @@ public class Controlador {
 	//Establece el tipo de mutacion
 	public void set_mutacion(String newMutacion)
 	{
-		if (newMutacion.equals("Terminal Simple"))
+		if (newMutacion.equals("Terminal simple"))
 			_mutacion = new TerminalSimple();
+		else if(newMutacion.equals("Funcional simple")) {
+			_mutacion = new FuncionalSimple();
+		}
 		else
 			System.out.println("ERROR SELECCIONANDO LA MUTACIóN");
+		
 		_poblacion.set_mutation(_mutacion);
 	}
 	

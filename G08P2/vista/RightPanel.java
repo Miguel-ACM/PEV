@@ -195,7 +195,17 @@ public class RightPanel extends JPanel {
 		pm.setMinimumSize(new Dimension(100, 1));
 		pm.setPreferredSize(new Dimension(100, 25));
 		mutacionSel = new JComboBox<String>();
-		mutacionSel.addItem("Terminal Simple");
+
+		mutacionSel.addItem("Terminal simple");
+		mutacionSel.addItem("Funcional simple");
+		//mutacionSel.addItem("Intercambio múltiple");
+		//mutacionSel.addItem("Inversión");
+		//mutacionSel.addItem("Inserción");
+		//mutacionSel.addItem("Desplazamiento");
+		//mutacionSel.addItem("Corte");
+		//mutacionSel.addItem("Heurística");
+		//mutacionSel.addItem("Heurística/Inserción");
+		//mutacionSel.addItem("Heurística/Desplazamiento");
 
 		
 		mutacionSel.setPreferredSize(new Dimension(150, 20));

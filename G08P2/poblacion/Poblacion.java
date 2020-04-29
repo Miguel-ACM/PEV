@@ -184,7 +184,7 @@ public class Poblacion {
 			this._individuos = nuevosIndividuos;
 		}
 		//Cruce
-		_numCruces += this.cruza();
+		//_numCruces += this.cruza();
 
 		//Mutacion
 		this.mutacion();
@@ -333,6 +333,9 @@ public class Poblacion {
 			//System.out.println(padre1 + "\n" + padre2);
 			Individuo padre1clone = padre1.clone();
 			Individuo padre2clone = padre2.clone();
+			
+			_cruce.cruza(padre1.clone(), padre2.clone());
+			//System.out.println("-\n" + hijos[0] + "\n" + hijos[1] + "\n-------------------");
 
 			System.out.println("ei" + System.identityHashCode(padre1clone.getGenotipo()) + " " + System.identityHashCode(padre2clone.getGenotipo()));
 			_cruce.cruza(padre1.clone(), padre2.clone());
