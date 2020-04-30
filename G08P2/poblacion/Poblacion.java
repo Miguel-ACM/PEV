@@ -153,7 +153,7 @@ public class Poblacion {
 		int numElite = (int) (this._elitePercent * this._size);
 		for (int i = 0; i < numElite; i++)
 		{
-			int index = i;
+			int index = _size - i - 1;
 			elite.add(_individuos.get(index).clone());
 		}
 		
@@ -166,8 +166,6 @@ public class Poblacion {
 		boolean maximiza = true;
 		//Extrae la elite
 		List<Individuo> elite = this.getElite();
-		System.out.println("POBLACION");
-		System.out.println(this.toString());
 
 		//Seleccionamos X individuos y reemplazamos la población
 		
@@ -190,6 +188,7 @@ public class Poblacion {
 		this.mutacion();
 		this.sort(); //Ordenamos segun el fitness de nuevo
 		
+
 		//Elite
 		int k = 0;
 		for (Individuo i: elite)

@@ -25,7 +25,7 @@ public class EscaladoLineal {
 		double total = 0;
 		for (int i = 0; i < size; i++)
 		{
-			double value = (individuos.get(i).getFitness()*a + b);
+			double value = 1 - (individuos.get(i).getFitness()*a + b);
 			total += value;
 			_porciones.add(value);
 		}
@@ -53,7 +53,7 @@ public class EscaladoLineal {
 		}
 		double mean = sum/size;
 		double max = p.getFitness_min();
-		double a = (0.2 * mean) / (max - mean); // antes era mean - max
+		double a = 1 - (0.2 * mean) / (max - mean); // antes era mean - max
 		double b = (1 - a) * mean;
 		double total = 0;
 		for (int i = 0; i < size; i++)
