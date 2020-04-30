@@ -8,6 +8,7 @@ import cruces.CruceSimple;
 import fitness.Fitness;
 import fitness.Multiplexer;
 import individuo.Individuo;
+import mutacion.DePermutacion;
 import mutacion.FuncionalSimple;
 import mutacion.Mutacion;
 import mutacion.TerminalSimple;
@@ -175,9 +176,11 @@ public class Controlador {
 	{
 		if (newMutacion.equals("Terminal simple"))
 			_mutacion = new TerminalSimple();
-		else if(newMutacion.equals("Funcional simple")) {
+		else if(newMutacion.equals("Funcional simple"))
 			_mutacion = new FuncionalSimple();
-		}
+		else if(newMutacion.equals("De permutación")) 
+			_mutacion = new DePermutacion();
+		
 		else
 			System.out.println("ERROR SELECCIONANDO LA MUTACIóN");
 		

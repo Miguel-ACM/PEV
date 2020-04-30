@@ -50,7 +50,7 @@ public class Node<T> {
     
     public void removeChild(int i)
     {
-    	if (i > 0 && i < children.size())
+    	if (i >= 0 && i < children.size())
     		children.remove(i);
     }
     
