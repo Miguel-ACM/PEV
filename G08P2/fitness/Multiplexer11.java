@@ -7,9 +7,8 @@ import individuo.Individuo;
 import individuo.Node;
 import individuo.NodeValue;
 
-public class Multiplexer implements Fitness{
-	// entries = [A1, A0, D3, D2, D1, D0]
-	boolean entries[] = {false, false, false, false, false, false};
+public class Multiplexer11 implements Fitness{
+	boolean entries[] = {false, false, false, false, false, false, false, false, false, false, false};
 	Stack<Boolean> stackedValues;
 	
 	@Override
@@ -52,11 +51,6 @@ public class Multiplexer implements Fitness{
 			{
 				totalHits++;
 			}
-			/*for (int i = 0; i < 6; i++)
-			{
-				System.out.print(entries[i] ? 1 : 0);
-			}
-			System.out.println(" = " + getRealValue() + "\t( Obtuvo: " + result + ")");*/
 			notEnded = increase();
 		}		
 		return totalHits;
@@ -84,13 +78,18 @@ public class Multiplexer implements Fitness{
 	{
 		switch (nodeValue.value)
 		{
-		case "A1": return entries[0];
-		case "A0": return entries[1];
-		case "D3": return entries[2];
-		case "D2": return entries[3];
-		case "D1": return entries[4];
-		case "D0": return entries[5];
-		default: return false; //De hacerse bien no debería pasar
+			case "A2": return entries[0];
+			case "A1": return entries[1];
+			case "A0": return entries[2];
+			case "D7": return entries[3];
+			case "D6": return entries[4];
+			case "D5": return entries[5];
+			case "D4": return entries[6];
+			case "D3": return entries[7];
+			case "D2": return entries[8];
+			case "D1": return entries[9];
+			case "D0": return entries[10];
+			default: return false; 
 		}
 	};
 	
@@ -116,8 +115,8 @@ public class Multiplexer implements Fitness{
 	
 	private boolean getRealValue()
 	{
-		int dValue = 2 * (entries[0] ? 1 : 0) + (entries[1] ? 1 : 0);
-		return entries[5 - dValue];
+		int dValue = 4 * (entries[0] ? 1 : 0) + 2 * (entries[1] ? 1 : 0) + (entries[2] ? 1 : 0);
+		return entries[10 - dValue];
 	}
 	
 	

@@ -6,7 +6,10 @@ import java.util.List;
 import cruces.Cruce;
 import cruces.CruceSimple;
 import fitness.Fitness;
-import fitness.Multiplexer;
+import fitness.Multiplexer11;
+import fitness.Multiplexer6;
+import generacion.Generacion;
+import generacion.Completa;
 import individuo.Individuo;
 import mutacion.DePermutacion;
 import mutacion.FuncionalSimple;
@@ -29,9 +32,12 @@ public class Controlador {
 	private Seleccion _seleccion;
 	private Cruce _cruce;
 	private Mutacion _mutacion;
+	private Generacion _generacion;
 	private float _mutationProb = 0.05f;
 	private float _cruceProb = 0.6f;
 	private float _elitismoPer = 0.3f;
+	private int _depth = 4;
+	private int _multiplexerSize = 6;
 
 	private Points _points;
 	private boolean _estancamientoActivado = true;
@@ -71,10 +77,11 @@ public class Controlador {
 	
 	public Controlador()
 	{
-		_fitness = new Multiplexer();
+		_fitness = new Multiplexer6();
 		_seleccion = new Ruleta();
-		_cruce = new CruceSimple(4); 
+		_cruce = new CruceSimple(_depth); 
 		_mutacion = new TerminalSimple();
+		_generacion = new Completa(_depth, _multiplexerSize);
 		reestart();
 	}
 	
@@ -82,7 +89,7 @@ public class Controlador {
 	public void reestart()
 	{
 		_points = new Points();
-		_poblacion = new Poblacion(_size, _fitness, _mutacion);
+		_poblacion = new Poblacion(_size, _fitness, _mutacion, _generacion);
 		_poblacion.set_cruce(_cruce);
 		_poblacion.set_seleccion(_seleccion);
 		_poblacion.set_mutationProbability(_mutationProb);
@@ -120,7 +127,6 @@ public class Controlador {
 	{
 		_poblacion.nextGen(); 
 		_addPoints();
-
 	}
 	
 	//Avanza multiples generaciones
@@ -142,10 +148,18 @@ public class Controlador {
 	
 	//Establece la funcion de fitness
 	//n solo sirve para la funcion 4
-	public void set_fitness(String newFitnessFilePath)
+	public void set_fitness(String multiplexerSize)
 	{
-		_fitness = new Multiplexer();
-		this.reestart();
+		if (multiplexerSize.equals("Multiplexor 6"))
+		{
+			_multiplexerSize = 6;
+			_fitness = new Multiplexer6();
+		}
+		else if (multiplexerSize.equals("Multiplexor 11"))
+		{
+			_multiplexerSize = 11;
+			_fitness = new Multiplexer11();
+		}
 	}
 	
 	//Establece el tamaño de la poblacion
@@ -161,11 +175,19 @@ public class Controlador {
 		_poblacion.set_mutationProbability(mut);
 	}
 	
+	//Establece la profundidad de los arboles
+	public void set_depth(int depth, String generacion)
+	{
+		this._depth = depth;
+		this.set_generacion(generacion);
+		this.reestart();
+	}
+	
 	//Establece el tipo de cruce
 	public void set_cruce(String newCruce)
 	{
 		if (newCruce.equals("Cruce Simple"))
-			_cruce = new CruceSimple(4); //TODO Poner depth de verdad
+			_cruce = new CruceSimple(_depth);
 		else
 			System.out.println("ERROR SELECCIONANDO EL CRUCE");
 		_poblacion.set_cruce(_cruce);
@@ -193,6 +215,15 @@ public class Controlador {
 	{
 		_cruceProb = cruceProbability;
 		_poblacion.set_cruceProbability(_cruceProb);
+	}
+	
+	//EStablece la probabilidad de cruce
+	public void set_generacion(String generacion)
+	{
+		if (generacion.equals("Completa"))
+			_generacion = new Completa(_depth, _multiplexerSize);
+		
+		_poblacion.set_generacion(_generacion);
 	}
 	
 	//EStablece el porcentaje de elite

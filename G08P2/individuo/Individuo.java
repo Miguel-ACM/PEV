@@ -1,7 +1,6 @@
 package individuo;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,12 +14,17 @@ public class Individuo implements Comparable<Individuo> {
 	private Fitness _fitness;
 	private Mutacion _mutacion;
 	private Generacion _generacion;
+	private int _fitnessValue;
+	private boolean _cachedFitness;
+	
 
 	public Individuo(Fitness fitness, Mutacion mutacion, Generacion generacion) {
 		_fitness = fitness;
 		//_size = fitness.getSize();
 		_mutacion = mutacion;
 		_generacion = generacion;
+		_cachedFitness = false;
+		_fitnessValue = 0;
 		this.initialize();
 	}
 	
@@ -30,7 +34,8 @@ public class Individuo implements Comparable<Individuo> {
 	}
 
 	public Individuo mutacion(float probabilidad) {
-		_mutacion.muta(this); 
+		_mutacion.muta(this);
+		_cachedFitness = false;
 		return this;
 	}
 	
@@ -39,7 +44,11 @@ public class Individuo implements Comparable<Individuo> {
 	}
 
 	public int getFitness() {
-		return _fitness.fitness(this);
+		if (_cachedFitness)
+			return _fitnessValue;
+		_fitnessValue = _fitness.fitness(this);
+		_cachedFitness = true;
+		return _fitnessValue;
 	}
 
 	//Obtiene el genotipo
@@ -49,6 +58,11 @@ public class Individuo implements Comparable<Individuo> {
 	
 	public String toString() {
 		return NodeValue.treeString(_genotipo);
+	}
+	
+	public void setFitnessValue(int fitValue) {
+		this._cachedFitness = true;
+		this._fitnessValue = fitValue;
 	}
 	
 	public Individuo clone()
@@ -77,12 +91,15 @@ public class Individuo implements Comparable<Individuo> {
 			parents.set(depth - 1, newNode);
 		}
 		in.setGenotipo(newTree);
+		if (this._cachedFitness) //El fitness es igual al de este, no necesitamos recalcularlo
+			in.setFitnessValue(this._fitnessValue);
 		return in;
 		
 	}
 
 	//Establece el genotipo a uno dado
 	public void setGenotipo(Node<NodeValue> nuevoGenotipo) {
+		_cachedFitness = false;
 		_genotipo = nuevoGenotipo; 
 	}
 	

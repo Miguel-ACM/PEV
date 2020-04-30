@@ -7,7 +7,6 @@ import java.util.Random;
 
 import cruces.Cruce;
 import fitness.Fitness;
-import generacion.Completa;
 import generacion.Generacion;
 import individuo.Individuo;
 import mutacion.Mutacion;
@@ -23,7 +22,7 @@ public class Poblacion {
 	private Seleccion _seleccion;
 	private Cruce _cruce;
 	private Mutacion _mutacion;
-	private Generacion _generacion = new Completa(4, 6); //TODO replace placeholder
+	private Generacion _generacion; 
 	private int _numCruces;
 	private int _numMutaciones;
 	
@@ -37,13 +36,14 @@ public class Poblacion {
 	private float _reseteoPercent = 0.5f;
 	protected Individuo _bestIndividuo;
 	
-	public Poblacion(int size, Fitness fitness, Mutacion mutacion){
+	public Poblacion(int size, Fitness fitness, Mutacion mutacion, Generacion generacion){
 		_individuos = new ArrayList<Individuo>();
 		_size = size;
 		_fitness = fitness;
 		_mutacion = mutacion;
 		_numCruces = 0;
 		_numMutaciones = 0;
+		_generacion = generacion;
 		while (size > 0)
 		{
 			Individuo i = new Individuo(_fitness, _mutacion, _generacion);
@@ -287,6 +287,10 @@ public class Poblacion {
 	public void set_elite(Float elite){
 		this._elitePercent = elite;
 	}
+	
+	public void set_generacion(Generacion generacion){
+		this._generacion = generacion;
+	}
 		
 	public void set_estancamiento(boolean activado, float porcentaje_reinicio, int num_gens)
 	{
@@ -315,30 +319,17 @@ public class Poblacion {
 		{
 			int padre1Index = Math.abs(rand.nextInt() % padres.size());
 			Individuo padre1 = padres.get(padre1Index);
-			int padre1IndividuoIndex = padresIndex.get(padre1Index);
-			// System.out.print(padre1IndividuoIndex + " con ");
 			padresIndex.remove(padre1Index);
 			padres.remove(padre1Index);
 
 			int padre2Index = Math.abs(rand.nextInt() % padres.size());
 			Individuo padre2 = padres.get(padre2Index);
-			int padre2IndividuoIndex = padresIndex.get(padre2Index);
-			// System.out.println(padre2IndividuoIndex);
 			padresIndex.remove(padre2Index);
 			padres.remove(padre2Index);
 			numCruces++;
-
-			//Politica de reemplazamiento: Hijos sustituyen a los padres
-			//System.out.println(padre1 + "\n" + padre2);
-			Individuo padre1clone = padre1.clone();
-			Individuo padre2clone = padre2.clone();
 			
-			_cruce.cruza(padre1.clone(), padre2.clone());
-			//System.out.println("-\n" + hijos[0] + "\n" + hijos[1] + "\n-------------------");
+			_cruce.cruza(padre1, padre2);
 
-			System.out.println("ei" + System.identityHashCode(padre1clone.getGenotipo()) + " " + System.identityHashCode(padre2clone.getGenotipo()));
-			_cruce.cruza(padre1.clone(), padre2.clone());
-			//System.out.println("-\n" + hijos[0] + "\n" + hijos[1] + "\n-------------------");
 		}
 		return numCruces;
 	}

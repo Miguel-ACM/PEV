@@ -25,18 +25,20 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import main.Controlador;
 import main.Controlador.Points;
 
 public class RightPanel extends JPanel {
 	private static final long serialVersionUID = 7722523962189028691L;
-	private JPanel representacionPnl,estancamientoPnl, crucePnl, funcionPnl,  poblacionPnl, seleccionPnl, mutacionPnl, elitePnl, progressPnl;
+	private JPanel representacionPnl,estancamientoPnl, crucePnl, funcionPnl, depthPnl, poblacionPnl, seleccionPnl, mutacionPnl, elitePnl, progressPnl;
 	private JButton iniciarBtn, finBtn;
 	private ImageIcon iniciarIcon, finIcon;
 	private JComboBox<String> funcionSel, selecSel, cruceSel, mutacionSel;
 	private JCheckBox eliteSel, estancamientoSel;
-	private JSpinner pc, pe, pm, num_p, num_g, p_arit, porc_estancamiento, limit_estancamiento;
+	private JSpinner pc, pe, pm, num_p, num_g, p_arit, porc_estancamiento, limit_estancamiento, depth;
 	private JLabel tipoCruce, porcentCruce, tipoMutacion, porcentMutacion, porcentElite, selElite, indiL, geneL;
 	private Controlador _c;
 	private GraficPanel _gp;
@@ -48,6 +50,7 @@ public class RightPanel extends JPanel {
 		crea_representacionPnl();
 		crea_progressBarPnl();
 		crea_funcionPnl();
+		crea_depthPnl();
 		crea_poblacionPnl();
 		crea_crucePnl();
 		crea_seleccionPnl();
@@ -69,7 +72,7 @@ public class RightPanel extends JPanel {
 		constraints.anchor = GridBagConstraints.WEST;
 
 		this.add(funcionPnl, constraints);
-
+		
 		constraints.gridx = 0;
 		constraints.gridy = 2;
 		constraints.gridheight = 1;
@@ -77,7 +80,7 @@ public class RightPanel extends JPanel {
 		//constraints.weightx = 1;
 		// constraints.fill = GridBagConstraints.EAST;
 		constraints.anchor = GridBagConstraints.WEST;
-		this.add(seleccionPnl, constraints);
+		this.add(depthPnl, constraints);
 
 		constraints.gridx = 0;
 		constraints.gridy = 3;
@@ -86,7 +89,7 @@ public class RightPanel extends JPanel {
 		//constraints.weightx = 1;
 		// constraints.fill = GridBagConstraints.EAST;
 		constraints.anchor = GridBagConstraints.WEST;
-		this.add(crucePnl, constraints);
+		this.add(seleccionPnl, constraints);
 
 		constraints.gridx = 0;
 		constraints.gridy = 4;
@@ -95,7 +98,7 @@ public class RightPanel extends JPanel {
 		//constraints.weightx = 1;
 		// constraints.fill = GridBagConstraints.EAST;
 		constraints.anchor = GridBagConstraints.WEST;
-		this.add(mutacionPnl, constraints);
+		this.add(crucePnl, constraints);
 
 		constraints.gridx = 0;
 		constraints.gridy = 5;
@@ -104,7 +107,7 @@ public class RightPanel extends JPanel {
 		//constraints.weightx = 1;
 		// constraints.fill = GridBagConstraints.EAST;
 		constraints.anchor = GridBagConstraints.WEST;
-		this.add(elitePnl, constraints);
+		this.add(mutacionPnl, constraints);
 
 		constraints.gridx = 0;
 		constraints.gridy = 6;
@@ -113,7 +116,7 @@ public class RightPanel extends JPanel {
 		//constraints.weightx = 1;
 		// constraints.fill = GridBagConstraints.EAST;
 		constraints.anchor = GridBagConstraints.WEST;
-		this.add(estancamientoPnl, constraints);
+		this.add(elitePnl, constraints);
 
 		constraints.gridx = 0;
 		constraints.gridy = 7;
@@ -122,10 +125,19 @@ public class RightPanel extends JPanel {
 		//constraints.weightx = 1;
 		// constraints.fill = GridBagConstraints.EAST;
 		constraints.anchor = GridBagConstraints.WEST;
+		this.add(estancamientoPnl, constraints);
+
+		constraints.gridx = 0;
+		constraints.gridy = 8;
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		//constraints.weightx = 1;
+		// constraints.fill = GridBagConstraints.EAST;
+		constraints.anchor = GridBagConstraints.WEST;
 		this.add(poblacionPnl, constraints);
 		
 		constraints.gridx = 0;
-		constraints.gridy = 8;
+		constraints.gridy = 9;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 
@@ -133,7 +145,7 @@ public class RightPanel extends JPanel {
 		this.add(representacionPnl, constraints);
 		
 		constraints.gridx = 0;
-		constraints.gridy = 9;
+		constraints.gridy = 10;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 
@@ -269,6 +281,28 @@ public class RightPanel extends JPanel {
 
 		crucePnl.setBorder(BorderFactory.createTitledBorder("Cruce"));
 
+	}
+	
+	/////////////////   SECCIÓN CRUCE   ////////////////////
+	private void crea_depthPnl() {
+		depthPnl = new JPanel();
+		depthPnl.setLayout(new GridLayout(1, 1));
+		
+		JLabel maxDepth = new JLabel("Max:");
+		depthPnl.add(maxDepth);
+		depth = new JSpinner(new SpinnerNumberModel(4, 2, 20, 1));
+		depthPnl.add(depth);
+		
+		depth.addChangeListener(new ChangeListener() {      
+			  @Override
+			  public void stateChanged(ChangeEvent e) {
+			    _c.set_depth((int) depth.getValue(), "Completa");
+			  }
+		});
+		
+
+		depthPnl.setBorder(BorderFactory.createTitledBorder("Profundidad"));
+	
 	}
 
 	private void crea_seleccionPnl() {
@@ -407,8 +441,10 @@ public class RightPanel extends JPanel {
 
 				_c.set_elite(eliteSel.isSelected() ? (float)(double) pe.getValue() : 0f);
 
+				_c.set_depth((int) depth.getValue(), "Completa"); //TODO 
+				
 				int poblacion =  (int) num_p.getValue();
-				_c.set_size(poblacion);				
+				_c.set_size(poblacion);			
 
 				// Función seleccionada
 				String funcion = (String)funcionSel.getSelectedItem();

@@ -2,7 +2,6 @@ package individuo;
 
 import java.util.Iterator;
 
-import fitness.Multiplexer;
 import generacion.Completa;
 
 public class TreeMain {
@@ -87,7 +86,6 @@ public class TreeMain {
 		}
 		System.out.println(NodeValue.treeString(tree));
 
-		Multiplexer m = new Multiplexer();
 		//System.out.println(m.fitness(tree));
 
 
