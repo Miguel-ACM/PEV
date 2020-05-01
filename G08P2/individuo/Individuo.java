@@ -18,13 +18,19 @@ public class Individuo implements Comparable<Individuo> {
 	private boolean _cachedFitness;
 	
 
-	public Individuo(Fitness fitness, Mutacion mutacion, Node<NodeValue> genotipo) {
+	public Individuo(Fitness fitness, Mutacion mutacion, Generacion generacion) {
 		_fitness = fitness;
 		//_size = fitness.getSize();
 		_mutacion = mutacion;
+		_generacion = generacion;
 		_cachedFitness = false;
 		_fitnessValue = 0;
-		this._genotipo = genotipo;
+		this.initialize();
+	}
+	
+	private void initialize()
+	{
+		_genotipo = _generacion.generate();
 	}
 
 	public Individuo mutacion(float probabilidad) {
@@ -61,6 +67,7 @@ public class Individuo implements Comparable<Individuo> {
 	
 	public Individuo clone()
 	{
+		Individuo in = new Individuo(this._fitness, this._mutacion, this._generacion);
 		Node<NodeValue> node;
 		NodeValue value;
 		Iterator<Node<NodeValue>> it = _genotipo.iteratorLevelOrder();
@@ -83,7 +90,7 @@ public class Individuo implements Comparable<Individuo> {
 			parents.get(depth - 2).addChild(newNode);
 			parents.set(depth - 1, newNode);
 		}
-		Individuo in = new Individuo(this._fitness, this._mutacion, newTree);
+		in.setGenotipo(newTree);
 		if (this._cachedFitness) //El fitness es igual al de este, no necesitamos recalcularlo
 			in.setFitnessValue(this._fitnessValue);
 		return in;

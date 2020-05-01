@@ -204,7 +204,7 @@ public class RightPanel extends JPanel {
 		mutacionSel.addItem("Terminal simple");
 		mutacionSel.addItem("Funcional simple");
 		mutacionSel.addItem("De permutación");
-		//mutacionSel.addItem("Inversión");
+		mutacionSel.addItem("De árbol");
 		//mutacionSel.addItem("Inserción");
 		//mutacionSel.addItem("Desplazamiento");
 		//mutacionSel.addItem("Corte");

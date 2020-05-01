@@ -13,6 +13,7 @@ import generacion.RampedAndHalf;
 import generacion.Completa;
 import generacion.Creciente;
 import individuo.Individuo;
+import mutacion.DeArbol;
 import mutacion.DePermutacion;
 import mutacion.FuncionalSimple;
 import mutacion.Mutacion;
@@ -202,7 +203,8 @@ public class Controlador {
 			_mutacion = new FuncionalSimple();
 		else if(newMutacion.equals("De permutación")) 
 			_mutacion = new DePermutacion();
-		
+		else if(newMutacion.equals("De árbol")) 
+			_mutacion = new DeArbol();
 		else
 			System.out.println("ERROR SELECCIONANDO LA MUTACIóN");
 		
