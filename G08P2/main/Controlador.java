@@ -10,6 +10,7 @@ import fitness.Multiplexer11;
 import fitness.Multiplexer6;
 import generacion.Generacion;
 import generacion.Completa;
+import generacion.Creciente;
 import individuo.Individuo;
 import mutacion.DePermutacion;
 import mutacion.FuncionalSimple;
@@ -176,11 +177,9 @@ public class Controlador {
 	}
 	
 	//Establece la profundidad de los arboles
-	public void set_depth(int depth, String generacion)
+	public void set_depth(int depth)
 	{
 		this._depth = depth;
-		this.set_generacion(generacion);
-		this.reestart();
 	}
 	
 	//Establece el tipo de cruce
@@ -222,6 +221,8 @@ public class Controlador {
 	{
 		if (generacion.equals("Completa"))
 			_generacion = new Completa(_depth, _multiplexerSize);
+		else if (generacion.equals("Creciente"))
+			_generacion = new Creciente(_depth, _multiplexerSize);
 		
 		_poblacion.set_generacion(_generacion);
 	}

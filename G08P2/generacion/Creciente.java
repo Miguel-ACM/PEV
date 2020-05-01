@@ -5,14 +5,15 @@ import java.util.Stack;
 import individuo.Node;
 import individuo.NodeValue;
 
-public class Completa implements Generacion {
+public class Creciente implements Generacion {
 
 	private int depth;
 	private int multiplexerSize;
+	private float functionProbability = 0.5f;
 
-	public Completa(int depth, int multiplexerSize)
+	public Creciente(int maxDepth, int multiplexerSize)
 	{
-		this.depth = depth;
+		this.depth = maxDepth;
 		this.multiplexerSize = multiplexerSize;
 	}
 
@@ -23,7 +24,7 @@ public class Completa implements Generacion {
 		Node<NodeValue> root = new Node<NodeValue>(new NodeValue("randomFunction", multiplexerSize));
 		int curDepth = 1;
 		nextGen.add(root);
-		while (curDepth < depth - 1)
+		while (nextGen.size() > 0 && curDepth < depth - 1)
 		{
 			currentGen = nextGen;
 			nextGen = new Stack<>();
@@ -32,8 +33,14 @@ public class Completa implements Generacion {
 				Node<NodeValue> node = currentGen.pop();
 				for (int i = 0; i < node.getValue().getNumOperators(); i++)
 				{
-					Node<NodeValue> child = new Node<NodeValue>(new NodeValue("randomFunction", multiplexerSize));
-					nextGen.add(child);
+					Node<NodeValue> child;
+					if (Math.random() < functionProbability)
+						child = new Node<NodeValue>(new NodeValue("randomFunction", multiplexerSize));
+					else
+						child = new Node<NodeValue>(new NodeValue("randomTerminal", multiplexerSize));
+
+					if (child.getValue().isFunction()) //Solo hace falta agregar si es una funcion
+						nextGen.add(child);
 					node.addChild(child);
 				}
 			}
@@ -54,3 +61,4 @@ public class Completa implements Generacion {
 	}
 
 }
+

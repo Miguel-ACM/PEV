@@ -49,7 +49,7 @@ public class CruceSimple implements Cruce{
 		Node<NodeValue> genotipo2 = in2.getGenotipo();
 		Random rand = new Random();
 
-		if (Math.random() <= probDeep + 1)
+		if (Math.random() <= probDeep)
 		{
 			int genotipo1CutPoint = rand.nextInt(genotipo1.getNumChildren());
 			Node<NodeValue> genotipo1CutNode = genotipo1.getChild(genotipo1CutPoint);
@@ -67,7 +67,7 @@ public class CruceSimple implements Cruce{
 			List<Node<NodeValue>> functionsGenotipo1 = getFunctionNodes(genotipo1, -1);
 			int randValue = rand.nextInt(functionsGenotipo1.size());
 			Node<NodeValue> genotipo1CutNode = functionsGenotipo1.get(randValue);
-			int maxDepth = genotipo1CutNode.getDepthFromRoot() - 1;
+			int maxDepth = maxTreeDepth - genotipo1CutNode.getDepthFromRoot() - 1; //CUIDADO CON ESTO
 			Node<NodeValue> genotipo1CutNodeParent = genotipo1CutNode.getParent();
 			int genotipo1CutPoint = genotipo1CutNodeParent.getChildPosition(genotipo1CutNode);
 			genotipo1CutNode.unlink();
