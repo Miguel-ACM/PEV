@@ -374,7 +374,7 @@ public class RightPanel extends JPanel {
 		generacionSel = new JComboBox<String>();
 		generacionSel.addItem("Completa");
 		generacionSel.addItem("Creciente");
-		//generacionSel.addItem("Ramped and half");
+		generacionSel.addItem("Ramped and half");
 
 		generacionSel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

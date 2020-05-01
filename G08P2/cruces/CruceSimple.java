@@ -68,8 +68,8 @@ public class CruceSimple implements Cruce{
 			genotipo1.addChild(genotipo2CutNode, genotipo1CutPoint);
 			genotipo2.addChild(genotipo1CutNode, genotipo2CutPoint);
 		} else {
-			System.out.println(in1);
-			System.out.println(in2 + "---");
+			//System.out.println(in1);
+			//System.out.println(in2 + "---");
 			//Escoge un terminal aleatorio para cambiar
 			List<Node<NodeValue>> functionsGenotipo1 = getFunctionNodes(genotipo1, -1, -1);
 			int randValue;
@@ -79,13 +79,13 @@ public class CruceSimple implements Cruce{
 				randValue = 0;
 			Node<NodeValue> genotipo1CutNode = functionsGenotipo1.get(randValue);
 			int maxDepth = maxTreeDepth - genotipo1CutNode.getDepthFromRoot() + 1; //CUIDADO CON ESTO
-			System.out.println(maxTreeDepth + " " + genotipo1CutNode.getDepthFromRoot());
+			//System.out.println(maxTreeDepth + " " + genotipo1CutNode.getDepthFromRoot());
 			Node<NodeValue> genotipo1CutNodeParent = genotipo1CutNode.getParent();
 			int genotipo1CutPoint = -1;
 			if (genotipo1CutNodeParent != null)
 				genotipo1CutPoint = genotipo1CutNodeParent.getChildPosition(genotipo1CutNode);
 			genotipo1CutNode.unlink();
-			System.out.println("Cambiamos " + NodeValue.treeString(genotipo1CutNode));
+			//System.out.println("Cambiamos " + NodeValue.treeString(genotipo1CutNode));
 
 			
 			List<Node<NodeValue>> functionsGenotipo2 = getFunctionNodes(genotipo2, maxDepth, genotipo1CutNode.getDepth());
@@ -99,7 +99,7 @@ public class CruceSimple implements Cruce{
 			if (genotipo2CutNodeParent != null)
 				genotipo2CutPoint = genotipo2CutNodeParent.getChildPosition(genotipo2CutNode);
 			genotipo2CutNode.unlink();
-			System.out.println("por " + NodeValue.treeString(genotipo2CutNode));
+			//System.out.println("por " + NodeValue.treeString(genotipo2CutNode));
 
 			if (genotipo1CutNodeParent != null) // Solo se agrega si no es la raiz
 				genotipo1CutNodeParent.addChild(genotipo2CutNode, genotipo1CutPoint);
@@ -110,9 +110,9 @@ public class CruceSimple implements Cruce{
 				genotipo2CutNodeParent.addChild(genotipo1CutNode, genotipo2CutPoint);
 			else
 				in2.setGenotipo(genotipo1CutNode);
-			System.out.println(in1);
-			System.out.println(in2);
-			System.out.println("---------------");
+			//System.out.println(in1);
+			//System.out.println(in2);
+			//System.out.println("---------------");
 		}
 
 

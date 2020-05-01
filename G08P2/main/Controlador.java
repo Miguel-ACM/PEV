@@ -9,6 +9,7 @@ import fitness.Fitness;
 import fitness.Multiplexer11;
 import fitness.Multiplexer6;
 import generacion.Generacion;
+import generacion.RampedAndHalf;
 import generacion.Completa;
 import generacion.Creciente;
 import individuo.Individuo;
@@ -223,6 +224,8 @@ public class Controlador {
 			_generacion = new Completa(_depth, _multiplexerSize);
 		else if (generacion.equals("Creciente"))
 			_generacion = new Creciente(_depth, _multiplexerSize);
+		else if (generacion.equals("Ramped and half"))
+			_generacion = new RampedAndHalf(_depth, _multiplexerSize);
 		
 		_poblacion.set_generacion(_generacion);
 	}
