@@ -37,7 +37,7 @@ public class RightPanel extends JPanel {
 	private JButton iniciarBtn, finBtn;
 	private ImageIcon iniciarIcon, finIcon;
 	private JComboBox<String> funcionSel, selecSel, cruceSel, mutacionSel, generacionSel;
-	private JCheckBox eliteSel, estancamientoSel;
+	private JCheckBox eliteSel, estancamientoSel, ifAllowed;
 	private JSpinner pc, pe, pm, num_p, num_g, p_arit, porc_estancamiento, limit_estancamiento, depth;
 	private JLabel tipoCruce, porcentCruce, tipoMutacion, porcentMutacion, porcentElite, selElite, indiL, geneL;
 	private Controlador _c;
@@ -283,7 +283,7 @@ public class RightPanel extends JPanel {
 		
 		JLabel maxDepth = new JLabel("Max:");
 		depthPnl.add(maxDepth);
-		depth = new JSpinner(new SpinnerNumberModel(4, 2, 20, 1));
+		depth = new JSpinner(new SpinnerNumberModel(4, 2, 12, 1)); //Máximo de 12 porque los recursos utilizados crecen de forma exponencial
 		depthPnl.add(depth);
 		
 		depth.addChangeListener(new ChangeListener() {      
@@ -375,15 +375,22 @@ public class RightPanel extends JPanel {
 		generacionSel.addItem("Completa");
 		generacionSel.addItem("Creciente");
 		generacionSel.addItem("Ramped and half");
+		
+		JLabel useIf = new JLabel("Usa IF: ");
+		ifAllowed = new JCheckBox();
+		ifAllowed.setSelected(true);
 
 		generacionSel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				_c.set_generacion(generacionSel.getSelectedItem().toString());
+				_c.set_generacion(generacionSel.getSelectedItem().toString(), ifAllowed.isSelected());
 			}
 		});
 		generacionSel.setPreferredSize(new Dimension(150, 20));
 		generacionPnl.add(generacionSel);
-		generacionPnl.setBorder(BorderFactory.createTitledBorder("Función"));
+		generacionPnl.add(useIf);
+		generacionPnl.add(ifAllowed);
+		
+		generacionPnl.setBorder(BorderFactory.createTitledBorder("Generación de árboles"));
 	}
 
 
@@ -459,8 +466,8 @@ public class RightPanel extends JPanel {
 				// Función seleccionada
 				String funcion = (String)funcionSel.getSelectedItem();
 				_c.set_fitness(funcion);
-				
-				_c.set_generacion(generacionSel.getSelectedItem().toString());
+								
+				_c.set_generacion(generacionSel.getSelectedItem().toString(), ifAllowed.isSelected());
 
 				// Cruce seleccionado
 				String cruce = (String)cruceSel.getSelectedItem();
@@ -539,6 +546,8 @@ public class RightPanel extends JPanel {
 	{
 		this.iniciarBtn.setEnabled(enabled);
 		this.funcionSel.setEnabled(enabled);
+		this.ifAllowed.setEnabled(enabled);
+		this.generacionSel.setEnabled(enabled);
 	}
 
 }

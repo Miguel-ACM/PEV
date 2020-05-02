@@ -29,7 +29,7 @@ public class TerminalSimple implements Mutacion {
 		Random rand = new Random();
 		int randValue = rand.nextInt(terminals.size());
 		Node<NodeValue> toChange = terminals.get(randValue);
-		toChange.setValue(new NodeValue("randomTerminal", tree.getValue().getMultiplexerSize()));
+		toChange.setValue(new NodeValue("randomTerminal", tree.getValue().getMultiplexerSize(), i.get_ifAllowed()));
 		return tree;
 	}
 

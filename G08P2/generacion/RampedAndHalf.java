@@ -10,12 +10,14 @@ public class RampedAndHalf implements Generacion {
 	
 	private int multiplexerSize;
 	private int maxDepth;
+	private boolean ifAllowed;
 
 	
-	public RampedAndHalf(int maxDepth, int multiplexerSize)
+	public RampedAndHalf(int maxDepth, int multiplexerSize, boolean ifAllowed)
 	{
 		this.multiplexerSize = multiplexerSize;
 		this.maxDepth = maxDepth;
+		this.ifAllowed = ifAllowed;
 	}
 	
 	//Genera una poblacion entera (o un conjunto de individuos)
@@ -28,9 +30,9 @@ public class RampedAndHalf implements Generacion {
 		{
 			int depth = Math.min((int) 2 + (i / groupDivision), maxDepth);
 			if (i % groupDivision < subgroupDivision)
-				population.add(new Completa(depth, multiplexerSize).generate());
+				population.add(new Completa(depth, multiplexerSize, ifAllowed).generate());
 			else
-				population.add(new Creciente(depth, multiplexerSize).generate());
+				population.add(new Creciente(depth, multiplexerSize, ifAllowed).generate());
 		}
 
 		
@@ -40,6 +42,11 @@ public class RampedAndHalf implements Generacion {
 	@Override
 	public Node<NodeValue> generate() {
 		return null;
+	}
+	
+	@Override
+	public boolean get_ifAllowed() {
+		return ifAllowed;
 	}
 
 }

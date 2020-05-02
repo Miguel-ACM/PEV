@@ -6,14 +6,19 @@ import java.util.List;
 import java.util.Random;
 
 public class NodeValue {
-	public String[] functions = { "AND", "OR", "NOT", "IF" };
+	public String[] functions;
 	public String[] terminals;
 	private int multiplexerSize;
 	
 	public String value;
 	
 	//Tengo buena fe de que esto venga bien dado
-	public NodeValue(String value, int multiplexerSize) {
+	public NodeValue(String value, int multiplexerSize, boolean ifAllowed) {
+		if (ifAllowed)
+			functions = new String[]{"IF", "NOT", "OR", "AND"};
+		else
+			functions = new String[]{"NOT", "OR", "AND"};
+			
 		if (multiplexerSize == 11)
 		{
 			terminals = new String[]{ "A2", "A1", "A0", "D0", "D1", "D2", "D3", "D4", "D5", "D6", "D7" };

@@ -36,6 +36,7 @@ public class Controlador {
 	private Cruce _cruce;
 	private Mutacion _mutacion;
 	private Generacion _generacion;
+	private boolean _ifAllowed = true;
 	private float _mutationProb = 0.05f;
 	private float _cruceProb = 0.6f;
 	private float _elitismoPer = 0.3f;
@@ -84,7 +85,7 @@ public class Controlador {
 		_seleccion = new Ruleta();
 		_cruce = new CruceSimple(_depth); 
 		_mutacion = new TerminalSimple();
-		_generacion = new Completa(_depth, _multiplexerSize);
+		_generacion = new Completa(_depth, _multiplexerSize, _ifAllowed);
 		reestart();
 	}
 	
@@ -220,16 +221,18 @@ public class Controlador {
 	}
 	
 	//EStablece la probabilidad de cruce
-	public void set_generacion(String generacion)
+	public void set_generacion(String generacion, boolean ifAllowed)
 	{
+		this._ifAllowed = ifAllowed;
 		if (generacion.equals("Completa"))
-			_generacion = new Completa(_depth, _multiplexerSize);
+			_generacion = new Completa(_depth, _multiplexerSize, _ifAllowed);
 		else if (generacion.equals("Creciente"))
-			_generacion = new Creciente(_depth, _multiplexerSize);
+			_generacion = new Creciente(_depth, _multiplexerSize, _ifAllowed);
 		else if (generacion.equals("Ramped and half"))
-			_generacion = new RampedAndHalf(_depth, _multiplexerSize);
+			_generacion = new RampedAndHalf(_depth, _multiplexerSize, _ifAllowed);
 		
 		_poblacion.set_generacion(_generacion);
+		this.reestart();
 	}
 	
 	//EStablece el porcentaje de elite

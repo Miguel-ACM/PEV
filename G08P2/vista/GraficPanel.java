@@ -9,7 +9,6 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.PrintStream;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;

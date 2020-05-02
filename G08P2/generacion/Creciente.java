@@ -9,19 +9,21 @@ public class Creciente implements Generacion {
 
 	private int depth;
 	private int multiplexerSize;
-	private float functionProbability = 0.5f;
+	private float functionProbability = 0.7f;
+	private boolean ifAllowed;
 
-	public Creciente(int maxDepth, int multiplexerSize)
+	public Creciente(int maxDepth, int multiplexerSize, boolean ifAllowed)
 	{
 		this.depth = maxDepth;
 		this.multiplexerSize = multiplexerSize;
+		this.ifAllowed = ifAllowed;
 	}
 
 	@Override
 	public Node<NodeValue> generate() { 
 		Stack<Node<NodeValue>> currentGen;
 		Stack<Node<NodeValue>> nextGen = new Stack<>();
-		Node<NodeValue> root = new Node<NodeValue>(new NodeValue("randomFunction", multiplexerSize));
+		Node<NodeValue> root = new Node<NodeValue>(new NodeValue("randomFunction", multiplexerSize, ifAllowed));
 		int curDepth = 1;
 		nextGen.add(root);
 		while (nextGen.size() > 0 && curDepth < depth - 1)
@@ -35,9 +37,9 @@ public class Creciente implements Generacion {
 				{
 					Node<NodeValue> child;
 					if (Math.random() < functionProbability)
-						child = new Node<NodeValue>(new NodeValue("randomFunction", multiplexerSize));
+						child = new Node<NodeValue>(new NodeValue("randomFunction", multiplexerSize, ifAllowed));
 					else
-						child = new Node<NodeValue>(new NodeValue("randomTerminal", multiplexerSize));
+						child = new Node<NodeValue>(new NodeValue("randomTerminal", multiplexerSize, ifAllowed));
 
 					if (child.getValue().isFunction()) //Solo hace falta agregar si es una funcion
 						nextGen.add(child);
@@ -53,11 +55,16 @@ public class Creciente implements Generacion {
 			Node<NodeValue> node = nextGen.pop();
 			for (int i = 0; i < node.getValue().getNumOperators(); i++)
 			{
-				Node<NodeValue> child = new Node<NodeValue>(new NodeValue("randomTerminal", multiplexerSize));
+				Node<NodeValue> child = new Node<NodeValue>(new NodeValue("randomTerminal", multiplexerSize, ifAllowed));
 				node.addChild(child);
 			}
 		}
 		return root;
+	}
+	
+	@Override
+	public boolean get_ifAllowed() {
+		return ifAllowed;
 	}
 
 }
