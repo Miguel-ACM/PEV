@@ -27,19 +27,23 @@ public class DePermutacion implements Mutacion {
 				functions.add(node);
 		}
 
-		// elije una aleatoria
-		int take = (int) (Math.random() * functions.size());
-		
-		/* Permutamos la posición de la 3 hojas haciendo un desplazamiento a la izquierda
-		 * copiamos el nodo izquierdo 
-		 * los añadimos al final(derecha)
-		 * borramos el nodo[0]*/
-		
-		Node<NodeValue> toChange = functions.get(take);
-		Node<NodeValue> nodoAux = toChange.getChild(0);	
-		nodoAux.setParent(null);				
-		toChange.addChild(nodoAux);
-		toChange.removeChild(0);
+		/* si hay algún IF, si no,
+		 * devuelve el mismo árbol */
+		if(functions.size() != 0) {
+			// elije una aleatoria
+			int take = (int) (Math.random() * functions.size());
+			
+			/* Permutamos la posición de las 3 hojas haciendo un desplazamiento a la izquierda
+			 * hace una copia del nodo izquierdo 
+			 * la añade al final(derecha)
+			 * borramos el nodo[0](izquierda)*/
+			
+			Node<NodeValue> toChange = functions.get(take);
+			Node<NodeValue> nodoAux = toChange.getChild(0);	
+			nodoAux.setParent(null);				
+			toChange.addChild(nodoAux);
+			toChange.removeChild(0);
+		}
 		
 		return tree;
 	}

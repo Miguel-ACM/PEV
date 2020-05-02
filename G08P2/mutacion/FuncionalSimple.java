@@ -29,15 +29,21 @@ public class FuncionalSimple implements Mutacion{
 				
 		}
 		
-		// elije una aleatoria
-		int take = (int) (Math.random() * functions.size());
-		Node<NodeValue> toChange = functions.get(take);
+		/* si hay alguna de estas funciones, 
+		 * si no, devuelve el mismo árbol */
+		if(functions.size() != 0) {
+			// elije una aleatoria
+			int take = (int) (Math.random() * functions.size());
+			Node<NodeValue> toChange = functions.get(take);
+			
+			// se intercambia por la contraria
+			if(toChange.toString() == "AND") {
+				toChange.setValue(new NodeValue("OR" , i.getFitness()));
+			}else
+				toChange.setValue(new NodeValue("AND", i.getFitness()));
+		}
 		
-		// se intercambia por la contraria
-		if(toChange.toString() == "AND") {
-			toChange.setValue(new NodeValue("OR" , tree.getValue().getMultiplexerSize()));
-		}else
-			toChange.setValue(new NodeValue("AND", tree.getValue().getMultiplexerSize()));
+		
 			
 		return tree;
 	}
