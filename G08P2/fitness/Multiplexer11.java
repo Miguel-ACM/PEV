@@ -9,7 +9,6 @@ import individuo.NodeValue;
 
 public class Multiplexer11 implements Fitness{
 	boolean entries[] = {false, false, false, false, false, false, false, false, false, false, false};
-	Stack<Boolean> stackedValues;
 	
 	@Override
 	public int fitness(Individuo individuo) {
@@ -19,7 +18,6 @@ public class Multiplexer11 implements Fitness{
 		{
 			entries[i] = false;
 		}
-		stackedValues = new Stack<>();
 		int totalHits = 0;
 		
 		boolean notEnded = true;
@@ -98,26 +96,6 @@ public class Multiplexer11 implements Fitness{
 			default: return false; 
 		}
 	};
-	
-	private boolean executeIF(boolean a, boolean b, boolean c)
-	{
-		return a ? b : c;
-	}
-	
-	private boolean executeAND(boolean a, boolean b)
-	{
-		return a & b;
-	}
-	
-	private boolean executeOR(boolean a, boolean b)
-	{
-		return a | b;
-	}
-	
-	private boolean executeNOT(boolean a)
-	{
-		return !a;
-	}
 	
 	private boolean getRealValue()
 	{

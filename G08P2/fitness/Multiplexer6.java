@@ -9,8 +9,6 @@ import individuo.NodeValue;
 
 public class Multiplexer6 implements Fitness{
 	boolean entries[] = {false, false, false, false, false, false};
-	Stack<Boolean> stackedValues;
-	
 	@Override
 	public int fitness(Individuo individuo) {
 		Node<NodeValue> node = individuo.getGenotipo();
@@ -19,46 +17,46 @@ public class Multiplexer6 implements Fitness{
 		{
 			entries[i] = false;
 		}
-		stackedValues = new Stack<>();
 		int totalHits = 0;
 		
 		boolean notEnded = true;
 		while (notEnded)
 		{
-			Iterator<Node<NodeValue>> it = node.iteratorInOrder();
-			while (it.hasNext())
-			{
-				Node<NodeValue> currentNode = it.next();
-				if (currentNode.getValue().isFunction())
-				{
-					boolean operands[] = new boolean[3];
-					for (int i = currentNode.getValue().getNumOperators() - 1; i >= 0; i--)
-						operands[i] = stackedValues.pop();
-					switch (currentNode.getValue().value)
-					{
-					case "IF": stackedValues.add(executeIF(operands[0], operands[1], operands[2])); break;
-					case "AND": stackedValues.add(executeAND(operands[0], operands[1])); break;
-					case "OR": stackedValues.add(executeOR(operands[0], operands[1])); break;
-					default: stackedValues.add(executeNOT(operands[0])); break; //case NOT 
-					}
-				} else {
-					stackedValues.add(correspondingValue(currentNode.getValue()));
-					
-				}
-			}
-			boolean result = stackedValues.pop();
+			boolean result = evaluate(node);
 			if (result == getRealValue())
 			{
 				totalHits++;
 			}
-			/*for (int i = 0; i < 6; i++)
-			{
-				System.out.print(entries[i] ? 1 : 0);
-			}
-			System.out.println(" = " + getRealValue() + "\t( Obtuvo: " + result + ")");*/
 			notEnded = increase();
-		}		
+		}
 		return totalHits;
+	}
+	
+	private boolean evaluate(Node<NodeValue> node) {
+		NodeValue value = node.getValue();
+		if (!value.isFunction())
+			return correspondingValue(value);
+		if (value.value == "IF") {
+			if (evaluate(node.getChild(0)))
+				return evaluate(node.getChild(1));
+			else
+				return evaluate (node.getChild(2));
+		} 
+		else if (value.value == "AND") {
+			if (!evaluate(node.getChild(0))) //Evaluacion cortocircuitada
+				return false;
+			return evaluate(node.getChild(1));
+			
+		} 
+		else if (value.value == "OR") {
+			if (evaluate(node.getChild(0))) //Evaluacion cortocircuitada
+				return true;
+			return evaluate(node.getChild(1));
+		} 
+		else {
+			return ! evaluate(node.getChild(0));
+		}
+		
 	}
 	
 	//Va sumando 1 en binario
@@ -91,26 +89,6 @@ public class Multiplexer6 implements Fitness{
 		case "D0": return entries[5];
 		default: return false; //De hacerse bien no debería pasar
 		}
-	};
-	
-	private boolean executeIF(boolean a, boolean b, boolean c)
-	{
-		return a ? b : c;
-	}
-	
-	private boolean executeAND(boolean a, boolean b)
-	{
-		return a & b;
-	}
-	
-	private boolean executeOR(boolean a, boolean b)
-	{
-		return a | b;
-	}
-	
-	private boolean executeNOT(boolean a)
-	{
-		return !a;
 	}
 	
 	private boolean getRealValue()
