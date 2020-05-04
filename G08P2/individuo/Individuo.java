@@ -13,24 +13,18 @@ public class Individuo implements Comparable<Individuo> {
 	private Node<NodeValue> _genotipo;
 	private Fitness _fitness;
 	private Mutacion _mutacion;
-	private Generacion _generacion;
 	private int _fitnessValue;
 	private boolean _cachedFitness;
+	private boolean _ifAllowed;
 	
 
-	public Individuo(Fitness fitness, Mutacion mutacion, Generacion generacion) {
+	public Individuo(Fitness fitness, Mutacion mutacion, Node<NodeValue> genotipo, boolean ifAllowed) {
 		_fitness = fitness;
-		//_size = fitness.getSize();
 		_mutacion = mutacion;
-		_generacion = generacion;
 		_cachedFitness = false;
-		_fitnessValue = 0;
-		this.initialize();
-	}
-	
-	private void initialize()
-	{
-		_genotipo = _generacion.generate();
+		_fitnessValue = -1;
+		_ifAllowed = ifAllowed;
+		_genotipo = genotipo;
 	}
 
 	public Individuo mutacion(float probabilidad) {
@@ -67,8 +61,6 @@ public class Individuo implements Comparable<Individuo> {
 	
 	public Individuo clone()
 	{
-		Individuo in = new Individuo(this._fitness, this._mutacion, this._generacion);
-		boolean ifAllowed = _generacion.get_ifAllowed();
 		Node<NodeValue> node;
 		NodeValue value;
 		Iterator<Node<NodeValue>> it = _genotipo.iteratorLevelOrder();
@@ -78,7 +70,7 @@ public class Individuo implements Comparable<Individuo> {
 		}
 		node = it.next();
 		value = node.getValue();
-		Node<NodeValue> newTree = new Node<NodeValue>(new NodeValue(value.toString(), value.getMultiplexerSize(), ifAllowed)); 
+		Node<NodeValue> newTree = new Node<NodeValue>(new NodeValue(value.toString(), value.getMultiplexerSize(), _ifAllowed)); 
 		
 		parents.set(0, newTree);
 		while (it.hasNext())
@@ -86,11 +78,12 @@ public class Individuo implements Comparable<Individuo> {
 			node = it.next();
 			value = node.getValue();
 			
-			Node<NodeValue> newNode = new Node<NodeValue>(new NodeValue(value.toString(), value.getMultiplexerSize(), ifAllowed));
+			Node<NodeValue> newNode = new Node<NodeValue>(new NodeValue(value.toString(), value.getMultiplexerSize(), _ifAllowed));
 			int depth = node.getDepthFromRoot();
 			parents.get(depth - 2).addChild(newNode);
 			parents.set(depth - 1, newNode);
 		}
+		Individuo in = new Individuo(this._fitness, this._mutacion, newTree, _ifAllowed);
 		in.setGenotipo(newTree);
 		if (this._cachedFitness) //El fitness es igual al de este, no necesitamos recalcularlo
 			in.setFitnessValue(this._fitnessValue);
@@ -117,7 +110,7 @@ public class Individuo implements Comparable<Individuo> {
 	}
 	
 	public boolean get_ifAllowed() {
-		return _generacion.get_ifAllowed();
+		return _ifAllowed;
 	}
 
 }

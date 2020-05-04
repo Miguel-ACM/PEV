@@ -9,6 +9,8 @@ import cruces.Cruce;
 import fitness.Fitness;
 import generacion.Generacion;
 import individuo.Individuo;
+import individuo.Node;
+import individuo.NodeValue;
 import mutacion.Mutacion;
 import seleccion.Seleccion;
 
@@ -44,11 +46,12 @@ public class Poblacion {
 		_numCruces = 0;
 		_numMutaciones = 0;
 		_generacion = generacion;
-		while (size > 0)
+		List<Node<NodeValue>> genotipos = _generacion.generatePopulation(_size);
+		boolean ifAllowed = _generacion.get_ifAllowed();
+		for (int j = 0; j < _size; j++)
 		{
-			Individuo i = new Individuo(_fitness, _mutacion, _generacion);
+			Individuo i = new Individuo(_fitness, _mutacion, genotipos.get(j), ifAllowed);
 			_individuos.add(i);
-			size--;
 		}
 		this.sort();
 		_bestIndividuo = this.getBest_individuo();
@@ -337,9 +340,12 @@ public class Poblacion {
 	//Reinicia el reseteoPercent de la poblacion
 	public void reseteaPoblacion(float reseteoPercent) {
 		int numReset = (int) (reseteoPercent * this._size);
+		boolean ifAllowed = _generacion.get_ifAllowed();
+		List<Node<NodeValue>> genotipos = _generacion.generatePopulation(numReset);
+		
 		for (int i = 0; i < numReset; i++)
 		{
-			_individuos.set(i, new Individuo(this._fitness, this._mutacion, this._generacion));
+			_individuos.set(i, new Individuo(this._fitness, this._mutacion, genotipos.get(i), ifAllowed));
 		}
 
 		this.sort();
