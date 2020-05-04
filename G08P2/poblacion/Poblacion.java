@@ -62,7 +62,7 @@ public class Poblacion {
 		int j = 0;
 		for (Individuo i : _individuos)
 		{
-			retValue += j + " | " + System.identityHashCode(i.getGenotipo()) + " " + i;
+			retValue += j + " | " + i;
 			retValue += " (Fitness: " + i.getFitness();
 			retValue += ")" + "\n";
 			j++;

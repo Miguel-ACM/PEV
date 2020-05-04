@@ -1,8 +1,5 @@
 package fitness;
 
-import java.util.Iterator;
-import java.util.Stack;
-
 import individuo.Individuo;
 import individuo.Node;
 import individuo.NodeValue;
