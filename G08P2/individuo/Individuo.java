@@ -40,7 +40,7 @@ public class Individuo implements Comparable<Individuo> {
 	public int getFitness() {
 		if (_cachedFitness)
 			return _fitnessValue;
-		_fitnessValue = _fitness.fitness(this);
+		_fitnessValue = _fitness.fitness(this, null); //TODO
 		_cachedFitness = true;
 		return _fitnessValue;
 	}

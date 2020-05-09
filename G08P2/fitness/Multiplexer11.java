@@ -1,5 +1,7 @@
 package fitness;
 
+import java.util.List;
+
 import individuo.Individuo;
 import individuo.Node;
 import individuo.NodeValue;
@@ -8,7 +10,7 @@ public class Multiplexer11 implements Fitness{
 	boolean entries[] = {false, false, false, false, false, false, false, false, false, false, false};
 	
 	@Override
-	public int fitness(Individuo individuo) {
+	public int fitness(Individuo individuo, List<Individuo> generacion) {
 		Node<NodeValue> node = individuo.getGenotipo();
 		//inicializacion
 		for (int i = 0; i < entries.length; i++)

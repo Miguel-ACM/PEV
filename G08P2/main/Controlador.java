@@ -16,6 +16,7 @@ import individuo.Individuo;
 import mutacion.DeArbol;
 import mutacion.DePermutacion;
 import mutacion.FuncionalSimple;
+import mutacion.FuncionalTerminal;
 import mutacion.Mutacion;
 import mutacion.TerminalSimple;
 import poblacion.Poblacion;
@@ -202,6 +203,8 @@ public class Controlador {
 			_mutacion = new TerminalSimple();
 		else if(newMutacion.equals("Funcional simple"))
 			_mutacion = new FuncionalSimple();
+		else if(newMutacion.equals("Funcional/Terminal"))
+			_mutacion = new FuncionalTerminal();
 		else if(newMutacion.equals("De permutación")) 
 			_mutacion = new DePermutacion();
 		else if(newMutacion.equals("De árbol")) 
