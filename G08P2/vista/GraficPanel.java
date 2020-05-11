@@ -40,30 +40,32 @@ public class GraficPanel extends JPanel{
 
 	public  GraficPanel(PanelPrincipal pp, Controlador c) {
 		crearMejorPnl();
-
-		this.mejorPnl.setPreferredSize(new Dimension(400, 75));
+		this.setBackground(Color.DARK_GRAY);
+		
+		this.mejorPnl.setPreferredSize(new Dimension(1000, 75));
+		
 		this.mejorPnl.setBorder(BorderFactory.createTitledBorder("Mejor individuo"));
-
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
 
 		constraints.gridx = 0;
-		constraints.gridy = 0;
-		constraints.gridheight = 1;
-		constraints.gridwidth = 1;
-		//constraints.anchor = GridBagConstraints.NORTH;
-		//constraints.fill = GridBagConstraints.VERTICAL;
+		constraints.gridy = 1;
+		constraints.anchor = GridBagConstraints.NORTH;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		mejorPnl.setBackground(Color.gray);
 		this.add(mejorPnl, constraints);
 		
 		constraints.gridx = 0;
-		constraints.gridy = 1;
-		constraints.gridheight = 1;
-		constraints.gridwidth = 1;
+		constraints.gridy = 4;
+		constraints.anchor = GridBagConstraints.CENTER;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		
 		consolePnl = new JPanel();
 		consolePnl.setBorder(BorderFactory.createTitledBorder("Salida de consola"));
-		consolePnl.setPreferredSize(new Dimension(400,105));
+		consolePnl.setPreferredSize(new Dimension(1015,95));
 		consolePnl.setLayout(new BorderLayout());
 		console = new JTextArea("");
+		//console.setBackground(Color.gray);
 		console.setEditable(false);
 		PrintStream printStream = new PrintStream(new customTextArea(console));
 		System.setOut(printStream);
@@ -72,42 +74,42 @@ public class GraficPanel extends JPanel{
 		consoleScrollPnl.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		consoleScrollPnl.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		//consoleScrollPnl.setBounds(50, 30, 300, 50);//consoleScrollPnl.add(console);
+		consolePnl.setBackground(Color.gray);
 		consolePnl.add(consoleScrollPnl);
 		this.add(consolePnl, constraints);
 		
-		constraints.gridx = 1;
-		constraints.gridy = 0;
-		constraints.gridheight = 2;
-		constraints.gridwidth = 1;
-
+		constraints.gridx = 0;
+		constraints.gridy = 2;
+	//	constraints.gridheight = 3;
+	//	constraints.gridwidth = 1;
+		constraints.anchor = GridBagConstraints.CENTER;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
 		DefaultXYDataset datasetPresion = new DefaultXYDataset();	
-		presionChart = ChartFactory.createXYLineChart(null, "Generaciones", "Presión selectiva", datasetPresion, PlotOrientation.VERTICAL,
+		presionChart = ChartFactory.createXYLineChart("PRESIÓN SELECTIVA", "Generaciones", "Presión", datasetPresion, PlotOrientation.VERTICAL,
 													  false, false, false);
-		//chart.setBorderPaint(Color.MAGENTA);
-		presionChart.setBackgroundPaint(Color.orange);
-		presionChart.getXYPlot().setBackgroundPaint(Color.black);
+		presionChart.setBackgroundPaint(Color.gray);
+		presionChart.getXYPlot().setBackgroundPaint(Color.darkGray);
 
 		presionChartPnl = new ChartPanel(presionChart);
-		presionChartPnl.setPreferredSize(new Dimension(400, 180));
+		presionChartPnl.setPreferredSize(new Dimension(1015, 140));
 				
 		this.add(presionChartPnl, constraints);
 		
 		DefaultXYDataset datasetMulti = new DefaultXYDataset();	
 		chart = ChartFactory.createXYLineChart("EVOLUCIÓN", "Generaciones", "Fitness", datasetMulti);
-		//chart.setBorderPaint(Color.MAGENTA);
 		chart.setBackgroundPaint(Color.orange);
-		chart.getXYPlot().setBackgroundPaint(Color.black);
+		chart.getXYPlot().setBackgroundPaint(Color.darkGray);
 
 		panel = new ChartPanel(chart);
-		panel.setPreferredSize(new Dimension(400, 500));
+		panel.setPreferredSize(new Dimension(1015, 400));
 		ventana = new JFrame();
 		ventana.getContentPane().add(panel);
 
 		constraints.gridx = 0;
-		constraints.gridy = 2;
-		constraints.gridheight = 1;
-		constraints.gridwidth = 2;
-		constraints.anchor = GridBagConstraints.SOUTH;
+		constraints.gridy = 3;
+	//	constraints.gridheight = 1;
+	//	constraints.gridwidth = 4;
+		constraints.anchor = GridBagConstraints.CENTER;
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		this.add(panel, constraints);
 	}
@@ -121,6 +123,7 @@ public class GraficPanel extends JPanel{
 		//	this.mejorPnl.setBorder(BorderFactory.createTitledBorder("Mejor individuo"));
 
 		this.individuo = new JTextArea(1,6);
+		//this.individuo.setBackground(Color.LIGHT_GRAY);
 		this.individuo.setEditable(false);
 		
 		this.mejorScrollPnl = new JScrollPane(individuo);
@@ -140,7 +143,6 @@ public class GraficPanel extends JPanel{
 
 		double gener [] = new double[points.best_fitness.size()];
 		
-
 		for(int i =0; i< gener.length; i++) {			
 			gener[i] = i;
 		}
@@ -149,6 +151,7 @@ public class GraficPanel extends JPanel{
 		datasetMulti.addSeries("Mejor absoluto", new double[][] {gener,points.toArray(points.best_overall_fitness)});
 		datasetMulti.addSeries("Media", new double[][] {gener,points.toArray(points.mean_fitness)});
 		datasetMulti.addSeries("Peor", new double[][] {gener,points.toArray(points.worst_fitness)});
+		
 		
 		chart.getXYPlot().setDataset(datasetMulti);
 
