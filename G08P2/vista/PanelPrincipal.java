@@ -27,7 +27,7 @@ public class PanelPrincipal extends JFrame{
 		rp = new RightPanel(this, c, gp);
 		rp.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 			
-		frame.getContentPane().add(BorderLayout.WEST, gp);
+		frame.getContentPane().add(BorderLayout.CENTER, gp);
 		frame.getContentPane().add(BorderLayout.EAST, rp);		
 		frame.setVisible(true);
 	}
