@@ -4,6 +4,7 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -59,7 +60,7 @@ public class RightPanel extends JPanel {
 		crea_elitePnl();
 		crea_estancamientoPnl();
 
-		//this.setBackground(Color.gray);
+		this.setBackground(Color.lightGray);
 		this.setLayout(new GridBagLayout());
 
 		GridBagConstraints constraints = new GridBagConstraints();
@@ -69,7 +70,7 @@ public class RightPanel extends JPanel {
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		constraints.anchor = GridBagConstraints.WEST;
-
+		funcionPnl.setBackground(Color.lightGray);
 		this.add(funcionPnl, constraints);
 		
 		constraints.gridx = 0;
@@ -77,7 +78,7 @@ public class RightPanel extends JPanel {
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		constraints.anchor = GridBagConstraints.WEST;
-
+		generacionPnl.setBackground(Color.lightGray);
 		this.add(generacionPnl, constraints);
 		
 		constraints.gridx = 0;
@@ -85,6 +86,7 @@ public class RightPanel extends JPanel {
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		constraints.anchor = GridBagConstraints.WEST;
+		depthPnl.setBackground(Color.lightGray);
 		this.add(depthPnl, constraints);
 
 		constraints.gridx = 0;
@@ -92,6 +94,7 @@ public class RightPanel extends JPanel {
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		constraints.anchor = GridBagConstraints.WEST;
+		seleccionPnl.setBackground(Color.lightGray);
 		this.add(seleccionPnl, constraints);
 
 		constraints.gridx = 0;
@@ -99,6 +102,7 @@ public class RightPanel extends JPanel {
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		constraints.anchor = GridBagConstraints.WEST;
+		crucePnl.setBackground(Color.lightGray);
 		this.add(crucePnl, constraints);
 
 		constraints.gridx = 0;
@@ -106,6 +110,7 @@ public class RightPanel extends JPanel {
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		constraints.anchor = GridBagConstraints.WEST;
+		mutacionPnl.setBackground(Color.lightGray);
 		this.add(mutacionPnl, constraints);
 
 		constraints.gridx = 0;
@@ -113,6 +118,7 @@ public class RightPanel extends JPanel {
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		constraints.anchor = GridBagConstraints.WEST;
+		elitePnl.setBackground(Color.lightGray);
 		this.add(elitePnl, constraints);
 
 		constraints.gridx = 0;
@@ -120,6 +126,7 @@ public class RightPanel extends JPanel {
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		constraints.anchor = GridBagConstraints.WEST;
+		estancamientoPnl.setBackground(Color.lightGray);
 		this.add(estancamientoPnl, constraints);
 
 		constraints.gridx = 0;
@@ -127,22 +134,23 @@ public class RightPanel extends JPanel {
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		constraints.anchor = GridBagConstraints.WEST;
+		poblacionPnl.setBackground(Color.lightGray);
 		this.add(poblacionPnl, constraints);
 		
 		constraints.gridx = 0;
 		constraints.gridy = 10;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
-
-		constraints.anchor = GridBagConstraints.EAST;
+		constraints.anchor = GridBagConstraints.CENTER;
+		representacionPnl.setBackground(Color.lightGray);
 		this.add(representacionPnl, constraints);
 		
 		constraints.gridx = 0;
 		constraints.gridy = 11;
-		constraints.gridheight = 1;
+		constraints.gridheight = 2;
 		constraints.gridwidth = 2;
-
-		constraints.anchor = GridBagConstraints.EAST;
+		constraints.anchor = GridBagConstraints.CENTER;
+		progressPnl.setBackground(Color.lightGray);
 		this.add(progressPnl, constraints);
 		
 		_c.set_rightPanel(this);
@@ -151,7 +159,7 @@ public class RightPanel extends JPanel {
 
 	private void crea_elitePnl() {
 		elitePnl = new JPanel();
-		elitePnl.setPreferredSize(new Dimension(250, 50));
+		elitePnl.setPreferredSize(new Dimension(220, 50));
 		elitePnl.setLayout(new GridLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
 		selElite = new JLabel("SI/NO");
@@ -184,19 +192,17 @@ public class RightPanel extends JPanel {
 		constraints.gridheight = 1;
 		constraints.gridwidth = 3;
 
-
-
 		elitePnl.setBorder(BorderFactory.createTitledBorder("Élite"));
 	}
 
 	private void crea_mutacionPnl() {
 		mutacionPnl = new JPanel();
-		//mutacionPnl.setPreferredSize();
+		mutacionPnl.setPreferredSize(new Dimension(220, 70));
 		mutacionPnl.setLayout(new GridLayout(2, 2));
 		GridBagConstraints constraints = new GridBagConstraints();
 		porcentMutacion = new JLabel("%");
 
-		pm = new JSpinner(new SpinnerNumberModel(0.05f, 0f, 1f, 0.01f));
+		pm = new JSpinner(new SpinnerNumberModel(0.2f, 0f, 1f, 0.01f));
 		pm.setMinimumSize(new Dimension(100, 1));
 		pm.setPreferredSize(new Dimension(100, 25));
 		mutacionSel = new JComboBox<String>();
@@ -206,15 +212,8 @@ public class RightPanel extends JPanel {
 		mutacionSel.addItem("Funcional/Terminal");
 		mutacionSel.addItem("De permutación");
 		mutacionSel.addItem("De árbol");
-		//mutacionSel.addItem("Inserción");
-		//mutacionSel.addItem("Desplazamiento");
-		//mutacionSel.addItem("Corte");
-		//mutacionSel.addItem("Heurística");
-		//mutacionSel.addItem("Heurística/Inserción");
-		//mutacionSel.addItem("Heurística/Desplazamiento");
-
-		
-		mutacionSel.setPreferredSize(new Dimension(150, 20));
+	
+		mutacionSel.setPreferredSize(new Dimension(160, 20));
 		tipoMutacion = new JLabel("Tipo");
 		mutacionPnl.add(tipoMutacion);
 		mutacionPnl.add(mutacionSel);
@@ -241,6 +240,7 @@ public class RightPanel extends JPanel {
 	/////////////////   SECCIÓN CRUCE   ////////////////////
 	private void crea_crucePnl() {
 		crucePnl = new JPanel();
+		crucePnl.setPreferredSize(new Dimension(220, 70));
 		p_arit = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
 		p_arit.setEnabled(false);
 		crucePnl.setLayout(new GridLayout(2, 2));
@@ -250,8 +250,6 @@ public class RightPanel extends JPanel {
 		crucePnl.add(tipoCruce);
 		cruceSel = new JComboBox<String>();
 		cruceSel.addItem("Cruce Simple");
-
-		cruceSel.setPreferredSize(new Dimension(150, 20));
 		crucePnl.add(cruceSel);
 
 		porcentCruce = new JLabel("%");
@@ -269,17 +267,15 @@ public class RightPanel extends JPanel {
 		constraints.gridy = 1;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
-		//constraints.weightx = 1;
-		//constraints.weighty = 1; //
 		constraints.anchor = GridBagConstraints.CENTER;
 
 		crucePnl.setBorder(BorderFactory.createTitledBorder("Cruce"));
-
 	}
 	
-	/////////////////   SECCIÓN CRUCE   ////////////////////
+
 	private void crea_depthPnl() {
 		depthPnl = new JPanel();
+		depthPnl.setPreferredSize(new Dimension(220, 45));
 		depthPnl.setLayout(new GridLayout(1, 1));
 		
 		JLabel maxDepth = new JLabel("Max:");
@@ -301,7 +297,6 @@ public class RightPanel extends JPanel {
 
 	private void crea_seleccionPnl() {
 		seleccionPnl = new JPanel();
-		seleccionPnl.setPreferredSize(new Dimension(200, 55));
 		selecSel = new JComboBox<String>();
 		selecSel.addItem("Ruleta");
 		selecSel.addItem("Torneo determinístico");
@@ -316,7 +311,7 @@ public class RightPanel extends JPanel {
 				_c.set_seleccion(selecSel.getSelectedItem().toString());
 			}
 		});
-		//	selecSel.setPreferredSize(new Dimension(150, 20));
+		selecSel.setPreferredSize(new Dimension(200, 20));
 		seleccionPnl.add(selecSel);
 		seleccionPnl.setBorder(BorderFactory.createTitledBorder("Selección"));
 
@@ -324,13 +319,13 @@ public class RightPanel extends JPanel {
 
 	private void crea_poblacionPnl() {
 		poblacionPnl = new JPanel();
-		poblacionPnl.setPreferredSize(new Dimension(200, 60));
+		poblacionPnl.setPreferredSize(new Dimension(220, 60));
 		poblacionPnl.setLayout(new GridLayout(2, 2));
 		GridBagConstraints constraints = new GridBagConstraints();
 
 		indiL = new JLabel("Población");
 		poblacionPnl.add(indiL);
-		num_p = new JSpinner(new SpinnerNumberModel(100, 1, 100000, 1));;
+		num_p = new JSpinner(new SpinnerNumberModel(200, 1, 100000, 1));;
 		poblacionPnl.add(num_p);
 
 		geneL = new JLabel("Generaciones");
@@ -349,14 +344,17 @@ public class RightPanel extends JPanel {
 	}
 	
 	private void crea_progressBarPnl() {
-		progressPnl = new JPanel();
+		progressPnl = new JPanel();	
 		_progressBar = new JProgressBar();
+		_progressBar.setPreferredSize(new Dimension(290, 10));
+		_progressBar.setBackground(Color.lightGray);
 		progressPnl.add(_progressBar);
 	}
 
-	private void crea_funcionPnl() {
+	private void crea_funcionPnl() {		
 		funcionPnl = new JPanel();
 		funcionSel = new JComboBox<String>();
+		GridBagConstraints constraints = new GridBagConstraints();
 		funcionSel.addItem("Multiplexor 6");
 		funcionSel.addItem("Multiplexor 11");
 
@@ -365,13 +363,16 @@ public class RightPanel extends JPanel {
 				_c.set_fitness(funcionSel.getSelectedItem().toString());
 			}
 		});
-		funcionSel.setPreferredSize(new Dimension(150, 20));
+		
+		funcionSel.setPreferredSize(new Dimension(200, 20));
+		constraints.anchor = GridBagConstraints.WEST;
 		funcionPnl.add(funcionSel);
-		funcionPnl.setBorder(BorderFactory.createTitledBorder("Función"));
+		funcionPnl.setBorder(BorderFactory.createTitledBorder("Problema"));
 	}
 	
 	private void crea_generacionPnl() {
 		generacionPnl = new JPanel();
+		generacionPnl.setPreferredSize(new Dimension(220, 60));
 		generacionSel = new JComboBox<String>();
 		generacionSel.addItem("Completa");
 		generacionSel.addItem("Creciente");
@@ -386,7 +387,7 @@ public class RightPanel extends JPanel {
 				_c.set_generacion(generacionSel.getSelectedItem().toString(), ifAllowed.isSelected());
 			}
 		});
-		generacionSel.setPreferredSize(new Dimension(150, 20));
+	
 		generacionPnl.add(generacionSel);
 		generacionPnl.add(useIf);
 		generacionPnl.add(ifAllowed);
@@ -398,7 +399,7 @@ public class RightPanel extends JPanel {
 	/////////////////   AJUSTES ESTANCAMIENTO  ////////////////////
 	private void crea_estancamientoPnl() {
 		estancamientoPnl = new JPanel();
-		estancamientoPnl.setPreferredSize(new Dimension(200, 90));
+		estancamientoPnl.setPreferredSize(new Dimension(220, 90));
 		estancamientoPnl.setLayout(new GridLayout(3, 2));
 
 		JLabel limite_Lbl = new JLabel("Generaciones");
@@ -441,12 +442,12 @@ public class RightPanel extends JPanel {
 
 	/////////////////   BOTONES RUN Y EXIT  ////////////////////
 	private void crea_representacionPnl() {
-
 		representacionPnl = new JPanel();
-
+		
 		iniciarIcon = createImage("rn.png");
 		iniciarBtn = new JButton("Run", iniciarIcon);
-		//// si se pulsa Run
+		
+	//// si se pulsa Run
 		iniciarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				double porcenMutacion = (double) pm.getValue();
@@ -464,18 +465,18 @@ public class RightPanel extends JPanel {
 				int poblacion =  (int) num_p.getValue();
 				_c.set_size(poblacion);			
 
-				// Función seleccionada
+			// Función seleccionada
 				String funcion = (String)funcionSel.getSelectedItem();
 				_c.set_fitness(funcion);
 								
 				_c.set_generacion(generacionSel.getSelectedItem().toString(), ifAllowed.isSelected());
 
-				// Cruce seleccionado
+			// Cruce seleccionado
 				String cruce = (String)cruceSel.getSelectedItem();
 				_c.set_cruce(cruce);
 
 
-				// Tipo de selección
+			// Tipo de selección
 				String seleccion = (String)selecSel.getSelectedItem();
 				_c.set_seleccion(seleccion);
 
@@ -494,14 +495,13 @@ public class RightPanel extends JPanel {
 				
 			}
 		});
-		representacionPnl.add(iniciarBtn, BorderLayout.EAST);
+		representacionPnl.add(iniciarBtn, BorderLayout.WEST);
 
 		finIcon = createImage("ex.png");
 		finBtn = new JButton("Exit", finIcon);
 		RightPanel _this = this;
 
-
-		//// si se pulsa Exit
+	//// si se pulsa Exit
 		finBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int opcion = JOptionPane.showConfirmDialog(_this,
@@ -514,7 +514,6 @@ public class RightPanel extends JPanel {
 		});
 
 		representacionPnl.add(finBtn, BorderLayout.EAST);
-
 		representacionPnl.setBorder(BorderFactory.createTitledBorder("Representación"));
 
 	}

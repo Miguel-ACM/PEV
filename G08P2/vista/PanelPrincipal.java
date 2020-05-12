@@ -3,10 +3,12 @@
  */
 package vista;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.BorderLayout;
+import java.awt.Color;
+
 import main.Controlador;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 
 public class PanelPrincipal extends JFrame{
@@ -15,30 +17,19 @@ public class PanelPrincipal extends JFrame{
 	private GraficPanel gp;
 
 	public PanelPrincipal(Controlador c) {
-		super("PROGRAMACION EVOLUTIVA");
-
-		gp = new GraficPanel(this, c);		
+		JFrame frame = new JFrame("PROGRAMACIÓN EVOLUTIVA P3");
+		frame.getContentPane().setBackground(Color.DARK_GRAY);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(1350, 770);
+			
+		gp = new GraficPanel(this, c);
+		gp.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 		rp = new RightPanel(this, c, gp);
-
-		this.setLayout(new GridBagLayout());	
-		GridBagConstraints constraints = new GridBagConstraints();
-
-		constraints.gridx = 0;
-		constraints.gridy = 0;
-		constraints.gridheight = 1;
-		constraints.gridwidth = 1;		
-		this.add(gp, constraints);
-
-		constraints.gridx = 4;
-		constraints.gridy = 0;
-		constraints.gridheight = 1;
-		constraints.gridwidth = 1;
-		this.add(rp, constraints);
-
-		this.setSize(1400, 900);	
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
-		this.setVisible(true);
-
+		rp.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+			
+		frame.getContentPane().add(BorderLayout.CENTER, gp);
+		frame.getContentPane().add(BorderLayout.EAST, rp);		
+		frame.setVisible(true);
 	}
 
 
