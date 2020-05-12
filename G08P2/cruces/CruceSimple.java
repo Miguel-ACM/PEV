@@ -110,9 +110,6 @@ public class CruceSimple implements Cruce{
 				genotipo2CutNodeParent.addChild(genotipo1CutNode, genotipo2CutPoint);
 			else
 				in2.setGenotipo(genotipo1CutNode);
-			//System.out.println(in1);
-			//System.out.println(in2);
-			//System.out.println("---------------");
 		}
 
 

@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -38,9 +39,10 @@ public class GraficPanel extends JPanel{
 	private JTextArea console;
 	private JScrollPane consoleScrollPnl, mejorScrollPnl;
 
-	public  GraficPanel(PanelPrincipal pp, Controlador c) {
+	public GraficPanel(PanelPrincipal pp, Controlador c) {
 		crearMejorPnl();
-		this.setBackground(Color.DARK_GRAY);
+		Color color = UIManager.getColor ( "Panel.background" );
+		//this.setBackground(Color.DARK_GRAY);
 		
 		this.mejorPnl.setPreferredSize(new Dimension(1000, 75));
 		
@@ -52,7 +54,7 @@ public class GraficPanel extends JPanel{
 		constraints.gridy = 1;
 		constraints.anchor = GridBagConstraints.NORTH;
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-		mejorPnl.setBackground(Color.gray);
+		//mejorPnl.setBackground(Color.gray);
 		this.add(mejorPnl, constraints);
 		
 		constraints.gridx = 0;
@@ -74,7 +76,7 @@ public class GraficPanel extends JPanel{
 		consoleScrollPnl.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		consoleScrollPnl.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		//consoleScrollPnl.setBounds(50, 30, 300, 50);//consoleScrollPnl.add(console);
-		consolePnl.setBackground(Color.gray);
+		//consolePnl.setBackground(Color.gray);
 		consolePnl.add(consoleScrollPnl);
 		this.add(consolePnl, constraints);
 		
@@ -87,17 +89,20 @@ public class GraficPanel extends JPanel{
 		DefaultXYDataset datasetPresion = new DefaultXYDataset();	
 		presionChart = ChartFactory.createXYLineChart("PRESIÓN SELECTIVA", "Generaciones", "Presión", datasetPresion, PlotOrientation.VERTICAL,
 													  false, false, false);
-		presionChart.setBackgroundPaint(Color.gray);
+		presionChart.setBackgroundPaint(color);
 		presionChart.getXYPlot().setBackgroundPaint(Color.darkGray);
 
-		presionChartPnl = new ChartPanel(presionChart);
-		presionChartPnl.setPreferredSize(new Dimension(1015, 140));
+		presionChartPnl = new ChartPanel(presionChart) {
+			public Dimension getPreferredSize() {
+				return new Dimension(1015, 140);
+			}
+        };
 				
 		this.add(presionChartPnl, constraints);
 		
 		DefaultXYDataset datasetMulti = new DefaultXYDataset();	
 		chart = ChartFactory.createXYLineChart("EVOLUCIÓN", "Generaciones", "Fitness", datasetMulti);
-		chart.setBackgroundPaint(Color.orange);
+		chart.setBackgroundPaint(color);
 		chart.getXYPlot().setBackgroundPaint(Color.darkGray);
 
 		panel = new ChartPanel(chart);

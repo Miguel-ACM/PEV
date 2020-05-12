@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -34,10 +35,10 @@ import main.Controlador.Points;
 
 public class RightPanel extends JPanel {
 	private static final long serialVersionUID = 7722523962189028691L;
-	private JPanel representacionPnl, generacionPnl, estancamientoPnl, crucePnl, funcionPnl, depthPnl, poblacionPnl, seleccionPnl, mutacionPnl, elitePnl, progressPnl;
+	private JPanel representacionPnl, generacionPnl, estancamientoPnl, bloatingPnl, crucePnl, funcionPnl, depthPnl, poblacionPnl, seleccionPnl, mutacionPnl, elitePnl, progressPnl;
 	private JButton iniciarBtn, finBtn;
 	private ImageIcon iniciarIcon, finIcon;
-	private JComboBox<String> funcionSel, selecSel, cruceSel, mutacionSel, generacionSel;
+	private JComboBox<String> funcionSel, selecSel, cruceSel, mutacionSel, generacionSel, bloatingSel;
 	private JCheckBox eliteSel, estancamientoSel, ifAllowed;
 	private JSpinner pc, pe, pm, num_p, num_g, p_arit, porc_estancamiento, limit_estancamiento, depth;
 	private JLabel tipoCruce, porcentCruce, tipoMutacion, porcentMutacion, porcentElite, selElite, indiL, geneL;
@@ -55,12 +56,12 @@ public class RightPanel extends JPanel {
 		crea_depthPnl();
 		crea_poblacionPnl();
 		crea_crucePnl();
+		crea_bloatingPnl();
 		crea_seleccionPnl();
 		crea_mutacionPnl();
 		crea_elitePnl();
 		crea_estancamientoPnl();
 
-		this.setBackground(Color.lightGray);
 		this.setLayout(new GridBagLayout());
 
 		GridBagConstraints constraints = new GridBagConstraints();
@@ -69,88 +70,84 @@ public class RightPanel extends JPanel {
 		constraints.gridy = 1;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
-		constraints.anchor = GridBagConstraints.WEST;
-		funcionPnl.setBackground(Color.lightGray);
+		constraints.anchor = GridBagConstraints.CENTER;
 		this.add(funcionPnl, constraints);
 		
 		constraints.gridx = 0;
 		constraints.gridy = 2;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
-		constraints.anchor = GridBagConstraints.WEST;
-		generacionPnl.setBackground(Color.lightGray);
+		constraints.anchor = GridBagConstraints.CENTER;
 		this.add(generacionPnl, constraints);
 		
 		constraints.gridx = 0;
 		constraints.gridy = 3;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
-		constraints.anchor = GridBagConstraints.WEST;
-		depthPnl.setBackground(Color.lightGray);
+		constraints.anchor = GridBagConstraints.CENTER;
 		this.add(depthPnl, constraints);
-
+		
 		constraints.gridx = 0;
 		constraints.gridy = 4;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
-		constraints.anchor = GridBagConstraints.WEST;
-		seleccionPnl.setBackground(Color.lightGray);
-		this.add(seleccionPnl, constraints);
+		constraints.anchor = GridBagConstraints.CENTER;
+		this.add(bloatingPnl, constraints);
 
 		constraints.gridx = 0;
 		constraints.gridy = 5;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
-		constraints.anchor = GridBagConstraints.WEST;
-		crucePnl.setBackground(Color.lightGray);
-		this.add(crucePnl, constraints);
+		constraints.anchor = GridBagConstraints.CENTER;
+		this.add(seleccionPnl, constraints);
 
 		constraints.gridx = 0;
 		constraints.gridy = 6;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
-		constraints.anchor = GridBagConstraints.WEST;
-		mutacionPnl.setBackground(Color.lightGray);
-		this.add(mutacionPnl, constraints);
+		constraints.anchor = GridBagConstraints.CENTER;
+		this.add(crucePnl, constraints);
 
 		constraints.gridx = 0;
 		constraints.gridy = 7;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
-		constraints.anchor = GridBagConstraints.WEST;
-		elitePnl.setBackground(Color.lightGray);
-		this.add(elitePnl, constraints);
+		constraints.anchor = GridBagConstraints.CENTER;
+		this.add(mutacionPnl, constraints);
 
 		constraints.gridx = 0;
 		constraints.gridy = 8;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
-		constraints.anchor = GridBagConstraints.WEST;
-		estancamientoPnl.setBackground(Color.lightGray);
-		this.add(estancamientoPnl, constraints);
+		constraints.anchor = GridBagConstraints.CENTER;
+		this.add(elitePnl, constraints);
 
 		constraints.gridx = 0;
 		constraints.gridy = 9;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
-		constraints.anchor = GridBagConstraints.WEST;
-		poblacionPnl.setBackground(Color.lightGray);
-		this.add(poblacionPnl, constraints);
-		
+		constraints.anchor = GridBagConstraints.CENTER;
+		this.add(estancamientoPnl, constraints);
+
 		constraints.gridx = 0;
 		constraints.gridy = 10;
 		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		constraints.anchor = GridBagConstraints.CENTER;
-		representacionPnl.setBackground(Color.lightGray);
-		this.add(representacionPnl, constraints);
+		this.add(poblacionPnl, constraints);
 		
 		constraints.gridx = 0;
 		constraints.gridy = 11;
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		constraints.anchor = GridBagConstraints.CENTER;
+		this.add(representacionPnl, constraints);
+		
+		constraints.gridx = 0;
+		constraints.gridy = 12;
 		constraints.gridheight = 2;
 		constraints.gridwidth = 2;
 		constraints.anchor = GridBagConstraints.CENTER;
-		progressPnl.setBackground(Color.lightGray);
 		this.add(progressPnl, constraints);
 		
 		_c.set_rightPanel(this);
@@ -168,7 +165,7 @@ public class RightPanel extends JPanel {
 		selElite.setPreferredSize(new Dimension(100, 20));
 
 		porcentElite = new JLabel("%");
-		pe = new JSpinner(new SpinnerNumberModel(0.02f, 0f, 1f, 0.01f));
+		pe = new JSpinner(new SpinnerNumberModel(0.005f, 0f, 1f, 0.01f));
 		pe.setMinimumSize(new Dimension(200, 1));
 		pe.setPreferredSize(new Dimension(200, 25));
 		eliteSel = new JCheckBox();
@@ -316,6 +313,23 @@ public class RightPanel extends JPanel {
 		seleccionPnl.setBorder(BorderFactory.createTitledBorder("Selección"));
 
 	}
+	
+	private void crea_bloatingPnl() {
+		bloatingPnl = new JPanel();
+		bloatingSel = new JComboBox<String>();
+		bloatingSel.addItem("Ninguna");
+		bloatingSel.addItem("Tarpeian");
+		bloatingSel.addItem("Penalización bien fundamentada");
+		
+		bloatingSel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				_c.set_bloating(bloatingSel.getSelectedItem().toString());
+			}
+		});
+		bloatingSel.setPreferredSize(new Dimension(200, 20));
+		bloatingPnl.add(bloatingSel);
+		bloatingPnl.setBorder(BorderFactory.createTitledBorder("Reducción del bloating"));
+	}
 
 	private void crea_poblacionPnl() {
 		poblacionPnl = new JPanel();
@@ -346,8 +360,7 @@ public class RightPanel extends JPanel {
 	private void crea_progressBarPnl() {
 		progressPnl = new JPanel();	
 		_progressBar = new JProgressBar();
-		_progressBar.setPreferredSize(new Dimension(290, 10));
-		_progressBar.setBackground(Color.lightGray);
+		_progressBar.setPreferredSize(new Dimension(290, 15));
 		progressPnl.add(_progressBar);
 	}
 
@@ -424,7 +437,6 @@ public class RightPanel extends JPanel {
 					limit_estancamiento.setEnabled(false);
 				}
 				_c.set_estancamiento(estancamientoSel.isSelected(), (float) (double) porc_estancamiento.getValue(), (int) limit_estancamiento.getValue());
-
 			}
 		});
 
@@ -465,7 +477,9 @@ public class RightPanel extends JPanel {
 				int poblacion =  (int) num_p.getValue();
 				_c.set_size(poblacion);			
 
-			// Función seleccionada
+				_c.set_bloating(bloatingSel.getSelectedItem().toString());
+				
+			// Problema seleccionado
 				String funcion = (String)funcionSel.getSelectedItem();
 				_c.set_fitness(funcion);
 								
@@ -526,6 +540,10 @@ public class RightPanel extends JPanel {
 		if (url != null) {
 			image = new ImageIcon(url);
 		}
+		
+		Image imgResize = image.getImage() ;  
+		Image newimg = imgResize.getScaledInstance( 70, 70,  java.awt.Image.SCALE_SMOOTH ) ;  
+		image = new ImageIcon( newimg );
 		return image;
 	}
 	
@@ -533,12 +551,14 @@ public class RightPanel extends JPanel {
 	{
 		_progressBar.setMinimum(0);
 		_progressBar.setMaximum(maximum);
+		_progressBar.setStringPainted(true);
 		_progressBar.setValue(0);
 	}
 	
 	public void setProgress(int progress)
 	{		
 		this._progressBar.setValue(progress);
+		this._progressBar.setString("Gen " + progress + " de " + this._progressBar.getMaximum());
 		this._progressBar.repaint();
 	}
 	

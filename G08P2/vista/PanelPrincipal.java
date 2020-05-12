@@ -18,9 +18,8 @@ public class PanelPrincipal extends JFrame{
 
 	public PanelPrincipal(Controlador c) {
 		JFrame frame = new JFrame("PROGRAMACIÓN EVOLUTIVA P3");
-		frame.getContentPane().setBackground(Color.DARK_GRAY);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1350, 770);
+		frame.setSize(1350, 830);
 			
 		gp = new GraficPanel(this, c);
 		gp.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));

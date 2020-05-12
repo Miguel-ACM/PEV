@@ -1,7 +1,5 @@
 package fitness;
 
-import java.util.List;
-
 import bloating.Bloating;
 import individuo.Individuo;
 import individuo.Node;
@@ -9,7 +7,7 @@ import individuo.NodeValue;
 
 public class Multiplexer implements Fitness{
 	private boolean entries[] = {false, false, false, false, false, false, false, false, false, false, false};
-	private Bloating bloating;
+	private Bloating _bloating;
 	private int multiplexerSize;
 	
 	public Multiplexer(int multiplexerSize, Bloating bloating) {
@@ -23,15 +21,14 @@ public class Multiplexer implements Fitness{
 			entries = new boolean[]{false, false, false, false, false, false};
 			this.multiplexerSize = 6;
 		}
-		this.bloating = bloating;
+		this._bloating = bloating;
 	}
 	
-	public Multiplexer(int multiplexerSize) {
+	/*public Multiplexer(int multiplexerSize) {
 		this(multiplexerSize, null);
-	}
-	
-	@Override
-	public int fitness(Individuo individuo, List<Individuo> generacion) {
+	}*/
+	private int calculateFitness(Individuo individuo, boolean withBloating)
+	{
 		Node<NodeValue> node = individuo.getGenotipo();
 		//inicializacion
 		for (int i = 0; i < entries.length; i++)
@@ -53,16 +50,27 @@ public class Multiplexer implements Fitness{
 		}
 		
 		//Aplica la penalización para el bloating
-		if (bloating != null && generacion != null)
+		if (withBloating && _bloating != null)
 		{
-			return (int) bloating.getFitnessWithBloating(individuo, totalHits, generacion);
+			return (int) _bloating.getFitnessWithBloating(individuo, totalHits);
 		}
+		
 		return totalHits;
 	}
 	
 	@Override
+	public int fitnessWithBloating(Individuo individuo) {
+		return calculateFitness(individuo, true);
+	}
+	
+	@Override
 	public int fitness(Individuo individuo) {
-		return fitness(individuo, null);
+		return calculateFitness(individuo, false);
+	}
+	
+	@Override
+	public boolean hasBloating() {
+		return _bloating != null;
 	}
 	
 	private boolean evaluate(Node<NodeValue> node) {

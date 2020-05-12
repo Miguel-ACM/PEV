@@ -9,7 +9,7 @@ public class Creciente implements Generacion {
 
 	private int depth;
 	private int multiplexerSize;
-	private float functionProbability = 0.7f;
+	private float functionProbability = 0.8f;
 	private boolean ifAllowed;
 
 	public Creciente(int maxDepth, int multiplexerSize, boolean ifAllowed)

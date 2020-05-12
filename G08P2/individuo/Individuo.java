@@ -32,7 +32,7 @@ public class Individuo implements Comparable<Individuo> {
 		_genotipo = genotipo;
 	}
 
-	public Individuo mutacion(float probabilidad) {
+	public Individuo mutacion() {
 		_mutacion.muta(this);
 		_cachedFitness = false;
 		_cachedDepth = false;
@@ -43,10 +43,10 @@ public class Individuo implements Comparable<Individuo> {
 		return NodeValue.treeString(_genotipo);
 	}
 
-	public int getFitness(List<Individuo> generacion) {
+	public int getFitnessWithBloating() {
 		if (_cachedFitness && _hasFitnessBloating)
 			return _fitnessValue;
-		_fitnessValue = _fitness.fitness(this, generacion);
+		_fitnessValue = _fitness.fitnessWithBloating(this);
 		_cachedFitness = true;
 		_hasFitnessBloating = true;
 		return _fitnessValue;
@@ -86,7 +86,10 @@ public class Individuo implements Comparable<Individuo> {
 		NodeValue value;
 		Iterator<Node<NodeValue>> it = _genotipo.iteratorLevelOrder();
 		List<Node<NodeValue>> parents = new ArrayList<>();
-		for (int i = 0; i < _genotipo.getDepth(); i++) {
+		int depthGenotipo = _genotipo.getDepth();//this.get_depth(); //TODO LA PROFUNDIDAD SE CALCULA MAL EN ALGUN MOMENTO
+		//if (depthGenotipo == _genotipo.getDepth())
+			//System.out.println(depthGenotipo + "|" + _genotipo.getDepth());
+		for (int i = 0; i < depthGenotipo; i++) {
 			parents.add(null);
 		}
 		node = it.next();
@@ -146,6 +149,15 @@ public class Individuo implements Comparable<Individuo> {
 			_depthValue = this._genotipo.getDepth();
 			return _depthValue;
 		}
+	}
+	
+	//Elimina el fitness cacheado
+	public void invalidateFitnessCache() {
+		this._cachedFitness = false;
+	}
+	
+	public void invalidateDepthCache() {
+		this._cachedDepth = false;
 	}
 
 }

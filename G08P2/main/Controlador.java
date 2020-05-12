@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bloating.Bloating;
+import bloating.Fundamentada;
+import bloating.Tarpeian;
 import cruces.Cruce;
 import cruces.CruceSimple;
 import fitness.Fitness;
@@ -84,7 +86,7 @@ public class Controlador {
 	public Controlador()
 	{
 		_bloating = null;
-		_fitness = new Multiplexer(_multiplexerSize);
+		_fitness = new Multiplexer(_multiplexerSize, _bloating);
 		_seleccion = new Ruleta();
 		_cruce = new CruceSimple(_depth); 
 		_mutacion = new TerminalSimple();
@@ -97,6 +99,7 @@ public class Controlador {
 	{
 		_points = new Points();
 		_poblacion = new Poblacion(_size, _fitness, _mutacion, _generacion);
+		_poblacion.set_bloating(_bloating);
 		_poblacion.set_cruce(_cruce);
 		_poblacion.set_seleccion(_seleccion);
 		_poblacion.set_mutationProbability(_mutationProb);
@@ -154,7 +157,14 @@ public class Controlador {
 	}
 	
 	public void set_bloating(String bloating) {
-		_bloating = null; //TODO
+		if (bloating.equals("Ninguna"))
+			_bloating = null;
+		else if (bloating.equals("Tarpeian"))
+			_bloating = new Tarpeian();
+		else if (bloating.equals("Penalización bien fundamentada"))
+			_bloating = new Fundamentada();
+		else
+			_bloating = null;
 	}
 	
 	//Establece la funcion de fitness

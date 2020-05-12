@@ -60,5 +60,4 @@ public class Completa implements Generacion {
 	public boolean get_ifAllowed() {
 		return ifAllowed;
 	}
-
 }

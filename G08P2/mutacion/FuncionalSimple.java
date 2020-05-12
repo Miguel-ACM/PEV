@@ -38,9 +38,9 @@ public class FuncionalSimple implements Mutacion{
 			
 			// se intercambia por la contraria
 			if(toChange.toString() == "AND") {
-				toChange.setValue(new NodeValue("OR" , i.getFitness(), i.get_ifAllowed()));
+				toChange.setValue(new NodeValue("OR" , tree.getValue().getMultiplexerSize(), i.get_ifAllowed()));
 			}else
-				toChange.setValue(new NodeValue("AND", i.getFitness(), i.get_ifAllowed()));
+				toChange.setValue(new NodeValue("AND", tree.getValue().getMultiplexerSize(), i.get_ifAllowed()));
 		}
 		
 		

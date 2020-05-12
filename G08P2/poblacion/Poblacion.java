@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import bloating.Bloating;
 import cruces.Cruce;
 import fitness.Fitness;
 import generacion.Generacion;
@@ -24,7 +25,8 @@ public class Poblacion {
 	private Seleccion _seleccion;
 	private Cruce _cruce;
 	private Mutacion _mutacion;
-	private Generacion _generacion; 
+	private Generacion _generacion;
+	private Bloating _bloating;
 	private int _numCruces;
 	private int _numMutaciones;
 	
@@ -46,6 +48,7 @@ public class Poblacion {
 		_numCruces = 0;
 		_numMutaciones = 0;
 		_generacion = generacion;
+		_bloating = null;
 		List<Node<NodeValue>> genotipos = _generacion.generatePopulation(_size);
 		boolean ifAllowed = _generacion.get_ifAllowed();
 		for (int j = 0; j < _size; j++)
@@ -81,7 +84,7 @@ public class Poblacion {
 		{		
 			if (Math.random() <= _mutationProbability)
 			{
-				_individuos.set(i, _individuos.get(i).mutacion(_mutationProbability));
+				_individuos.set(i, _individuos.get(i).mutacion());
 				_numMutaciones++;
 			}
 		}
@@ -175,26 +178,31 @@ public class Poblacion {
 		//No se hace nada si no hay seleccion
 		if (_seleccion != null)
 		{
-			for (Individuo in : this._individuos)
+			if (_bloating != null)
 			{
-				in.getFitness(_individuos); //cacheamos el fitness con bloating, para que lo tenga en cuenta en la seleccion
+				_bloating.calculateParams(_individuos);
 			}
+			for (Individuo in: _individuos)
+			{
+				in.getFitnessWithBloating(); //cacheamos el fitness con bloating, para que lo tenga en cuenta en la seleccion
+			}
+			this.sort(); //Ordenamos con la penalización para que se coga el mínimo y máximo bien
 			List<Individuo> nuevosIndividuos = new ArrayList<Individuo>();
 			List<Integer> seleccion = _seleccion.selecciona(this._size, this, maximiza);
-			//System.out.println(seleccion);
 			for (Integer i : seleccion)
 			{
-				nuevosIndividuos.add(_individuos.get(i).clone());
+				Individuo newInd = _individuos.get(i).clone();
+				nuevosIndividuos.add(newInd);
+				newInd.invalidateFitnessCache();
 			}
 			this._individuos = nuevosIndividuos;
 		}
 		//Cruce
-		//_numCruces += this.cruza();
+		_numCruces += this.cruza();
 
 		//Mutacion
 		this.mutacion();
 		this.sort(); //Ordenamos segun el fitness de nuevo
-		
 
 		//Elite
 		int k = 0;
@@ -266,8 +274,7 @@ public class Poblacion {
 		//TODO Cambiar la mutacion a la poblacion, supongo
 	}
 	
-	public Mutacion get_mutacion(Mutacion m)
-	{
+	public Mutacion get_mutacion(Mutacion m){
 		return _mutacion;
 	}
 	
@@ -281,6 +288,10 @@ public class Poblacion {
 	
 	public void set_seleccion(Seleccion seleccion) {
 		this._seleccion = seleccion;
+	}
+	
+	public void set_bloating(Bloating bloating) {
+		this._bloating = bloating;
 	}
 	
 	public Seleccion get_seleccion() {
