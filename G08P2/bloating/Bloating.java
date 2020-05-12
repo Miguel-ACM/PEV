@@ -7,5 +7,5 @@ import individuo.Node;
 import individuo.NodeValue;
 
 public interface Bloating {
-	public float getFitnessWithBloating(Node<NodeValue> genotipo, int realFitness, List<Individuo> generacion);
+	public float getFitnessWithBloating(Individuo individuo, int realFitness, List<Individuo> generacion);
 }

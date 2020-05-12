@@ -175,6 +175,10 @@ public class Poblacion {
 		//No se hace nada si no hay seleccion
 		if (_seleccion != null)
 		{
+			for (Individuo in : this._individuos)
+			{
+				in.getFitness(_individuos); //cacheamos el fitness con bloating, para que lo tenga en cuenta en la seleccion
+			}
 			List<Individuo> nuevosIndividuos = new ArrayList<Individuo>();
 			List<Integer> seleccion = _seleccion.selecciona(this._size, this, maximiza);
 			//System.out.println(seleccion);

@@ -3,11 +3,11 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
+import bloating.Bloating;
 import cruces.Cruce;
 import cruces.CruceSimple;
 import fitness.Fitness;
-import fitness.Multiplexer11;
-import fitness.Multiplexer6;
+import fitness.Multiplexer;
 import generacion.Generacion;
 import generacion.RampedAndHalf;
 import generacion.Completa;
@@ -37,6 +37,7 @@ public class Controlador {
 	private Cruce _cruce;
 	private Mutacion _mutacion;
 	private Generacion _generacion;
+	private Bloating _bloating;
 	private boolean _ifAllowed = true;
 	private float _mutationProb = 0.05f;
 	private float _cruceProb = 0.6f;
@@ -82,7 +83,8 @@ public class Controlador {
 	
 	public Controlador()
 	{
-		_fitness = new Multiplexer6();
+		_bloating = null;
+		_fitness = new Multiplexer(_multiplexerSize);
 		_seleccion = new Ruleta();
 		_cruce = new CruceSimple(_depth); 
 		_mutacion = new TerminalSimple();
@@ -151,19 +153,22 @@ public class Controlador {
 		System.out.println("Poblacion final:\n" + _poblacion);
 	}
 	
+	public void set_bloating(String bloating) {
+		_bloating = null; //TODO
+	}
+	
 	//Establece la funcion de fitness
-	//n solo sirve para la funcion 4
 	public void set_fitness(String multiplexerSize)
 	{
 		if (multiplexerSize.equals("Multiplexor 6"))
 		{
 			_multiplexerSize = 6;
-			_fitness = new Multiplexer6();
+			_fitness = new Multiplexer(6, _bloating);
 		}
 		else if (multiplexerSize.equals("Multiplexor 11"))
 		{
 			_multiplexerSize = 11;
-			_fitness = new Multiplexer11();
+			_fitness = new Multiplexer(11, _bloating);
 		}
 	}
 	
