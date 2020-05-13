@@ -7,6 +7,8 @@ import bloating.Bloating;
 import bloating.Fundamentada;
 import bloating.Tarpeian;
 import cruces.Cruce;
+import cruces.CruceMixto;
+import cruces.CruceProfundo;
 import cruces.CruceSimple;
 import fitness.Fitness;
 import fitness.Multiplexer;
@@ -20,6 +22,7 @@ import mutacion.DePermutacion;
 import mutacion.FuncionalSimple;
 import mutacion.FuncionalTerminal;
 import mutacion.Mutacion;
+import mutacion.TerminalMultiple;
 import mutacion.TerminalSimple;
 import poblacion.Poblacion;
 import seleccion.Ranking;
@@ -204,8 +207,12 @@ public class Controlador {
 	//Establece el tipo de cruce
 	public void set_cruce(String newCruce)
 	{
-		if (newCruce.equals("Cruce Simple"))
+		if (newCruce.equals("Cruce Mixto"))
+			_cruce = new CruceMixto(_depth);
+		else if (newCruce.equals("Cruce Simple"))
 			_cruce = new CruceSimple(_depth);
+		else if (newCruce.equals("Cruce Profundo"))
+			_cruce = new CruceProfundo();
 		else
 			System.out.println("ERROR SELECCIONANDO EL CRUCE");
 		_poblacion.set_cruce(_cruce);
@@ -216,6 +223,8 @@ public class Controlador {
 	{
 		if (newMutacion.equals("Terminal simple"))
 			_mutacion = new TerminalSimple();
+		else if (newMutacion.equals("Terminal múltiple"))
+			_mutacion = new TerminalMultiple();
 		else if(newMutacion.equals("Funcional simple"))
 			_mutacion = new FuncionalSimple();
 		else if(newMutacion.equals("Funcional/Terminal"))

@@ -27,7 +27,7 @@ public class Multiplexer implements Fitness{
 	/*public Multiplexer(int multiplexerSize) {
 		this(multiplexerSize, null);
 	}*/
-	private int calculateFitness(Individuo individuo, boolean withBloating)
+	private float calculateFitness(Individuo individuo, boolean withBloating)
 	{
 		Node<NodeValue> node = individuo.getGenotipo();
 		//inicializacion
@@ -52,19 +52,19 @@ public class Multiplexer implements Fitness{
 		//Aplica la penalización para el bloating
 		if (withBloating && _bloating != null)
 		{
-			return (int) _bloating.getFitnessWithBloating(individuo, totalHits);
+			return _bloating.getFitnessWithBloating(individuo, totalHits);
 		}
 		
 		return totalHits;
 	}
 	
 	@Override
-	public int fitnessWithBloating(Individuo individuo) {
+	public float fitnessWithBloating(Individuo individuo) {
 		return calculateFitness(individuo, true);
 	}
 	
 	@Override
-	public int fitness(Individuo individuo) {
+	public float fitness(Individuo individuo) {
 		return calculateFitness(individuo, false);
 	}
 	

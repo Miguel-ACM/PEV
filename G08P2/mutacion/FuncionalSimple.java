@@ -13,7 +13,7 @@ import individuo.NodeValue;
 
 public class FuncionalSimple implements Mutacion{
 	
-	public Node<NodeValue> muta(Individuo i) {
+	public void muta(Individuo i) {
 		Node<NodeValue> tree = i.getGenotipo();
 		Iterator<Node<NodeValue>> it = tree.iteratorInOrder();
 		List<Node<NodeValue>> functions = new ArrayList<>();
@@ -42,10 +42,6 @@ public class FuncionalSimple implements Mutacion{
 			}else
 				toChange.setValue(new NodeValue("AND", tree.getValue().getMultiplexerSize(), i.get_ifAllowed()));
 		}
-		
-		
-			
-		return tree;
 	}
 
 }

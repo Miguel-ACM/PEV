@@ -205,6 +205,7 @@ public class RightPanel extends JPanel {
 		mutacionSel = new JComboBox<String>();
 
 		mutacionSel.addItem("Terminal simple");
+		mutacionSel.addItem("Terminal múltiple");
 		mutacionSel.addItem("Funcional simple");
 		mutacionSel.addItem("Funcional/Terminal");
 		mutacionSel.addItem("De permutación");
@@ -246,7 +247,10 @@ public class RightPanel extends JPanel {
 		tipoCruce = new JLabel("Tipo");
 		crucePnl.add(tipoCruce);
 		cruceSel = new JComboBox<String>();
+		cruceSel.addItem("Cruce Mixto");
 		cruceSel.addItem("Cruce Simple");
+		cruceSel.addItem("Cruce Profundo");
+
 		crucePnl.add(cruceSel);
 
 		porcentCruce = new JLabel("%");

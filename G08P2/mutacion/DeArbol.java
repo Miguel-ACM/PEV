@@ -11,7 +11,7 @@ import generacion.Completa;
 public class DeArbol implements Mutacion{
 
 
-	public Node<NodeValue> muta(Individuo i) {
+	public void muta(Individuo i) {
 		Node<NodeValue> tree = i.getGenotipo();
 		
 		/* selección aleatoria de una rama hija*/
@@ -24,8 +24,6 @@ public class DeArbol implements Mutacion{
 		/* se sustituye el subárbol generado por la rama seleccionada */
 		tree.removeChild(take);
 		tree.addChild(nodoAux, take);
-	
-		return tree;
 	}
 
 }

@@ -9,7 +9,7 @@ import individuo.Individuo;
 import individuo.Node;
 import individuo.NodeValue;
 
-public class TerminalSimple implements Mutacion {
+public class TerminalMultiple implements Mutacion {
 	
 	@Override
 	public void muta(Individuo i) {
@@ -27,9 +27,15 @@ public class TerminalSimple implements Mutacion {
 		}
 		//Escoge un terminal aleatorio para cambiar
 		Random rand = new Random();
-		int randValue = rand.nextInt(terminals.size());
-		Node<NodeValue> toChange = terminals.get(randValue);
-		toChange.setValue(new NodeValue("randomTerminal", tree.getValue().getMultiplexerSize(), i.get_ifAllowed()));
+		int numChanges = rand.nextInt(terminals.size()) + 1;
+		while (numChanges > 0)
+		{
+			int randValue = rand.nextInt(terminals.size());
+			Node<NodeValue> toChange = terminals.get(randValue);
+			terminals.remove(randValue);
+			toChange.setValue(new NodeValue("randomTerminal", tree.getValue().getMultiplexerSize(), i.get_ifAllowed()));
+			numChanges--;
+		}
 	}
 
 }

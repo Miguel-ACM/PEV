@@ -5,26 +5,44 @@ import java.util.List;
 import individuo.Individuo;
 
 public class Fundamentada implements Bloating {
-	
-	private float averagePop = 0f;
-	private float probLowFitness = 0.25f;
+	private float k;
 	
 	public float getFitnessWithBloating(Individuo individuo, int realFitness)
-	{		
-		if (individuo.get_depth() > averagePop && Math.random() < probLowFitness)
-		{
-			return realFitness / 5;
-		}
-		return realFitness;
+	{
+		return realFitness + k * individuo.get_depth();
 	}
 
 	@Override
 	public void calculateParams(List<Individuo> generacion) {
-		averagePop = 0;
+		float meanDepth = 0;
+		float meanFitness = 0;
+		//calculamos la media de cada uno, lo necesitaremos para calcula covarianza y varianza
 		for (Individuo i: generacion)
 		{
-			averagePop += i.get_depth();
+			meanDepth += i.get_depth();
+			meanFitness += i.getFitness();
 		}
-		averagePop = averagePop / generacion.size();
+		int popSize = generacion.size();
+		meanDepth = meanDepth / popSize;
+		meanFitness = meanFitness / popSize;
+		
+		float covarianza = 0;
+		float varianza = 0;
+		for (Individuo i: generacion)
+		{
+			float tmp = i.get_depth() - meanDepth;
+
+			covarianza += tmp * (i.getFitness() - meanFitness);
+			varianza += tmp * tmp;
+		}
+		System.out.println("MEAN DEPTH: " + meanDepth);
+		covarianza = covarianza / popSize;
+		varianza = varianza / popSize;
+		if (varianza != 0)
+			k = covarianza / varianza;
+		else
+			k = 0;
+
 	}
+	
 }

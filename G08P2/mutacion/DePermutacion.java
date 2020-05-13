@@ -13,7 +13,7 @@ import individuo.NodeValue;
 
 public class DePermutacion implements Mutacion {
 
-	public Node<NodeValue> muta(Individuo i) {
+	public void muta(Individuo i) {
 		Node<NodeValue> tree = i.getGenotipo();
 		Iterator<Node<NodeValue>> it = tree.iteratorInOrder();
 		List<Node<NodeValue>> functions = new ArrayList<>();
@@ -44,8 +44,6 @@ public class DePermutacion implements Mutacion {
 			toChange.addChild(nodoAux);
 			toChange.removeChild(0);
 		}
-		
-		return tree;
 	}
 
 }

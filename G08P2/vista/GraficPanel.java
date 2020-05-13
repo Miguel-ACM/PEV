@@ -139,7 +139,7 @@ public class GraficPanel extends JPanel{
 
 	public void actualizar_mejor(Points points) {	
 		String fenotipo = points.mejor.getFenotipo(); //TODO Solo un text area con todos los enteros
-		individuo.setText("Mejor fitness: " + Integer.toString(points.mejor.getFitness()) +
+		individuo.setText("Mejor fitness: " + Float.toString(points.mejor.getFitness()) +
 						  "\nMejor fenotipo: " + fenotipo);
 	}
 

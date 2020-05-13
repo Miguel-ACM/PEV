@@ -193,7 +193,7 @@ public class Poblacion {
 			{
 				Individuo newInd = _individuos.get(i).clone();
 				nuevosIndividuos.add(newInd);
-				newInd.invalidateFitnessCache();
+				newInd.invalidateFitnessCache(); //borramos la cache del fitness, para que lo calcule sin bloating despues de la seleccion
 			}
 			this._individuos = nuevosIndividuos;
 		}
