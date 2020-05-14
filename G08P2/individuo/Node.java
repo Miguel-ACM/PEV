@@ -127,6 +127,21 @@ public class Node<T> {
     		return this.parent.getDepthFromRoot() + 1;
     }
     
+    public int getNumNodes()
+    {
+    	int numChildren = this.getNumChildren();
+    	if (numChildren > 0)
+    	{
+    		int subtreeTotal = 0;
+    		for (int i = 0; i < numChildren; i++)
+    		{
+    			subtreeTotal += this.getChild(i).getNumNodes();
+    		}
+    		return subtreeTotal + 1;
+    	}
+    	else return 1;
+    }
+    
     public void unlink()
     {
 		Node<T> parent = this.getParent();

@@ -5,7 +5,7 @@ import java.util.List;
 import individuo.Individuo;
 
 
-public class Tarpeian implements Bloating {
+public class TarpeianDepth implements Bloating {
 	private float averagePop = 0f;
 	private float probLowFitness = 0.25f;
 	
@@ -13,7 +13,7 @@ public class Tarpeian implements Bloating {
 	{		
 		if (individuo.get_depth() > averagePop && Math.random() < probLowFitness)
 		{
-			return realFitness / 5;
+			return realFitness / 10; //Fitness muy pequeño
 		}
 		return realFitness;
 	}

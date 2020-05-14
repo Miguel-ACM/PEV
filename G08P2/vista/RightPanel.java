@@ -30,6 +30,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import bloating.TarpeianNodes;
 import main.Controlador;
 import main.Controlador.Points;
 
@@ -322,7 +323,8 @@ public class RightPanel extends JPanel {
 		bloatingPnl = new JPanel();
 		bloatingSel = new JComboBox<String>();
 		bloatingSel.addItem("Ninguna");
-		bloatingSel.addItem("Tarpeian");
+		bloatingSel.addItem("Tarpeian Nº Nodos");
+		bloatingSel.addItem("Tarpeian Profundidad");
 		bloatingSel.addItem("Penalización bien fundamentada");
 		
 		bloatingSel.addActionListener(new ActionListener() {

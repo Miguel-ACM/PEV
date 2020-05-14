@@ -9,7 +9,7 @@ public class Fundamentada implements Bloating {
 	
 	public float getFitnessWithBloating(Individuo individuo, int realFitness)
 	{
-		return realFitness + k * individuo.get_depth();
+		return realFitness + k * individuo.get_num_nodes();
 	}
 
 	@Override

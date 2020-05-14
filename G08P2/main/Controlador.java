@@ -5,7 +5,8 @@ import java.util.List;
 
 import bloating.Bloating;
 import bloating.Fundamentada;
-import bloating.Tarpeian;
+import bloating.TarpeianDepth;
+import bloating.TarpeianNodes;
 import cruces.Cruce;
 import cruces.CruceMixto;
 import cruces.CruceProfundo;
@@ -162,8 +163,10 @@ public class Controlador {
 	public void set_bloating(String bloating) {
 		if (bloating.equals("Ninguna"))
 			_bloating = null;
-		else if (bloating.equals("Tarpeian"))
-			_bloating = new Tarpeian();
+		else if (bloating.equals("Tarpeian Nº Nodos"))
+			_bloating = new TarpeianNodes();
+		else if (bloating.equals("Tarpeian Profundidad"))
+			_bloating = new TarpeianDepth();
 		else if (bloating.equals("Penalización bien fundamentada"))
 			_bloating = new Fundamentada();
 		else
@@ -257,7 +260,6 @@ public class Controlador {
 			_generacion = new Creciente(_depth, _multiplexerSize, _ifAllowed);
 		else if (generacion.equals("Ramped and half"))
 			_generacion = new RampedAndHalf(_depth, _multiplexerSize, _ifAllowed);
-		
 		_poblacion.set_generacion(_generacion);
 		this.reestart();
 	}

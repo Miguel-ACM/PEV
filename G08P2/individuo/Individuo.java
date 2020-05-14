@@ -13,9 +13,7 @@ public class Individuo implements Comparable<Individuo> {
 	private Fitness _fitness;
 	private Mutacion _mutacion;
 	private float _fitnessValue;
-	private int _depthValue;
 	private boolean _cachedFitness;
-	private boolean _cachedDepth;
 	private boolean _hasFitnessBloating;
 	private boolean _ifAllowed;
 	
@@ -24,20 +22,15 @@ public class Individuo implements Comparable<Individuo> {
 		_fitness = fitness;
 		_mutacion = mutacion;
 		_cachedFitness = false;
-		_cachedDepth = false;
 		_fitnessValue = -1;
-		_depthValue = -1;
 		_ifAllowed = ifAllowed;
 		_hasFitnessBloating = false;
 		_genotipo = genotipo;
 	}
 
 	public Individuo mutacion() {
-		System.out.println(this + "->");
 		_mutacion.muta(this);
-		System.out.println(this);
 		_cachedFitness = false;
-		_cachedDepth = false;
 		return this;
 	}
 	
@@ -77,11 +70,6 @@ public class Individuo implements Comparable<Individuo> {
 		this._fitnessValue = fitValue;
 	}
 	
-	public void setDepthValue(int depthValue) {
-		this._cachedDepth = true;
-		this._depthValue = depthValue;
-	}
-	
 	public Individuo clone()
 	{
 		Node<NodeValue> node;
@@ -113,8 +101,7 @@ public class Individuo implements Comparable<Individuo> {
 		in.setGenotipo(newTree);
 		if (this._cachedFitness) //El fitness es igual al de este, no necesitamos recalcularlo
 			in.setFitnessValue(this._fitnessValue);
-		if (this._cachedDepth)
-			in.setDepthValue(this._depthValue);
+
 		return in;
 		
 	}
@@ -122,7 +109,6 @@ public class Individuo implements Comparable<Individuo> {
 	//Establece el genotipo a uno dado
 	public void setGenotipo(Node<NodeValue> nuevoGenotipo) {
 		_cachedFitness = false;
-		_cachedDepth = false;
 		_genotipo = nuevoGenotipo; 
 	}
 	
@@ -144,24 +130,17 @@ public class Individuo implements Comparable<Individuo> {
 	
 	public int get_depth()
 	{
-		/*if (_cachedDepth)
-			return _depthValue;
-		else {
-			_cachedDepth = true;
-			_depthValue = this._genotipo.getDepth();
-			return _depthValue;
-		}*/
 		return this._genotipo.getDepth();
 	}
 	
+	public int get_num_nodes()
+	{
+		return this._genotipo.getNumNodes();
+	}
+		
 	//Elimina el fitness cacheado
 	public void invalidateFitnessCache() {
 		this._cachedFitness = false;
 	}
-	
-	public void invalidateDepthCache() {
-		this._cachedDepth = false;
-	}
-
 }
 	
