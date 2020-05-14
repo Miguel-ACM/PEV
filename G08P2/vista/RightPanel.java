@@ -4,7 +4,6 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -30,7 +29,6 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import bloating.TarpeianNodes;
 import main.Controlador;
 import main.Controlador.Points;
 
@@ -282,7 +280,7 @@ public class RightPanel extends JPanel {
 		
 		JLabel maxDepth = new JLabel("Max:");
 		depthPnl.add(maxDepth);
-		depth = new JSpinner(new SpinnerNumberModel(4, 2, 12, 1)); //Máximo de 12 porque los recursos utilizados crecen de forma exponencial
+		depth = new JSpinner(new SpinnerNumberModel(3, 2, 12, 1));
 		depthPnl.add(depth);
 		
 		depth.addChangeListener(new ChangeListener() {      
@@ -292,9 +290,7 @@ public class RightPanel extends JPanel {
 			  }
 		});
 		
-
-		depthPnl.setBorder(BorderFactory.createTitledBorder("Profundidad"));
-	
+		depthPnl.setBorder(BorderFactory.createTitledBorder("Profundidad"));	
 	}
 
 	private void crea_seleccionPnl() {

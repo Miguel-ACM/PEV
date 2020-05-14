@@ -39,6 +39,7 @@ public class GraficPanel extends JPanel{
 	private JTextArea console;
 	private JScrollPane consoleScrollPnl, mejorScrollPnl;
 
+	@SuppressWarnings("serial")
 	public GraficPanel(PanelPrincipal pp, Controlador c) {
 		crearMejorPnl();
 		Color color = UIManager.getColor ( "Panel.background" );
@@ -75,15 +76,11 @@ public class GraficPanel extends JPanel{
 		consoleScrollPnl = new JScrollPane(console);
 		consoleScrollPnl.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		consoleScrollPnl.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		//consoleScrollPnl.setBounds(50, 30, 300, 50);//consoleScrollPnl.add(console);
-		//consolePnl.setBackground(Color.gray);
 		consolePnl.add(consoleScrollPnl);
 		this.add(consolePnl, constraints);
 		
 		constraints.gridx = 0;
 		constraints.gridy = 2;
-	//	constraints.gridheight = 3;
-	//	constraints.gridwidth = 1;
 		constraints.anchor = GridBagConstraints.CENTER;
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		DefaultXYDataset datasetPresion = new DefaultXYDataset();	
@@ -112,8 +109,6 @@ public class GraficPanel extends JPanel{
 
 		constraints.gridx = 0;
 		constraints.gridy = 3;
-	//	constraints.gridheight = 1;
-	//	constraints.gridwidth = 4;
 		constraints.anchor = GridBagConstraints.CENTER;
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		this.add(panel, constraints);
@@ -123,16 +118,12 @@ public class GraficPanel extends JPanel{
 	private void crearMejorPnl() {	
 		this.mejorPnl = new JPanel();
 		mejorPnl.setLayout(new BorderLayout());
-		// this.mejorPnl.setBackground(Color.lightGray);
-		//	this.mejorPnl.setPreferredSize(new Dimension(1000, 20));
-		//	this.mejorPnl.setBorder(BorderFactory.createTitledBorder("Mejor individuo"));
 
 		this.individuo = new JTextArea(1,6);
 		//this.individuo.setBackground(Color.LIGHT_GRAY);
 		this.individuo.setEditable(false);
 		
 		this.mejorScrollPnl = new JScrollPane(individuo);
-		//this.mejorScrollPnl.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		this.mejorScrollPnl.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		this.mejorPnl.add(mejorScrollPnl);
 	}
@@ -156,8 +147,7 @@ public class GraficPanel extends JPanel{
 		datasetMulti.addSeries("Mejor absoluto", new double[][] {gener,points.toArray(points.best_overall_fitness)});
 		datasetMulti.addSeries("Media", new double[][] {gener,points.toArray(points.mean_fitness)});
 		datasetMulti.addSeries("Peor", new double[][] {gener,points.toArray(points.worst_fitness)});
-		
-		
+				
 		chart.getXYPlot().setDataset(datasetMulti);
 
 		((NumberAxis)chart.getXYPlot().getRangeAxis()).setAutoRangeIncludesZero(false);

@@ -18,8 +18,8 @@ public class DeArbol implements Mutacion{
 		int take = (int) (Math.random() * tree.getNumChildren());
 			
 		/* Genera un subárbol de menor profundidad al principal */
-		Completa ramaNueva = new Completa(i.getGenotipo().getDepth() -1, tree.getValue().getMultiplexerSize(), i.get_ifAllowed());		
-		Node<NodeValue> nodoAux = ramaNueva.generate();
+		Completa ramaNueva = new Completa(i.getGenotipo().getDepth() -1, tree.getValue().getMultiplexerSize(), i.get_ifAllowed());
+		Node<NodeValue> nodoAux = ramaNueva.generate();	
 		
 		/* se sustituye el subárbol generado por la rama seleccionada */
 		tree.removeChild(take);

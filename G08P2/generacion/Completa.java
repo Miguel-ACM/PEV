@@ -23,36 +23,43 @@ public class Completa implements Generacion {
 	public Node<NodeValue> generate() { 
 		Stack<Node<NodeValue>> currentGen;
 		Stack<Node<NodeValue>> nextGen = new Stack<>();
-		Node<NodeValue> root = new Node<NodeValue>(new NodeValue("randomFunction", multiplexerSize, ifAllowed));
-		int curDepth = 1;
-		nextGen.add(root);
-		while (curDepth < depth - 1)
-		{
-			currentGen = nextGen;
-			nextGen = new Stack<>();
-			while(currentGen.size() > 0)
+		Node<NodeValue> root;
+		
+		if (depth == 1) {	
+			root = new Node<NodeValue>(new NodeValue("randomTerminal", multiplexerSize, ifAllowed));
+		}else {
+			root = new Node<NodeValue>(new NodeValue("randomFunction", multiplexerSize, ifAllowed));
+			int curDepth = 1;
+			nextGen.add(root);
+			while (curDepth < depth - 1)
 			{
-				Node<NodeValue> node = currentGen.pop();
+				currentGen = nextGen;
+				nextGen = new Stack<>();
+				while(currentGen.size() > 0)
+				{
+					Node<NodeValue> node = currentGen.pop();
+					for (int i = 0; i < node.getValue().getNumOperators(); i++)
+					{
+						Node<NodeValue> child = new Node<NodeValue>(new NodeValue("randomFunction", multiplexerSize, ifAllowed));
+						nextGen.add(child);
+						node.addChild(child);
+					}
+				}
+				curDepth++;
+			}
+			
+			//Añadimos la ultima capa, que será de solo terminales al contrario que el resto
+			while(nextGen.size() > 0)
+			{
+				Node<NodeValue> node = nextGen.pop();
 				for (int i = 0; i < node.getValue().getNumOperators(); i++)
 				{
-					Node<NodeValue> child = new Node<NodeValue>(new NodeValue("randomFunction", multiplexerSize, ifAllowed));
-					nextGen.add(child);
+					Node<NodeValue> child = new Node<NodeValue>(new NodeValue("randomTerminal", multiplexerSize, ifAllowed));
 					node.addChild(child);
 				}
-			}
-			curDepth++;
+			}				
 		}
 
-		//Añadimos la ultima capa, que será de solo terminales al contrario que el resto
-		while(nextGen.size() > 0)
-		{
-			Node<NodeValue> node = nextGen.pop();
-			for (int i = 0; i < node.getValue().getNumOperators(); i++)
-			{
-				Node<NodeValue> child = new Node<NodeValue>(new NodeValue("randomTerminal", multiplexerSize, ifAllowed));
-				node.addChild(child);
-			}
-		}
 		return root;
 	}
 
