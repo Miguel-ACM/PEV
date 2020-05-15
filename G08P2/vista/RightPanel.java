@@ -42,7 +42,7 @@ public class RightPanel extends JPanel {
 	private JButton iniciarBtn, finBtn;
 	private ImageIcon iniciarIcon, finIcon;
 	private JComboBox<String> funcionSel, selecSel, cruceSel, mutacionSel, generacionSel, bloatingSel;
-	private JCheckBox eliteSel, estancamientoSel, ifAllowed;
+	private JCheckBox eliteSel, estancamientoSel, ifAllowed, simplificacionSel;
 	private JSpinner pc, pe, pm, num_p, num_g, p_arit, porc_estancamiento, limit_estancamiento, depth;
 	private JLabel tipoCruce, porcentCruce, tipoMutacion, porcentMutacion, porcentElite, selElite, indiL, geneL, etiquetaTiempo;
 	private Controlador _c;
@@ -334,6 +334,11 @@ public class RightPanel extends JPanel {
 	private void crea_bloatingPnl() {
 		bloatingPnl = new JPanel();
 		bloatingSel = new JComboBox<String>();
+		bloatingPnl.setLayout(new GridLayout(2, 1));
+		JPanel bloatingPnlDown = new JPanel();
+		bloatingPnlDown.setLayout(new GridLayout(1, 2));
+		
+		
 		bloatingSel.addItem("Ninguna");
 		bloatingSel.addItem("Tarpeian Nº Nodos");
 		bloatingSel.addItem("Tarpeian Profundidad");
@@ -346,6 +351,20 @@ public class RightPanel extends JPanel {
 		});
 		bloatingSel.setPreferredSize(new Dimension(200, 20));
 		bloatingPnl.add(bloatingSel);
+		
+		JLabel lbl = new JLabel("Simplificación");
+		simplificacionSel = new JCheckBox();
+		simplificacionSel.setSelected(false);
+		simplificacionSel.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				_c.set_simplificacion(simplificacionSel.isSelected());
+			}
+		});
+		
+		bloatingPnlDown.add(lbl);
+		bloatingPnlDown.add(simplificacionSel);
+		bloatingPnl.add(bloatingPnlDown);
+		
 		bloatingPnl.setBorder(BorderFactory.createTitledBorder("Reducción del bloating"));
 	}
 
@@ -505,6 +524,8 @@ public class RightPanel extends JPanel {
 				_c.set_fitness(funcion);
 								
 				_c.set_generacion(generacionSel.getSelectedItem().toString(), ifAllowed.isSelected());
+
+				_c.set_simplificacion(simplificacionSel.isSelected());
 
 			// Cruce seleccionado
 				String cruce = (String)cruceSel.getSelectedItem();
