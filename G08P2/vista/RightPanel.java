@@ -38,7 +38,7 @@ public class RightPanel extends JPanel {
 	private JButton iniciarBtn, finBtn;
 	private ImageIcon iniciarIcon, finIcon;
 	private JComboBox<String> funcionSel, selecSel, cruceSel, mutacionSel, generacionSel, bloatingSel;
-	private JCheckBox eliteSel, estancamientoSel, ifAllowed;
+	private JCheckBox eliteSel, estancamientoSel, ifAllowed, simplificacionSel;
 	private JSpinner pc, pe, pm, num_p, num_g, p_arit, porc_estancamiento, limit_estancamiento, depth;
 	private JLabel tipoCruce, porcentCruce, tipoMutacion, porcentMutacion, porcentElite, selElite, indiL, geneL;
 	private Controlador _c;
@@ -318,6 +318,11 @@ public class RightPanel extends JPanel {
 	private void crea_bloatingPnl() {
 		bloatingPnl = new JPanel();
 		bloatingSel = new JComboBox<String>();
+		bloatingPnl.setLayout(new GridLayout(2, 1));
+		JPanel bloatingPnlDown = new JPanel();
+		bloatingPnlDown.setLayout(new GridLayout(1, 2));
+		
+		
 		bloatingSel.addItem("Ninguna");
 		bloatingSel.addItem("Tarpeian Nº Nodos");
 		bloatingSel.addItem("Tarpeian Profundidad");
@@ -330,6 +335,20 @@ public class RightPanel extends JPanel {
 		});
 		bloatingSel.setPreferredSize(new Dimension(200, 20));
 		bloatingPnl.add(bloatingSel);
+		
+		JLabel lbl = new JLabel("Simplificación");
+		simplificacionSel = new JCheckBox();
+		simplificacionSel.setSelected(false);
+		simplificacionSel.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				_c.set_simplificacion(simplificacionSel.isSelected());
+			}
+		});
+		
+		bloatingPnlDown.add(lbl);
+		bloatingPnlDown.add(simplificacionSel);
+		bloatingPnl.add(bloatingPnlDown);
+		
 		bloatingPnl.setBorder(BorderFactory.createTitledBorder("Reducción del bloating"));
 	}
 
@@ -337,7 +356,6 @@ public class RightPanel extends JPanel {
 		poblacionPnl = new JPanel();
 		poblacionPnl.setPreferredSize(new Dimension(220, 60));
 		poblacionPnl.setLayout(new GridLayout(2, 2));
-		GridBagConstraints constraints = new GridBagConstraints();
 
 		indiL = new JLabel("Población");
 		poblacionPnl.add(indiL);
@@ -348,12 +366,6 @@ public class RightPanel extends JPanel {
 		poblacionPnl.add(geneL);
 		num_g = new JSpinner(new SpinnerNumberModel(100, 1, 100000, 1));;
 		poblacionPnl.add(num_g);
-
-		constraints.gridx = 0;
-		constraints.gridy = 1;
-		constraints.weightx = 1;
-		constraints.weighty = 1;
-		constraints.anchor = GridBagConstraints.NORTH;
 
 		poblacionPnl.setBorder(BorderFactory.createTitledBorder("Población y generaciones"));
 
@@ -480,6 +492,8 @@ public class RightPanel extends JPanel {
 				_c.set_size(poblacion);			
 
 				_c.set_bloating(bloatingSel.getSelectedItem().toString());
+				
+				_c.set_simplificacion(simplificacionSel.isSelected());
 				
 			// Problema seleccionado
 				String funcion = (String)funcionSel.getSelectedItem();

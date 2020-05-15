@@ -28,6 +28,9 @@ public class CruceProfundo implements Cruce{
 		
 		genotipo1.addChild(genotipo2CutNode, genotipo1CutPoint);
 		genotipo2.addChild(genotipo1CutNode, genotipo2CutPoint);
+		
+		in1.invalidateCache();
+		in2.invalidateCache();
 	}
 
 }

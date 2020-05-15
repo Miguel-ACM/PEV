@@ -29,6 +29,7 @@ public class Poblacion {
 	private Bloating _bloating;
 	private int _numCruces;
 	private int _numMutaciones;
+	private boolean _simplificacion;
 	
 	private float _elitePercent = 0.02f;
 	
@@ -49,6 +50,7 @@ public class Poblacion {
 		_numMutaciones = 0;
 		_generacion = generacion;
 		_bloating = null;
+		_simplificacion = false;
 		List<Node<NodeValue>> genotipos = _generacion.generatePopulation(_size);
 		boolean ifAllowed = _generacion.get_ifAllowed();
 		for (int j = 0; j < _size; j++)
@@ -174,7 +176,6 @@ public class Poblacion {
 		List<Individuo> elite = this.getElite();
 
 		//Seleccionamos X individuos y reemplazamos la población
-		
 		//No se hace nada si no hay seleccion
 		if (_seleccion != null)
 		{
@@ -186,14 +187,16 @@ public class Poblacion {
 			{
 				in.getFitnessWithBloating(); //cacheamos el fitness con bloating, para que lo tenga en cuenta en la seleccion
 			}
-			this.sort(); //Ordenamos con la penalización para que se coga el mínimo y máximo bien
+			this.sort(); //Ordenamos con la penalización para que se coja el mínimo y máximo bien
 			List<Individuo> nuevosIndividuos = new ArrayList<Individuo>();
 			List<Integer> seleccion = _seleccion.selecciona(this._size, this, maximiza);
 			for (Integer i : seleccion)
 			{
 				Individuo newInd = _individuos.get(i).clone();
 				nuevosIndividuos.add(newInd);
-				newInd.invalidateFitnessCache(); //borramos la cache del fitness, para que lo calcule sin bloating despues de la seleccion
+				if (_simplificacion)
+					newInd.simplifica();
+				newInd.invalidateCache(); //borramos la cache del fitness, para que lo calcule sin bloating despues de la seleccion
 			}
 			this._individuos = nuevosIndividuos;
 		}
@@ -212,6 +215,7 @@ public class Poblacion {
 			k++;
 		}
 		this.sort();
+
 		
 		//Vemos si algun nuevo individuo ha mejorado el absoluto
 		if (this.betterFitness(getFitness_max(), _bestFitness) > 0) 
@@ -240,6 +244,7 @@ public class Poblacion {
 			}
 		
 		}
+
 		this.sort();
 	}
 	
@@ -365,6 +370,11 @@ public class Poblacion {
 
 		this.sort();
 
+	}
+	
+	public void set_simplificacion(boolean simplificacion)
+	{
+		_simplificacion = simplificacion;
 	}
 	
 }

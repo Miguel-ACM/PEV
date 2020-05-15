@@ -50,6 +50,7 @@ public class Controlador {
 	private float _elitismoPer = 0.3f;
 	private int _depth = 4;
 	private int _multiplexerSize = 6;
+	private boolean _simplificacion = false;
 
 	private Points _points;
 	private boolean _estancamientoActivado = true;
@@ -103,6 +104,7 @@ public class Controlador {
 	{
 		_points = new Points();
 		_poblacion = new Poblacion(_size, _fitness, _mutacion, _generacion);
+		_poblacion.set_simplificacion(_simplificacion);
 		_poblacion.set_bloating(_bloating);
 		_poblacion.set_cruce(_cruce);
 		_poblacion.set_seleccion(_seleccion);
@@ -171,6 +173,11 @@ public class Controlador {
 			_bloating = new Fundamentada();
 		else
 			_bloating = null;
+	}
+	
+	public void set_simplificacion(boolean simplificacion) {
+		_simplificacion = simplificacion;
+		_poblacion.set_simplificacion(simplificacion);
 	}
 	
 	//Establece la funcion de fitness
