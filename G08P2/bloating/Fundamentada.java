@@ -35,6 +35,7 @@ public class Fundamentada implements Bloating {
 			covarianza += tmp * (i.getFitness() - meanFitness);
 			varianza += tmp * tmp;
 		}
+		//System.out.println("MEAN DEPTH: " + meanDepth);
 		covarianza = covarianza / popSize;
 		varianza = varianza / popSize;
 		if (varianza != 0)

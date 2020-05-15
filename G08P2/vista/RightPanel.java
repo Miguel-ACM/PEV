@@ -5,6 +5,7 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -32,22 +33,30 @@ import javax.swing.event.ChangeListener;
 import main.Controlador;
 import main.Controlador.Points;
 
+import javax.swing.Timer;
+
 public class RightPanel extends JPanel {
 	private static final long serialVersionUID = 7722523962189028691L;
-	private JPanel representacionPnl, generacionPnl, estancamientoPnl, bloatingPnl, crucePnl, funcionPnl, depthPnl, poblacionPnl, seleccionPnl, mutacionPnl, elitePnl, progressPnl;
+	private JPanel representacionPnl, generacionPnl, estancamientoPnl, bloatingPnl, crucePnl, funcionPnl, depthPnl, 
+		poblacionPnl, seleccionPnl, mutacionPnl, elitePnl, progressPnl, cronoPnl;
 	private JButton iniciarBtn, finBtn;
 	private ImageIcon iniciarIcon, finIcon;
 	private JComboBox<String> funcionSel, selecSel, cruceSel, mutacionSel, generacionSel, bloatingSel;
-	private JCheckBox eliteSel, estancamientoSel, ifAllowed, simplificacionSel;
+	private JCheckBox eliteSel, estancamientoSel, ifAllowed;
 	private JSpinner pc, pe, pm, num_p, num_g, p_arit, porc_estancamiento, limit_estancamiento, depth;
-	private JLabel tipoCruce, porcentCruce, tipoMutacion, porcentMutacion, porcentElite, selElite, indiL, geneL;
+	private JLabel tipoCruce, porcentCruce, tipoMutacion, porcentMutacion, porcentElite, selElite, indiL, geneL, etiquetaTiempo;
 	private Controlador _c;
 	private GraficPanel _gp;
-	private JProgressBar _progressBar; 
-
+	private JProgressBar _progressBar;
+	private Timer t;
+	private int h, m, s, cs;
+   
 	public RightPanel(PanelPrincipal pp, Controlador c, GraficPanel gp) {
 		this._gp = gp;
 		this._c = c;
+		this.t = new Timer(8, timing);
+		
+		crea_cronoPnl();		
 		crea_representacionPnl();
 		crea_progressBarPnl();
 		crea_funcionPnl();
@@ -144,10 +153,17 @@ public class RightPanel extends JPanel {
 		
 		constraints.gridx = 0;
 		constraints.gridy = 12;
-		constraints.gridheight = 2;
+		constraints.gridheight = 1;
 		constraints.gridwidth = 2;
 		constraints.anchor = GridBagConstraints.CENTER;
 		this.add(progressPnl, constraints);
+		/**/
+		constraints.gridx = 0;
+		constraints.gridy = 13;
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		constraints.anchor = GridBagConstraints.CENTER;
+		this.add(cronoPnl, constraints);
 		
 		_c.set_rightPanel(this);
 
@@ -164,7 +180,7 @@ public class RightPanel extends JPanel {
 		selElite.setPreferredSize(new Dimension(100, 20));
 
 		porcentElite = new JLabel("%");
-		pe = new JSpinner(new SpinnerNumberModel(0.005f, 0f, 1f, 0.01f));
+		pe = new JSpinner(new SpinnerNumberModel(0.005f, 0f, 1f, 0.005f));
 		pe.setMinimumSize(new Dimension(200, 1));
 		pe.setPreferredSize(new Dimension(200, 25));
 		eliteSel = new JCheckBox();
@@ -318,11 +334,6 @@ public class RightPanel extends JPanel {
 	private void crea_bloatingPnl() {
 		bloatingPnl = new JPanel();
 		bloatingSel = new JComboBox<String>();
-		bloatingPnl.setLayout(new GridLayout(2, 1));
-		JPanel bloatingPnlDown = new JPanel();
-		bloatingPnlDown.setLayout(new GridLayout(1, 2));
-		
-		
 		bloatingSel.addItem("Ninguna");
 		bloatingSel.addItem("Tarpeian Nº Nodos");
 		bloatingSel.addItem("Tarpeian Profundidad");
@@ -335,20 +346,6 @@ public class RightPanel extends JPanel {
 		});
 		bloatingSel.setPreferredSize(new Dimension(200, 20));
 		bloatingPnl.add(bloatingSel);
-		
-		JLabel lbl = new JLabel("Simplificación");
-		simplificacionSel = new JCheckBox();
-		simplificacionSel.setSelected(false);
-		simplificacionSel.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				_c.set_simplificacion(simplificacionSel.isSelected());
-			}
-		});
-		
-		bloatingPnlDown.add(lbl);
-		bloatingPnlDown.add(simplificacionSel);
-		bloatingPnl.add(bloatingPnlDown);
-		
 		bloatingPnl.setBorder(BorderFactory.createTitledBorder("Reducción del bloating"));
 	}
 
@@ -356,16 +353,23 @@ public class RightPanel extends JPanel {
 		poblacionPnl = new JPanel();
 		poblacionPnl.setPreferredSize(new Dimension(220, 60));
 		poblacionPnl.setLayout(new GridLayout(2, 2));
+		GridBagConstraints constraints = new GridBagConstraints();
 
 		indiL = new JLabel("Población");
 		poblacionPnl.add(indiL);
-		num_p = new JSpinner(new SpinnerNumberModel(200, 1, 100000, 1));;
+		num_p = new JSpinner(new SpinnerNumberModel(200, 1, 100000, 50));
 		poblacionPnl.add(num_p);
 
 		geneL = new JLabel("Generaciones");
 		poblacionPnl.add(geneL);
-		num_g = new JSpinner(new SpinnerNumberModel(100, 1, 100000, 1));;
+		num_g = new JSpinner(new SpinnerNumberModel(200, 1, 100000, 100));
 		poblacionPnl.add(num_g);
+
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		constraints.weightx = 1;
+		constraints.weighty = 1;
+		constraints.anchor = GridBagConstraints.NORTH;
 
 		poblacionPnl.setBorder(BorderFactory.createTitledBorder("Población y generaciones"));
 
@@ -476,6 +480,9 @@ public class RightPanel extends JPanel {
 	//// si se pulsa Run
 		iniciarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				h=0; m=0; s=0; cs=0;// pone el crono a cero e inicia
+				t.start();
 				double porcenMutacion = (double) pm.getValue();
 				_c.set_mutacion((String) mutacionSel.getSelectedItem());
 				
@@ -492,8 +499,6 @@ public class RightPanel extends JPanel {
 				_c.set_size(poblacion);			
 
 				_c.set_bloating(bloatingSel.getSelectedItem().toString());
-				
-				_c.set_simplificacion(simplificacionSel.isSelected());
 				
 			// Problema seleccionado
 				String funcion = (String)funcionSel.getSelectedItem();
@@ -520,6 +525,7 @@ public class RightPanel extends JPanel {
 						Points p = _c.getPoints();
 						_gp.multiGrafico(p);
 						enableMajorActions(true);
+						t.stop(); // para el crono
 		                 }
 		             }).start();
 				
@@ -578,6 +584,31 @@ public class RightPanel extends JPanel {
 		this._progressBar.repaint();
 	}
 	
+	/* Actualiza el crono */
+    private ActionListener timing = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            ++cs; 
+            if(cs==100){
+                cs = 0;
+                ++s;
+            }
+            if(s==60) 
+            {
+                s = 0;
+                ++m;
+            }
+            if(m==60)
+            {
+                m = 0;
+                ++h;
+            }
+            String tiempo = (h<=9?"0":"")+h+":"+(m<=9?"0":"")+m+":"+(s<=9?"0":"")+s+":"+(cs<=9?"0":"")+cs;
+            etiquetaTiempo.setText(tiempo);
+        }
+        
+    };
+    
 	private void enableMajorActions(boolean enabled)
 	{
 		this.iniciarBtn.setEnabled(enabled);
@@ -585,5 +616,17 @@ public class RightPanel extends JPanel {
 		this.ifAllowed.setEnabled(enabled);
 		this.generacionSel.setEnabled(enabled);
 	}
+	
+    private void crea_cronoPnl() {
+    	cronoPnl = new JPanel();
+    	cronoPnl.setPreferredSize(new Dimension(220, 40));
+   	  	
+        etiquetaTiempo = new JLabel();
+        etiquetaTiempo.setPreferredSize(new Dimension(100, 20));
+        etiquetaTiempo.setFont(new Font("Impact", Font.PLAIN, 15));
+        etiquetaTiempo.setHorizontalAlignment(JLabel.CENTER);
+        etiquetaTiempo.setText("00:00:00:00");
+        cronoPnl.add(etiquetaTiempo);
+    }
 
 }

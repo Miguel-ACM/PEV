@@ -65,7 +65,7 @@ public class GraficPanel extends JPanel{
 		
 		consolePnl = new JPanel();
 		consolePnl.setBorder(BorderFactory.createTitledBorder("Salida de consola"));
-		consolePnl.setPreferredSize(new Dimension(1015,95));
+		consolePnl.setPreferredSize(new Dimension(1015,100));
 		consolePnl.setLayout(new BorderLayout());
 		console = new JTextArea("");
 		//console.setBackground(Color.gray);
@@ -130,7 +130,7 @@ public class GraficPanel extends JPanel{
 
 	public void actualizar_mejor(Points points) {	
 		String fenotipo = points.mejor.getFenotipo(); //TODO Solo un text area con todos los enteros
-		individuo.setText("Mejor fitness: " + Float.toString(points.mejor.getFitness()) +
+		individuo.setText("Mejor fitness: " + (int)points.mejor.getFitness() +
 						  "\nMejor fenotipo: " + fenotipo);
 	}
 
