@@ -69,9 +69,6 @@ public class CruceMixto implements Cruce{
 			genotipo2.addChild(genotipo1CutNode, genotipo2CutPoint);
 		
 		} else {
-			//System.out.println(in1);
-			//System.out.println(in2 + "---");
-			//Escoge un terminal aleatorio para cambiar
 			List<Node<NodeValue>> functionsGenotipo1 = getFunctionNodes(genotipo1, -1, -1);
 			int randValue;
 			if (functionsGenotipo1.size() > 1)
@@ -80,13 +77,11 @@ public class CruceMixto implements Cruce{
 				randValue = 0;
 			Node<NodeValue> genotipo1CutNode = functionsGenotipo1.get(randValue);
 			int maxDepth = maxTreeDepth - genotipo1CutNode.getDepthFromRoot() + 1; //CUIDADO CON ESTO
-			//System.out.println(maxTreeDepth + " " + genotipo1CutNode.getDepthFromRoot());
 			Node<NodeValue> genotipo1CutNodeParent = genotipo1CutNode.getParent();
 			int genotipo1CutPoint = -1;
 			if (genotipo1CutNodeParent != null)
 				genotipo1CutPoint = genotipo1CutNodeParent.getChildPosition(genotipo1CutNode);
 			genotipo1CutNode.unlink();
-			//System.out.println("Cambiamos " + NodeValue.treeString(genotipo1CutNode));
 
 			
 			List<Node<NodeValue>> functionsGenotipo2 = getFunctionNodes(genotipo2, maxDepth, genotipo1CutNode.getDepth());
@@ -100,8 +95,6 @@ public class CruceMixto implements Cruce{
 			if (genotipo2CutNodeParent != null)
 				genotipo2CutPoint = genotipo2CutNodeParent.getChildPosition(genotipo2CutNode);
 			genotipo2CutNode.unlink();
-			//System.out.println("por " + NodeValue.treeString(genotipo2CutNode));
-
 			if (genotipo1CutNodeParent != null) // Solo se agrega si no es la raiz
 				genotipo1CutNodeParent.addChild(genotipo2CutNode, genotipo1CutPoint);
 			else
