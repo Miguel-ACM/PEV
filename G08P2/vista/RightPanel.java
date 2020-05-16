@@ -349,7 +349,7 @@ public class RightPanel extends JPanel {
 				_c.set_bloating(bloatingSel.getSelectedItem().toString());
 			}
 		});
-		bloatingSel.setPreferredSize(new Dimension(200, 20));
+		bloatingSel.setPreferredSize(new Dimension(210, 20));
 		bloatingPnl.add(bloatingSel);
 		
 		JLabel lbl = new JLabel("Simplificación");
@@ -397,7 +397,7 @@ public class RightPanel extends JPanel {
 	private void crea_progressBarPnl() {
 		progressPnl = new JPanel();	
 		_progressBar = new JProgressBar();
-		_progressBar.setPreferredSize(new Dimension(290, 15));
+		_progressBar.setPreferredSize(new Dimension(220, 15));
 		progressPnl.add(_progressBar);
 	}
 
@@ -492,7 +492,7 @@ public class RightPanel extends JPanel {
 	/////////////////   BOTONES RUN Y EXIT  ////////////////////
 	private void crea_representacionPnl() {
 		representacionPnl = new JPanel();
-		
+		representacionPnl.setPreferredSize(new Dimension(220, 80));
 		iniciarIcon = createImage("rn.png");
 		iniciarBtn = new JButton("Run", iniciarIcon);
 		
@@ -585,7 +585,7 @@ public class RightPanel extends JPanel {
 		}
 		
 		Image imgResize = image.getImage() ;  
-		Image newimg = imgResize.getScaledInstance( 70, 70,  java.awt.Image.SCALE_SMOOTH ) ;  
+		Image newimg = imgResize.getScaledInstance( 40, 40,  java.awt.Image.SCALE_SMOOTH ) ;  
 		image = new ImageIcon( newimg );
 		return image;
 	}
@@ -640,10 +640,10 @@ public class RightPanel extends JPanel {
 	
     private void crea_cronoPnl() {
     	cronoPnl = new JPanel();
-    	cronoPnl.setPreferredSize(new Dimension(220, 40));
+    	cronoPnl.setPreferredSize(new Dimension(220, 20));
    	  	
         etiquetaTiempo = new JLabel();
-        etiquetaTiempo.setPreferredSize(new Dimension(100, 20));
+        etiquetaTiempo.setPreferredSize(new Dimension(100, 18));
         etiquetaTiempo.setFont(new Font("Impact", Font.PLAIN, 15));
         etiquetaTiempo.setHorizontalAlignment(JLabel.CENTER);
         etiquetaTiempo.setText("00:00:00:00");
