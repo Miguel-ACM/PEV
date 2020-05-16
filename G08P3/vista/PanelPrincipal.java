@@ -20,7 +20,7 @@ public class PanelPrincipal extends JFrame{
 	public PanelPrincipal(Controlador c) {
 		JFrame frame = new JFrame("PROGRAMACIÓN EVOLUTIVA P3");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1350, 860);
+		frame.setSize(1380, 820);
 			
 		
 		gp = new GraficPanel(this, c);
@@ -28,6 +28,7 @@ public class PanelPrincipal extends JFrame{
         gp_scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);  
         gp_scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);  
         gp_scroll.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+        
 		rp = new RightPanel(this, c, gp);
 		JScrollPane rp_scroll = new JScrollPane(rp);  
         rp_scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);  
